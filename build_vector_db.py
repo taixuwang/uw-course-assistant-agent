@@ -26,33 +26,40 @@ def main():
 
     # 3. Convert JSON data to LangChain Document objects
     for course in tqdm(course_data, desc="Parsing course data"):
-        # Note: replace .get('xxx') with the actual key names from your JSON file
-        # For example, if your scraper stores "course_id", write course.get("course_id") here
-        gen_ed = course.get('gen_ed')
-        gen_ed_str = ", ".join(gen_ed) if gen_ed else 'N/A'
-        prereq = course.get('prerequisites') or 'None'
-        
-        page_content = f"""Course: {course.get('course', 'N/A')} - {course.get('title', 'N/A')}
-Credits: {course.get('credits', 'N/A')}
-General Education: {gen_ed_str}
-Prerequisites: {prereq}
-Description: {course.get('description', 'N/A')}"""
-        
-        # Store the extracted structured fields into metadata to enable precise hard filtering by the LLM
+        # 1. Extract all fields uniformly at the beginning
         course_code = course.get("course") or "unknown"
         department = course_code.split(" ")[0] if " " in course_code else "unknown"
+        title = course.get("title") or "N/A"
+        credits_str = str(course.get("credits") or "N/A")
+        description = course.get("description") or "N/A"
+        
+        # 2. Pre-process complex fields (e.g., gen_ed is a list in JSON)
+        gen_ed_list = course.get("gen_ed")
+        gen_ed_str = ", ".join(gen_ed_list) if gen_ed_list else "N/A"
+        
+        # 3. Pre-process prerequisites (semantically "None" is better than "N/A" for no prerequisites)
+        prereq = course.get("prerequisites")
         prereq_str = str(prereq) if prereq else "None"
         has_prerequisite = bool(prereq and prereq_str.lower() != 'none')
-
+        
+        # 4. Construct page_content using the unified variables
+        page_content = f"""Course: {course_code} - {title}
+Credits: {credits_str}
+General Education: {gen_ed_str}
+Prerequisites: {prereq_str}
+Description: {description}"""
+        
+        # 5. Construct metadata using the unified variables for LLM hard filtering
         metadata = {
             "course": course_code,
             "department": department,
             "has_prerequisite": has_prerequisite,
-            "title": str(course.get("title") or "N/A"),
-            "credits": str(course.get("credits") or "N/A"),
+            "title": title,
+            "credits": credits_str,
             "gen_ed": gen_ed_str,
             "prerequisites": prereq_str
         }
+        
         doc = Document(page_content=page_content, metadata=metadata)
         documents.append(doc)
 
