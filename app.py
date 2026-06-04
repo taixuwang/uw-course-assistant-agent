@@ -1,132 +1,157 @@
-# app.py
 import os
+import requests
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
-from langchain_classic.chains.query_constructor.schema import AttributeInfo
-from langchain_classic.retrievers.self_query.base import SelfQueryRetriever
-from langchain_community.query_constructors.chroma import ChromaTranslator
+from langchain.chains.query_constructor.base import AttributeInfo
+from langchain.retrievers.self_query.base import SelfQueryRetriever
+from langchain.retrievers.self_query.chroma import ChromaTranslator
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import StrOutputParser
+from langchain_core.tools import tool
+from langchain.tools.retriever import create_retriever_tool
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain_core.documents import Document
+from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.prompts import MessagesPlaceholder
 
-# 1. Load environment variables (Ensure OPENAI_API_KEY is in .env)
 load_dotenv()
 
-def main():
-    print("Initializing UW Course Assistant...")
+@tool
+def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
+    """
+    Call this tool when you need to query real-time course schedule information (including specific class times, locations, instructors, availability, etc.) for a specific quarter (e.g., 'SPR2024') and department (e.g., 'cse').
+    Input parameters:
+    - quarter_year: Quarter and year, e.g., 'AUT2024', 'WIN2024', 'SPR2024', 'SUM2024'
+    - department: Department code, e.g., 'cse', 'math'
+    - query: The user's specific question, e.g., 'Which sections of CSE 121 are Open?' or 'What is the class time for CSE 143?'
+    """
+    url = f"https://www.washington.edu/students/timeschd/{quarter_year.upper()}/{department.lower()}.html"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+    except Exception as e:
+        return f"Failed to fetch data from {url}, error: {e}"
+        
+    soup = BeautifulSoup(response.content, 'html.parser')
+    course_tables = soup.find_all('table', bgcolor='#ccffcc')
+    
+    documents = []
+    for c_table in course_tables:
+        # Get the course Header (e.g., CSE 121 COMP PROGRAMMING I)
+        course_header = c_table.get_text(separator=" ", strip=True)
+        
+        # The series of tables immediately following this Header contain the Section information, until the next colored Header
+        curr = c_table.find_next_sibling('table')
+        sections_text = []
+        while curr and curr.get('bgcolor') != '#ccffcc':
+            pre = curr.find('pre')
+            if pre:
+                # Extract the plain text formatting from <pre>
+                text = pre.get_text(separator="  ", strip=True)
+                sections_text.append(text)
+            curr = curr.find_next_sibling('table')
+            
+        if sections_text:
+            # Concatenate all Sections under the same course into a single Document for the LLM to read uniformly
+            page_content = f"Course Info: {course_header}\nSections:\n" + "\n---\n".join(sections_text)
+            documents.append(Document(page_content=page_content))
+            
+    if not documents:
+        return f"No structured course information found at {url}. Please check if the link is valid."
+        
+    # Create a temporary vector database to retrieve current webpage information
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    vectorstore = Chroma.from_documents(documents, embeddings)
+    # k=10, fetch data for the 10 most relevant courses
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
+    
+    docs = retriever.invoke(query)
+    if not docs:
+        return "No relevant course sections found."
+        
+    # Simply return the raw text of the retrieved documents.
+    # The main Agent's LLM will read this string (as the "Observation") and generate the final answer.
+    return "\n\n".join([doc.page_content for doc in docs])
 
-    # 2. Connect to the persisted local Chroma database
-    # Must use the exact same Embedding model as used during offline construction
+def main():
+    print("Initializing UW Course Agent Assistant...")
+
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     vectorstore = Chroma(
         persist_directory="./uw_chroma_db", 
         embedding_function=embeddings
     )
 
-    # 3. Initialize the LLM for routing control and final answering
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
-    # 4. Configure Self-Query Retriever (Core magic)
-    # Here we need to tell the LLM what Metadata is stored in our database, so it can decide whether to perform hard filtering
     metadata_field_info = [
-        AttributeInfo(
-            name="course",
-            description="The unique code for the course, e.g., 'CSE 374', 'MATH 208', 'ESS 101'.",
-            type="string",
-        ),
-        AttributeInfo(
-            name="department",
-            description="The department code for the course, e.g., 'CSE', 'MATH', 'INFO', 'ENGL'. Use this to filter courses by department.",
-            type="string",
-        ),
-        AttributeInfo(
-            name="has_prerequisite",
-            description="True if the course has prerequisites, False if it has no prerequisites. Use this to filter out courses that require prior knowledge.",
-            type="boolean",
-        ),
-        AttributeInfo(
-            name="title",
-            description="The title of the course, e.g., 'Introduction to Algorithms'.",
-            type="string",
-        ),
-        AttributeInfo(
-            name="credits",
-            description="The number of credits the course is worth, e.g., '5' or '1-2, max. 12'.",
-            type="string",
-        ),
-        AttributeInfo(
-            name="gen_ed",
-            description="The General Education requirements satisfied by the course, e.g., 'SSc, DIV' or 'N/A'. You can use the 'contain' operator to filter by specific requirements.",
-            type="string",
-        ),
-        AttributeInfo(
-            name="prerequisites",
-            description="The exact text of the prerequisites for the course, or 'None'.",
-            type="string",
-        )
+        AttributeInfo(name="course", description="Course code, e.g., 'CSE 374'", type="string"),
+        AttributeInfo(name="department", description="Department code, e.g., 'CSE'", type="string"),
+        AttributeInfo(name="has_prerequisite", description="True if has prerequisites", type="boolean"),
+        AttributeInfo(name="title", description="Course title", type="string"),
+        AttributeInfo(name="credits", description="Credits", type="string"),
+        AttributeInfo(name="gen_ed", description="General Education requirements", type="string"),
+        AttributeInfo(name="prerequisites", description="Prerequisites text", type="string")
     ]
     
-    document_content_description = "Detailed information about University of Washington courses, including course name, credits, General Education requirements, Prerequisites, and course description."
+    document_content_description = "Detailed information about University of Washington courses."
 
-    # Create the smart retriever
     retriever = SelfQueryRetriever.from_llm(
         llm=llm,
         vectorstore=vectorstore,
         document_contents=document_content_description,
         metadata_field_info=metadata_field_info,
         structured_query_translator=ChromaTranslator(),
-        enable_limit=True, # Allow the LLM to handle limit queries like "Recommend me 3 courses"
-        search_kwargs={"k": 10} # Retrieve up to 10 courses as context by default
+        enable_limit=True,
+        search_kwargs={"k": 10}
     )
 
-    # 5. Define the RAG System Prompt
-    template = """
-    You are a professional University of Washington (UW) course selection assistant. Please carefully read the following retrieved course information (Context) and answer the user's question based ONLY on this information.
-    If the provided context does not contain relevant information to answer the question, honestly state "Based on the knowledge base, I don't know the answer right now", and absolutely do not fabricate course or credit information.
-
-    [Context]
-    {context}
-
-    [User Question]
-    {question}
-
-    Please provide your answer clearly and professionally:
-    """
-    prompt = ChatPromptTemplate.from_template(template)
-
-    # 6. Helper function: format retrieved documents
-    def format_docs(docs):
-        return "\n\n".join(doc.page_content for doc in docs)
-
-    # 7. Assemble the LCEL QA chain
-    rag_chain = (
-        {"context": retriever | format_docs, "question": RunnablePassthrough()}
-        | prompt
-        | llm
-        | StrOutputParser()
+    course_retriever_tool = create_retriever_tool(
+        retriever,
+        name="uw_course_catalog",
+        description="Use this tool when the user asks for general introductions, prerequisites, credits, general education attributes, or other static knowledge base information about university courses."
     )
 
-    print("✅ Assistant is ready! Type 'quit' or 'exit' to end the conversation.")
-    print("-" * 50)
+    tools = [course_retriever_tool, get_time_schedule]
 
-    # 8. Start the interactive command line conversation loop
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", "You are a professional University of Washington course selection Agent assistant.\nYou can use uw_course_catalog to query static course syllabi (including descriptions and attributes), or use get_time_schedule to query real-time schedule information for a specific quarter (such as instructors, class times, and seat availability). If the user wants to know how a course is taught in a specific quarter or if there are open seats, you MUST use get_time_schedule. If you need to combine both, you can call these two tools consecutively."),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{input}"),
+        ("placeholder", "{agent_scratchpad}"),
+    ])
+
+    agent = create_tool_calling_agent(llm, tools, prompt)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+    # Initialize chat history
+    chat_history = []
+
+    print("✅ Agent is ready!")
     while True:
         user_input = input("\n🙋 You: ")
-        
         if user_input.lower() in ['quit', 'exit']:
             print("👋 Goodbye!")
             break
-            
         if not user_input.strip():
             continue
 
         try:
-            print("🤖 Thinking and retrieving...\n")
-            # Call the RAG Chain
-            response = rag_chain.invoke(user_input)
-            print(f"🎓 UW Course Assistant: \n{response}")
+            response = agent_executor.invoke({
+                "input": user_input,
+                "chat_history": chat_history
+            })
+            print(f"\n🎓 UW Agent Assistant: \n{response['output']}")
+            
+            # Update chat history
+            chat_history.extend([
+                HumanMessage(content=user_input),
+                AIMessage(content=response['output'])
+            ])
         except Exception as e:
             print(f"❌ An error occurred: {e}")
 
