@@ -2,16 +2,17 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from playwright.sync_api import sync_playwright
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
-from langchain.chains.query_constructor.base import AttributeInfo
-from langchain.retrievers.self_query.base import SelfQueryRetriever
-from langchain.retrievers.self_query.chroma import ChromaTranslator
+from langchain_classic.chains.query_constructor.schema import AttributeInfo
+from langchain_classic.retrievers.self_query.base import SelfQueryRetriever
+from langchain_community.query_constructors.chroma import ChromaTranslator
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool
-from langchain.tools.retriever import create_retriever_tool
-from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain_core.tools.retriever import create_retriever_tool
+from langchain_classic.agents import create_tool_calling_agent, AgentExecutor
 from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.prompts import MessagesPlaceholder
@@ -28,15 +29,39 @@ def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
     - query: The user's specific question, e.g., 'Which sections of CSE 121 are Open?' or 'What is the class time for CSE 143?'
     """
     url = f"https://www.washington.edu/students/timeschd/{quarter_year.upper()}/{department.lower()}.html"
-    headers = {"User-Agent": "Mozilla/5.0"}
     
     try:
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
+        with sync_playwright() as p:
+            # headless=False so the user can interact with the browser if a login page appears
+            browser = p.chromium.launch(headless=False)
+            context = browser.new_context()
+            page = context.new_page()
+            
+            page.goto(url)
+            
+            # Check if redirected to a login page or UW NetID authentication
+            current_url = page.url.lower()
+            if "login" in current_url or "signin" in current_url or "identity" in current_url or "shibboleth" in current_url:
+                print(f"\n⚠️ Login required. Please complete UW NetID login and 2FA in the popped-up browser window...")
+                print(f"⏳ Waiting for you to log in and be redirected back to the schedule page (up to 5 minutes)...")
+                
+                # Wait for the URL to change back to the intended quarter/department page.
+                # using a 5-minute timeout (300000 ms)
+                page.wait_for_url(f"**/{quarter_year.upper()}/**", timeout=300000)
+                
+            # Wait for the course table to ensure page is loaded
+            try:
+                page.wait_for_selector("table[bgcolor='#ccffcc']", timeout=10000)
+            except Exception:
+                pass # If it times out, we will just pass the current content to BeautifulSoup to let it handle "no courses found"
+                
+            html_content = page.content()
+            browser.close()
+            
     except Exception as e:
         return f"Failed to fetch data from {url}, error: {e}"
         
-    soup = BeautifulSoup(response.content, 'html.parser')
+    soup = BeautifulSoup(html_content, 'html.parser')
     course_tables = soup.find_all('table', bgcolor='#ccffcc')
     
     documents = []
