@@ -1,10 +1,11 @@
 # UW Course Agent Assistant
 
-An intelligent, autonomous Agent designed to help students discover, filter, and plan University of Washington (UW) courses. Built with LangChain, OpenAI (`gpt-4o-mini`), and ChromaDB, this assistant leverages a ReAct tool-calling architecture to dynamically retrieve both static course syllabi and real-time schedule information.
+An intelligent, autonomous Agent designed to help students discover, filter, and plan University of Washington (UW) courses. Built with the LangChain ecosystem (LangGraph, OpenAI `gpt-4o-mini`, and ChromaDB), this assistant leverages a ReAct tool-calling architecture to dynamically retrieve both static course syllabi and real-time schedule information.
 
 ## Key Features
 
 - **ReAct Agent Architecture**: The LLM autonomously decides which tool to use based on your question, allowing it to seamlessly switch between querying a static knowledge base and fetching live web data.
+- **Concurrent Tool Execution**: Powered by LangGraph's `create_react_agent`, the assistant can trigger multiple tools concurrently (e.g., searching for course information while simultaneously scraping schedule data), significantly reducing response times.
 - **Conversational Memory**: The Agent remembers your previous questions, allowing for natural, multi-turn follow-up conversations (e.g., "Find me a CSE course without prerequisites" -> "What time is that course taught this Spring?").
 - **Multi-Tool Integration**:
   - `uw_course_catalog` (Self-Query Retriever RAG): Automatically translates natural language into hard database filters (e.g., department, prerequisites, credits) to search offline course data.
@@ -14,7 +15,7 @@ An intelligent, autonomous Agent designed to help students discover, filter, and
 
 - Python 3.9+
 - An OpenAI API Key (`OPENAI_API_KEY`)
-- Required packages: `langchain`, `langchain-openai`, `langchain-chroma`, `beautifulsoup4`, `requests`, `python-dotenv`
+- Required packages: `langchain`, `langgraph`, `langchain-openai`, `langchain-chroma`, `beautifulsoup4`, `requests`, `python-dotenv`
 
 ## Setup & Installation
 
@@ -65,7 +66,7 @@ You can type your queries into the console. Try combining static and dynamic req
 Type `quit` or `exit` to stop.
 
 ## Project Structure
-- `app.py`: The main Agent application. Contains the `AgentExecutor`, conversation memory loop, and the definitions for the `get_time_schedule` and `uw_course_catalog` tools.
+- `app.py`: The main Agent application. Contains the LangGraph `create_react_agent` orchestrator, conversation memory loop, and the definitions for the `get_time_schedule` and `uw_course_catalog` tools.
 - `build_vector_db.py`: Parses `courses.json`, extracts rich metadata, and stores the static embeddings into ChromaDB.
 - `uw_course_scraper.py`: (Optional) The original web scraper script used to gather course data from UW's catalog.
 - `courses.json`: The raw JSON dataset of UW courses.
