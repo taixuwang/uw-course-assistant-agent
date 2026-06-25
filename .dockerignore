@@ -1,0 +1,12 @@
+venv/
+.git/
+.gitignore
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+uw_chroma_db/
+README.md
+DEPLOY.md
+test_query.py
+test_sq.py
