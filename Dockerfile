@@ -11,13 +11,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --ignore-installed -r requirements.txt
 
 COPY app.py build_vector_db.py uw_course_scraper.py courses.json ./
 COPY docker/ ./docker/
 
-RUN chmod +x /app/docker/start.sh /app/docker/run_agent.sh
+# Strip Windows CRLF so shebangs work in Linux (common on Windows dev machines)
+RUN sed -i 's/\r$//' /app/docker/start.sh /app/docker/run_agent.sh \
+    && chmod +x /app/docker/start.sh /app/docker/run_agent.sh
 
 ENV PYTHONUNBUFFERED=1
 ENV DISPLAY=:99
