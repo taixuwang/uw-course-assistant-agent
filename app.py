@@ -14,7 +14,7 @@ from langchain_core.tools import tool
 from langchain_core.tools.retriever import create_retriever_tool
 from langgraph.prebuilt import create_react_agent
 from langchain_core.documents import Document
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
 load_dotenv()
 
@@ -149,6 +149,15 @@ def main():
     # Initialize chat history
     chat_history = []
 
+    # --- Context Engineering: Dynamic Summarization ---
+    # Threshold for triggering summarization (message count in chat_history).
+    # Note: LangGraph's ReAct agent injects ToolMessages into the history,
+    # so a single user turn may produce 4+ messages (Human -> AI(tool_call) -> Tool -> AI).
+    # 10 messages roughly corresponds to ~2-3 full user interaction turns.
+    SUMMARIZATION_THRESHOLD = 10
+    # Number of recent messages to keep verbatim (preserves immediate conversational flow)
+    RECENT_MESSAGES_TO_KEEP = 4
+
     print("✅ Agent is ready!")
     while True:
         user_input = input("\n🙋 You: ")
@@ -171,6 +180,43 @@ def main():
             
             # Update chat history
             chat_history = response["messages"]
+
+            # --- Dynamic Summarization ---
+            # When history grows beyond the threshold, compress older messages
+            # into a concise summary to prevent context window overflow.
+            if len(chat_history) > SUMMARIZATION_THRESHOLD:
+                print("\n📝 [System] Compressing conversation history...")
+
+                # Partition: keep recent messages intact for conversational continuity
+                recent_messages = chat_history[-RECENT_MESSAGES_TO_KEEP:]
+                messages_to_summarize = chat_history[:-RECENT_MESSAGES_TO_KEEP]
+
+                # Build the summarization request
+                summary_prompt = SystemMessage(content=(
+                    "You are a conversation summarizer. Distill the following conversation "
+                    "into a concise summary paragraph. Focus on:\n"
+                    "1. The user's specific course preferences and constraints "
+                    "(e.g., department, credits, time preferences, no prerequisites).\n"
+                    "2. Key facts and course recommendations already established.\n"
+                    "3. Any unresolved questions the user still has.\n"
+                    "Do NOT include greetings or filler. Be factual and dense."
+                ))
+
+                # Filter out ToolMessages for the summary input to reduce noise;
+                # only keep Human and AI messages which carry the semantic content.
+                semantic_messages = [
+                    m for m in messages_to_summarize
+                    if isinstance(m, (HumanMessage, AIMessage, SystemMessage))
+                ]
+                summary_response = llm.invoke([summary_prompt] + semantic_messages)
+
+                # Rebuild chat_history: summary + recent raw messages
+                new_summary = SystemMessage(
+                    content=f"Summary of previous conversation:\n{summary_response.content}"
+                )
+                chat_history = [new_summary] + recent_messages
+                print("✅ [System] History compressed successfully.")
+
         except Exception as e:
             print(f"❌ An error occurred: {e}")
 
