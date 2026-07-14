@@ -193,12 +193,15 @@ def main():
 
                 # Build the summarization request
                 summary_prompt = SystemMessage(content=(
-                    "You are a conversation summarizer. Distill the following conversation "
-                    "into a concise summary paragraph. Focus on:\n"
+                    "You are a conversation summarizer. Distill the following messages "
+                    "into a single concise summary paragraph. Focus on:\n"
                     "1. The user's specific course preferences and constraints "
                     "(e.g., department, credits, time preferences, no prerequisites).\n"
                     "2. Key facts and course recommendations already established.\n"
                     "3. Any unresolved questions the user still has.\n"
+                    "IMPORTANT: If the first message is an existing summary of earlier "
+                    "conversation, incorporate and UPDATE it with the new information "
+                    "that follows. Do not discard prior context.\n"
                     "Do NOT include greetings or filler. Be factual and dense."
                 ))
 
