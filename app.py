@@ -1,8 +1,9 @@
 import os
 import requests
+import asyncio
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
@@ -18,8 +19,30 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
 load_dotenv()
 
+# --- Async Playwright Pool Singleton ---
+class BrowserPool:
+    _playwright = None
+    _browser = None
+
+    @classmethod
+    async def get_browser(cls):
+        if cls._playwright is None:
+            cls._playwright = await async_playwright().start()
+        if cls._browser is None or not cls._browser.is_connected():
+            cls._browser = await cls._playwright.chromium.launch(headless=False)
+        return cls._browser
+
+    @classmethod
+    async def close(cls):
+        if cls._browser:
+            await cls._browser.close()
+            cls._browser = None
+        if cls._playwright:
+            await cls._playwright.stop()
+            cls._playwright = None
+
 @tool
-def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
+async def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
     """
     Call this tool when you need to query real-time course schedule information (including specific class times, locations, instructors, availability, etc.) for a specific quarter (e.g., 'SPR2024') and department (e.g., 'cse').
     Input parameters:
@@ -30,13 +53,12 @@ def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
     url = f"https://www.washington.edu/students/timeschd/{quarter_year.upper()}/{department.lower()}.html"
     
     try:
-        with sync_playwright() as p:
-            # headless=False so the user can interact with the browser if a login page appears
-            browser = p.chromium.launch(headless=False)
-            context = browser.new_context()
-            page = context.new_page()
-            
-            page.goto(url)
+        browser = await BrowserPool.get_browser()
+        context = await browser.new_context()
+        page = await context.new_page()
+        
+        try:
+            await page.goto(url)
             
             # Check if redirected to a login page or UW NetID authentication
             current_url = page.url.lower()
@@ -46,16 +68,17 @@ def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
                 
                 # Wait for the URL to change back to the intended quarter/department page.
                 # using a 5-minute timeout (300000 ms)
-                page.wait_for_url(f"**/{quarter_year.upper()}/**", timeout=300000)
+                await page.wait_for_url(f"**/{quarter_year.upper()}/**", timeout=300000)
                 
             # Wait for the course table to ensure page is loaded
             try:
-                page.wait_for_selector("table[bgcolor='#ccffcc']", timeout=10000)
+                await page.wait_for_selector("table[bgcolor='#ccffcc']", timeout=10000)
             except Exception:
                 pass # If it times out, we will just pass the current content to BeautifulSoup to let it handle "no courses found"
                 
-            html_content = page.content()
-            browser.close()
+            html_content = await page.content()
+        finally:
+            await page.close() # Close tab page, keep browser in pool alive
             
     except Exception as e:
         return f"Failed to fetch data from {url}, error: {e}"
@@ -101,7 +124,7 @@ def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
     # The main Agent's LLM will read this string (as the "Observation") and generate the final answer.
     return "\n\n".join([doc.page_content for doc in docs])
 
-def main():
+async def main():
     print("Initializing UW Course Agent Assistant...")
 
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
@@ -159,71 +182,74 @@ def main():
     RECENT_MESSAGES_TO_KEEP = 4
 
     print("✅ Agent is ready!")
-    while True:
-        user_input = input("\n🙋 You: ")
-        if user_input.lower() in ['quit', 'exit']:
-            print("👋 Goodbye!")
-            break
-        if not user_input.strip():
-            continue
+    try:
+        while True:
+            user_input = input("\n🙋 You: ")
+            if user_input.lower() in ['quit', 'exit']:
+                print("👋 Goodbye!")
+                break
+            if not user_input.strip():
+                continue
 
-        try:
-            chat_history.append(HumanMessage(content=user_input))
-            
-            # Execute the graph, handling tool calls concurrently if generated simultaneously
-            response = agent_executor.invoke({
-                "messages": chat_history
-            })
-            
-            output = response["messages"][-1].content
-            print(f"\n🎓 UW Agent Assistant: \n{output}")
-            
-            # Update chat history
-            chat_history = response["messages"]
+            try:
+                chat_history.append(HumanMessage(content=user_input))
+                
+                # Execute the graph, handling tool calls concurrently if generated simultaneously
+                response = await agent_executor.ainvoke({
+                    "messages": chat_history
+                })
+                
+                output = response["messages"][-1].content
+                print(f"\n🎓 UW Agent Assistant: \n{output}")
+                
+                # Update chat history
+                chat_history = response["messages"]
 
-            # --- Dynamic Summarization ---
-            # When history grows beyond the threshold, compress older messages
-            # into a concise summary to prevent context window overflow.
-            if len(chat_history) > SUMMARIZATION_THRESHOLD:
-                print("\n📝 [System] Compressing conversation history...")
+                # --- Dynamic Summarization ---
+                # When history grows beyond the threshold, compress older messages
+                # into a concise summary to prevent context window overflow.
+                if len(chat_history) > SUMMARIZATION_THRESHOLD:
+                    print("\n📝 [System] Compressing conversation history...")
 
-                # Partition: keep recent messages intact for conversational continuity
-                recent_messages = chat_history[-RECENT_MESSAGES_TO_KEEP:]
-                messages_to_summarize = chat_history[:-RECENT_MESSAGES_TO_KEEP]
+                    # Partition: keep recent messages intact for conversational continuity
+                    recent_messages = chat_history[-RECENT_MESSAGES_TO_KEEP:]
+                    messages_to_summarize = chat_history[:-RECENT_MESSAGES_TO_KEEP]
 
-                # Build the summarization request
-                summary_prompt = SystemMessage(content=(
-                    "You are a conversation summarizer. Distill the following messages "
-                    "into a single concise summary paragraph. Focus on:\n"
-                    "1. The user's specific course preferences and constraints "
-                    "(e.g., department, credits, time preferences, no prerequisites).\n"
-                    "2. Key facts and course recommendations already established.\n"
-                    "3. Any unresolved questions the user still has.\n"
-                    "IMPORTANT: If the first message is an existing summary of earlier "
-                    "conversation, incorporate and UPDATE it with the new information "
-                    "that follows. Do not discard prior context.\n"
-                    "Do NOT include greetings or filler. Be factual and dense.\n"
-                    "Keep the summary under 200 words. If the existing summary is already "
-                    "long, aggressively compress older details that are no longer relevant."
-                ))
+                    # Build the summarization request
+                    summary_prompt = SystemMessage(content=(
+                        "You are a conversation summarizer. Distill the following messages "
+                        "into a single concise summary paragraph. Focus on:\n"
+                        "1. The user's specific course preferences and constraints "
+                        "(e.g., department, credits, time preferences, no prerequisites).\n"
+                        "2. Key facts and course recommendations already established.\n"
+                        "3. Any unresolved questions the user still has.\n"
+                        "IMPORTANT: If the first message is an existing summary of earlier "
+                        "conversation, incorporate and UPDATE it with the new information "
+                        "that follows. Do not discard prior context.\n"
+                        "Do NOT include greetings or filler. Be factual and dense.\n"
+                        "Keep the summary under 200 words. If the existing summary is already "
+                        "long, aggressively compress older details that are no longer relevant."
+                    ))
 
-                # Filter out ToolMessages for the summary input to reduce noise;
-                # only keep Human and AI messages which carry the semantic content.
-                semantic_messages = [
-                    m for m in messages_to_summarize
-                    if isinstance(m, (HumanMessage, AIMessage, SystemMessage))
-                ]
-                summary_response = llm.invoke([summary_prompt] + semantic_messages)
+                    # Filter out ToolMessages for the summary input to reduce noise;
+                    # only keep Human and AI messages which carry the semantic content.
+                    semantic_messages = [
+                        m for m in messages_to_summarize
+                        if isinstance(m, (HumanMessage, AIMessage, SystemMessage))
+                    ]
+                    summary_response = await llm.ainvoke([summary_prompt] + semantic_messages)
 
-                # Rebuild chat_history: summary + recent raw messages
-                new_summary = SystemMessage(
-                    content=f"Summary of previous conversation:\n{summary_response.content}"
-                )
-                chat_history = [new_summary] + recent_messages
-                print("✅ [System] History compressed successfully.")
+                    # Rebuild chat_history: summary + recent raw messages
+                    new_summary = SystemMessage(
+                        content=f"Summary of previous conversation:\n{summary_response.content}"
+                    )
+                    chat_history = [new_summary] + recent_messages
+                    print("✅ [System] History compressed successfully.")
 
-        except Exception as e:
-            print(f"❌ An error occurred: {e}")
+            except Exception as e:
+                print(f"❌ An error occurred: {e}")
+    finally:
+        await BrowserPool.close()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

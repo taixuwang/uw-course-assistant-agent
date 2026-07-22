@@ -14,7 +14,7 @@ import pandas as pd
 from datasets import Dataset
 from dotenv import load_dotenv
 
-# Ragas 核心模块
+# Ragas core modules
 from ragas import evaluate
 try:
     from ragas.metrics import LLMContextPrecisionWithReference, LLMContextRecall
@@ -27,7 +27,7 @@ except ImportError:
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
-# 检索器相关库
+# Retriever libraries
 from langchain_community.retrievers import BM25Retriever
 from langchain_community.document_loaders import JSONLoader
 from langchain_chroma import Chroma
@@ -38,7 +38,7 @@ load_dotenv()
 import json
 
 # ==========================================
-# 1. 加载 30 组 100% 确定的基准测试数据集
+# 1. Load 30 verified benchmark Q&A test pairs
 # ==========================================
 test_set_file = "test_set_30.json"
 if os.path.exists(test_set_file):
@@ -68,23 +68,23 @@ else:
     ]
 
 # ==========================================
-# 2. 构建 3 种不同配置的检索器 (Retriever A / B / C)
+# 2. Construct 3 retriever configurations (Retriever A / B / C)
 # ==========================================
 
 def setup_retrievers(documents):
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     
-    # A. 纯向量检索器 (Dense Vector Retriever)
+    # A. Dense Vector Retriever
     vectorstore = Chroma.from_documents(documents, embeddings)
     dense_retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
     
-    # B. BM25 稀疏检索器 (Sparse Retriever)
+    # B. Sparse BM25 Retriever
     bm25_retriever = BM25Retriever.from_documents(documents)
     bm25_retriever.k = 5
     
     return dense_retriever, bm25_retriever
 
-# RRF (Reciprocal Rank Fusion) 混合检索算法
+# RRF (Reciprocal Rank Fusion) Hybrid Search Algorithm
 def rrf_hybrid_search(query, dense_retriever, bm25_retriever, k=60, top_n=5):
     dense_docs = dense_retriever.invoke(query)
     bm25_docs = bm25_retriever.invoke(query)
@@ -105,7 +105,7 @@ def rrf_hybrid_search(query, dense_retriever, bm25_retriever, k=60, top_n=5):
     sorted_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
     return [doc_map[doc_id] for doc_id, _ in sorted_docs[:top_n]]
 
-# Cross-Encoder Re-ranking 重排序
+# Cross-Encoder Re-ranking
 from sentence_transformers import CrossEncoder
 cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
 
@@ -119,7 +119,7 @@ def rerank_search(query, candidate_docs, top_n=3):
 
 
 # ==========================================
-# 3. 使用 Ragas 运行评估 (Evaluation Loop)
+# 3. Run Ragas Evaluation Loop
 # ==========================================
 def evaluate_retriever(retriever_type, dense_retriever, bm25_retriever):
     retrieved_contexts_list = []
@@ -135,7 +135,7 @@ def evaluate_retriever(retriever_type, dense_retriever, bm25_retriever):
             
         retrieved_contexts_list.append([doc.page_content for doc in docs])
         
-    # 构造 Ragas 所需的 Dataset 格式
+    # Construct Dataset format required by Ragas
     dataset_dict = {
         "user_input": test_queries,
         "retrieved_contexts": retrieved_contexts_list,
@@ -144,10 +144,10 @@ def evaluate_retriever(retriever_type, dense_retriever, bm25_retriever):
     
     eval_dataset = Dataset.from_dict(dataset_dict)
     
-    # 初始化用于评估的 LLM
+    # Initialize LLM for evaluation
     evaluator_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     
-    # 运行 Ragas 评估
+    # Run Ragas evaluation
     results = evaluate(
         dataset=eval_dataset,
         metrics=[metric_precision, metric_recall],
@@ -177,7 +177,7 @@ def get_score_val(results, metric_name):
 
 
 # ==========================================
-# 4. 运行对比实验并打印表格
+# 4. Run Comparative Experiments and Output Table
 # ==========================================
 if __name__ == "__main__":
     dense_ret, bm25_ret = setup_retrievers(sample_docs)
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     score_hybrid = evaluate_retriever("hybrid", dense_ret, bm25_ret)
     score_rerank = evaluate_retriever("hybrid_rerank", dense_ret, bm25_ret)
     
-    # 整理结果对比表
+    # Construct comparative results DataFrame
     df_results = pd.DataFrame([
         {
             "Retriever Architecture": "1. Dense Vector (Chroma)",
@@ -212,5 +212,6 @@ if __name__ == "__main__":
         print(df_results.to_markdown(index=False))
     except Exception:
         print(df_results.to_string(index=False))
+
 
 
