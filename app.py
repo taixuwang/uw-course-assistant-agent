@@ -202,7 +202,9 @@ def main():
                     "IMPORTANT: If the first message is an existing summary of earlier "
                     "conversation, incorporate and UPDATE it with the new information "
                     "that follows. Do not discard prior context.\n"
-                    "Do NOT include greetings or filler. Be factual and dense."
+                    "Do NOT include greetings or filler. Be factual and dense.\n"
+                    "Keep the summary under 200 words. If the existing summary is already "
+                    "long, aggressively compress older details that are no longer relevant."
                 ))
 
                 # Filter out ToolMessages for the summary input to reduce noise;
