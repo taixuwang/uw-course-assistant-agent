@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 import asyncio
 from bs4 import BeautifulSoup
@@ -10,6 +11,8 @@ from langchain_chroma import Chroma
 from langchain_classic.chains.query_constructor.schema import AttributeInfo
 from langchain_classic.retrievers.self_query.base import SelfQueryRetriever
 from langchain_community.query_constructors.chroma import ChromaTranslator
+from langchain_community.retrievers import BM25Retriever
+from sentence_transformers import CrossEncoder
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool
 from langchain_core.tools.retriever import create_retriever_tool
@@ -147,7 +150,8 @@ async def main():
     
     document_content_description = "Detailed information about University of Washington courses."
 
-    retriever = SelfQueryRetriever.from_llm(
+    # 1. Self-Query Dense Vector Retriever
+    self_query_retriever = SelfQueryRetriever.from_llm(
         llm=llm,
         vectorstore=vectorstore,
         document_contents=document_content_description,
@@ -157,13 +161,82 @@ async def main():
         search_kwargs={"k": 10}
     )
 
-    course_retriever_tool = create_retriever_tool(
-        retriever,
-        name="uw_course_catalog",
-        description="Use this tool when the user asks for general introductions, prerequisites, credits, general education attributes, or other static knowledge base information about university courses."
-    )
+    # 2. BM25 Sparse Retriever (Load catalog documents)
+    print("Building BM25 sparse index...")
+    all_docs = []
+    if os.path.exists("courses.json"):
+        with open("courses.json", "r", encoding="utf-8") as f:
+            course_data = json.load(f)
+        for course in course_data:
+            code = course.get("course") or "unknown"
+            title = course.get("title") or "N/A"
+            credits_str = str(course.get("credits") or "N/A")
+            description = course.get("description") or "N/A"
+            gen_ed_list = course.get("gen_ed")
+            gen_ed_str = ", ".join(gen_ed_list) if isinstance(gen_ed_list, list) else str(gen_ed_list or "N/A")
+            prereq = course.get("prerequisites")
+            prereq_str = str(prereq) if prereq else "None"
+            page_content = f"Course: {code} - {title}\nCredits: {credits_str}\nGeneral Education: {gen_ed_str}\nPrerequisites: {prereq_str}\nDescription: {description}"
+            metadata = {
+                "course": code,
+                "department": code.split(" ")[0] if " " in code else "unknown",
+                "has_prerequisite": bool(prereq and prereq_str.lower() != 'none'),
+                "title": title,
+                "credits": credits_str,
+                "gen_ed": gen_ed_str,
+                "prerequisites": prereq_str
+            }
+            all_docs.append(Document(page_content=page_content, metadata=metadata))
+    
+    bm25_retriever = BM25Retriever.from_documents(all_docs) if all_docs else None
+    if bm25_retriever:
+        bm25_retriever.k = 10
 
-    tools = [course_retriever_tool, get_time_schedule]
+    # 3. Cross-Encoder Re-ranker
+    print("Loading Cross-Encoder re-ranker model...")
+    cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+
+    # 4. Define Hybrid + Self-Query + Re-ranking RAG Tool
+    @tool
+    def uw_course_catalog(query: str) -> str:
+        """Use this tool when the user asks for general introductions, prerequisites, credits, general education attributes, or other static knowledge base information about university courses."""
+        # Step A: Dense Retrieval with Self-Query Metadata Filter
+        dense_docs = self_query_retriever.invoke(query)
+        
+        # Step B: BM25 Sparse Keyword Retrieval
+        bm25_docs = bm25_retriever.invoke(query) if bm25_retriever else []
+        
+        # Step C: Reciprocal Rank Fusion (RRF)
+        k_constant = 60
+        doc_scores = {}
+        doc_map = {}
+        
+        for rank, doc in enumerate(dense_docs):
+            doc_id = doc.page_content
+            doc_map[doc_id] = doc
+            doc_scores[doc_id] = doc_scores.get(doc_id, 0) + 1.0 / (k_constant + rank + 1)
+            
+        for rank, doc in enumerate(bm25_docs):
+            doc_id = doc.page_content
+            doc_map[doc_id] = doc
+            doc_scores[doc_id] = doc_scores.get(doc_id, 0) + 1.0 / (k_constant + rank + 1)
+            
+        sorted_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
+        candidates = [doc_map[doc_id] for doc_id, _ in sorted_docs[:10]]
+        
+        if not candidates:
+            return "No relevant course catalog information found."
+            
+        # Step D: Cross-Encoder Re-ranking
+        pairs = [[query, doc.page_content] for doc in candidates]
+        scores = cross_encoder.predict(pairs)
+        scored_docs = list(zip(candidates, scores))
+        scored_docs.sort(key=lambda x: x[1], reverse=True)
+        
+        top_docs = [doc for doc, _ in scored_docs[:5]]
+        return "\n\n---\n\n".join([doc.page_content for doc in top_docs])
+
+    tools = [uw_course_catalog, get_time_schedule]
 
     prompt_str = "You are a professional University of Washington course selection Agent assistant.\nYou can use uw_course_catalog to query static course syllabi (including descriptions and attributes), or use get_time_schedule to query real-time schedule information for a specific quarter (such as instructors, class times, and seat availability). If the user wants to know how a course is taught in a specific quarter or if there are open seats, you MUST use get_time_schedule. If you need to combine both, you can call these two tools concurrently."
 
@@ -252,4 +325,5 @@ async def main():
         await BrowserPool.close()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main())
+

@@ -38,9 +38,9 @@ load_dotenv()
 import json
 
 # ==========================================
-# 1. Load 30 verified benchmark Q&A test pairs
+# 1. Load 60 verified benchmark Q&A test pairs
 # ==========================================
-test_set_file = "test_set_30.json"
+test_set_file = "test_set_60.json"
 if os.path.exists(test_set_file):
     with open(test_set_file, "r", encoding="utf-8") as f:
         test_data = json.load(f)
@@ -48,27 +48,23 @@ if os.path.exists(test_set_file):
     test_queries = test_data["queries"]
     ground_truths = test_data["ground_truths"]
     sample_docs = [Document(page_content=doc_str) for doc_str in raw_documents]
-    print(f"✅ Loaded {len(test_queries)} verified Q&A test pairs from {test_set_file}.")
+    print(f"[Loaded] {len(test_queries)} verified Q&A test pairs from {test_set_file}.")
+elif os.path.exists("test_set_30.json"):
+    with open("test_set_30.json", "r", encoding="utf-8") as f:
+        test_data = json.load(f)
+    raw_documents = test_data["documents"]
+    test_queries = test_data["queries"]
+    ground_truths = test_data["ground_truths"]
+    sample_docs = [Document(page_content=doc_str) for doc_str in raw_documents]
+    print(f"[Loaded] {len(test_queries)} verified Q&A test pairs from test_set_30.json.")
 else:
-    print(f"⚠️ {test_set_file} not found, using fallback 3 test pairs.")
-    test_queries = [
-        "What are the prerequisites for CSE 374?",
-        "Does CSE 121 have any prerequisites?",
-        "Which courses cover system programming and C++?"
-    ]
-    ground_truths = [
-        "CSE 374 prerequisites are CSE 143, CSE 143X, or CSE 163.",
-        "CSE 121 has no prerequisites; it is an introductory course.",
-        "CSE 374 covers intermediate programming concepts using C, C++, and Linux system tools."
-    ]
-    sample_docs = [
-        Document(page_content="CSE 374: Intermediate Topics in Programming Techniques. Prerequisites: CSE 143, CSE 143X, or CSE 163. Covers C, C++, Linux system tools."),
-        Document(page_content="CSE 121: Introduction to Computer Programming I. Prerequisites: None. Covers Java basics, loops, and arrays."),
-        Document(page_content="CSE 143: Computer Programming II. Prerequisites: CSE 142 or CSE 122. Covers data structures, trees, recursion.")
-    ]
+    print("[Warning] Test dataset not found, using fallback test pairs.")
+    test_queries = ["What are the prerequisites for CSE 374?"]
+    ground_truths = ["CSE 374 prerequisites are CSE 143, CSE 143X, or CSE 163."]
+    sample_docs = [Document(page_content="CSE 374: Intermediate Topics in Programming Techniques. Prerequisites: CSE 143, CSE 143X, or CSE 163. Covers C, C++, Linux system tools.")]
 
 # ==========================================
-# 2. Construct 3 retriever configurations (Retriever A / B / C)
+# 2. Construct retriever configurations
 # ==========================================
 
 def setup_retrievers(documents):
@@ -177,41 +173,31 @@ def get_score_val(results, metric_name):
 
 
 # ==========================================
-# 4. Run Comparative Experiments and Output Table
+# 4. Run Benchmark on Final Production Retriever
 # ==========================================
 if __name__ == "__main__":
     dense_ret, bm25_ret = setup_retrievers(sample_docs)
     
-    print(f"🚀 Running Ragas Benchmark Experiments on {len(test_queries)} verified Q&A pairs...\n")
+    print(f"[Testing] Running Ragas Benchmark on Final Retriever (Hybrid + Re-ranker) across {len(test_queries)} verified Q&A pairs...\n")
     
-    score_dense = evaluate_retriever("dense", dense_ret, bm25_ret)
-    score_hybrid = evaluate_retriever("hybrid", dense_ret, bm25_ret)
     score_rerank = evaluate_retriever("hybrid_rerank", dense_ret, bm25_ret)
     
-    # Construct comparative results DataFrame
+    # Construct final production retriever results DataFrame
     df_results = pd.DataFrame([
         {
-            "Retriever Architecture": "1. Dense Vector (Chroma)",
-            "Context Precision": get_score_val(score_dense, "context_precision"),
-            "Context Recall": get_score_val(score_dense, "context_recall")
-        },
-        {
-            "Retriever Architecture": "2. Hybrid (Dense + BM25)",
-            "Context Precision": get_score_val(score_hybrid, "context_precision"),
-            "Context Recall": get_score_val(score_hybrid, "context_recall")
-        },
-        {
-            "Retriever Architecture": "3. Hybrid + Re-ranker (MiniLM)",
-            "Context Precision": score_rerank if isinstance(score_rerank, float) else get_score_val(score_rerank, "context_precision"),
+            "Retriever Architecture": "Final Production Retriever (Hybrid RAG + MiniLM Reranker)",
+            "Benchmark Queries": len(test_queries),
+            "Context Precision": get_score_val(score_rerank, "context_precision"),
             "Context Recall": get_score_val(score_rerank, "context_recall")
         }
     ])
     
-    print("================ RAGAS EVALUATION RESULTS ================")
+    print("================ FINAL RETRIEVER RAGAS EVALUATION RESULTS ================")
     try:
         print(df_results.to_markdown(index=False))
     except Exception:
         print(df_results.to_string(index=False))
+
 
 
 
