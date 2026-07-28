@@ -158,7 +158,7 @@ async def main():
         metadata_field_info=metadata_field_info,
         structured_query_translator=ChromaTranslator(),
         enable_limit=True,
-        search_kwargs={"k": 10}
+        search_kwargs={"k": 20}
     )
 
     # 2. BM25 Sparse Retriever (Load catalog documents)
@@ -190,7 +190,7 @@ async def main():
     
     bm25_retriever = BM25Retriever.from_documents(all_docs) if all_docs else None
     if bm25_retriever:
-        bm25_retriever.k = 10
+        bm25_retriever.k = 20
 
     # 3. Cross-Encoder Re-ranker
     print("Loading Cross-Encoder re-ranker model...")
@@ -222,7 +222,7 @@ async def main():
             doc_scores[doc_id] = doc_scores.get(doc_id, 0) + 1.0 / (k_constant + rank + 1)
             
         sorted_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
-        candidates = [doc_map[doc_id] for doc_id, _ in sorted_docs[:10]]
+        candidates = [doc_map[doc_id] for doc_id, _ in sorted_docs[:20]]
         
         if not candidates:
             return "No relevant course catalog information found."
