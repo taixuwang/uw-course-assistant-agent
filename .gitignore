@@ -2,18 +2,19 @@
 venv/
 .env
 
+# macOS System Files
+.DS_Store
+.DS_Store?
+._*
+
 # Python Cache
 __pycache__/
 *.py[cod]
 *$py.class
 
-# ChromaDB
+# ChromaDB Cache
 uw_chroma_db/
 
-# Large JSON / Data Files
-courses.json
-rag_documents.jsonl
-
-# Scratch scripts
-test_query.py
-test_sq.py
+# IDE
+.vscode/
+.idea/
