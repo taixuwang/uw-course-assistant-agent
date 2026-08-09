@@ -1,20 +1,50 @@
-# Environments
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environments
 venv/
+.venv/
+env/
+
+# Environment Variables
 .env
+.env.local
+.env.*.local
 
 # macOS System Files
 .DS_Store
 .DS_Store?
 ._*
+.Spotlight-V100
+.Trashes
 
-# Python Cache
-__pycache__/
-*.py[cod]
-*$py.class
-
-# ChromaDB Cache
-uw_chroma_db/
-
-# IDE
+# IDE / Editor
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# ChromaDB Local Store
+uw_chroma_db/
+
+# Large Data Files
+courses.json
+rag_documents.jsonl
+
+# Playwright
+playwright-report/
+test-results/
+
+# Sentence Transformers / HuggingFace Cache
+.cache/
+
+# Misc
+*.log
+*.tmp
