@@ -3,7 +3,7 @@ import os
 import random
 
 def main():
-    with open('courses.json', 'r', encoding='utf-8') as f:
+    with open('data/courses.json', 'r', encoding='utf-8') as f:
         all_courses = json.load(f)
 
     print(f"Total catalog courses: {len(all_courses)}")
@@ -100,10 +100,10 @@ def main():
         'ground_truths': ground_truths
     }
 
-    with open('test_set_hard_60.json', 'w', encoding='utf-8') as out:
+    with open('tests/fixtures/test_set_hard_60.json', 'w', encoding='utf-8') as out:
         json.dump(test_set_hard, out, indent=2, ensure_ascii=False)
 
-    print("Successfully generated test_set_hard_60.json with 1000 distractor corpus documents and 60 hard Q&A pairs.")
+    print("Successfully generated tests/fixtures/test_set_hard_60.json with 1000 distractor corpus documents and 60 hard Q&A pairs.")
 
 if __name__ == '__main__':
     main()

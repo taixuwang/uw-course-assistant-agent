@@ -40,7 +40,7 @@ import json
 # ==========================================
 # 1. Load Hard Benchmark Dataset (60 queries + 1000 distractor corpus docs)
 # ==========================================
-test_set_file = "test_set_hard_60.json"
+test_set_file = "tests/fixtures/test_set_hard_60.json"
 if os.path.exists(test_set_file):
     with open(test_set_file, "r", encoding="utf-8") as f:
         test_data = json.load(f)
@@ -49,14 +49,14 @@ if os.path.exists(test_set_file):
     ground_truths = test_data["ground_truths"]
     sample_docs = [Document(page_content=doc_str) for doc_str in raw_documents]
     print(f"[Loaded] Hard benchmark: {len(test_queries)} queries against {len(sample_docs)} distractor corpus documents from {test_set_file}.")
-elif os.path.exists("test_set_60.json"):
-    with open("test_set_60.json", "r", encoding="utf-8") as f:
+elif os.path.exists("tests/fixtures/test_set_60.json"):
+    with open("tests/fixtures/test_set_60.json", "r", encoding="utf-8") as f:
         test_data = json.load(f)
     raw_documents = test_data["documents"]
     test_queries = test_data["queries"]
     ground_truths = test_data["ground_truths"]
     sample_docs = [Document(page_content=doc_str) for doc_str in raw_documents]
-    print(f"[Loaded] {len(test_queries)} verified Q&A test pairs from test_set_60.json.")
+    print(f"[Loaded] {len(test_queries)} verified Q&A test pairs from tests/fixtures/test_set_60.json.")
 else:
     print("[Warning] Test dataset not found, using fallback test pairs.")
     test_queries = ["What are the prerequisites for CSE 374?"]
@@ -70,13 +70,13 @@ else:
 def setup_retrievers(documents):
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     
-    # A. Dense Vector Retriever (Directly load persistent ./uw_chroma_db)
-    if os.path.exists("./uw_chroma_db"):
-        vectorstore = Chroma(persist_directory="./uw_chroma_db", embedding_function=embeddings)
-        print("[Loaded] Connected directly to persistent ./uw_chroma_db directory.")
+    # A. Dense Vector Retriever (Directly load persistent db/uw_chroma_db)
+    if os.path.exists("db/uw_chroma_db"):
+        vectorstore = Chroma(persist_directory="db/uw_chroma_db", embedding_function=embeddings)
+        print("[Loaded] Connected directly to persistent db/uw_chroma_db directory.")
     else:
         vectorstore = Chroma.from_documents(documents, embeddings)
-        print("[Notice] ./uw_chroma_db not found, created temporary Chroma instance.")
+        print("[Notice] db/uw_chroma_db not found, created temporary Chroma instance.")
         
     dense_retriever = vectorstore.as_retriever(search_kwargs={"k": 20})
     

@@ -152,9 +152,9 @@ def main():
             print(f"Failed {url}: {e}")
 
     # -------------------------
-    # Save courses.json
+    # Save data/courses.json
     # -------------------------
-    with open("courses.json", "w", encoding="utf-8") as f:
+    with open("data/courses.json", "w", encoding="utf-8") as f:
         json.dump(all_courses, f, indent=2, ensure_ascii=False)
 
     # -------------------------

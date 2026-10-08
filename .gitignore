@@ -32,11 +32,11 @@ env/
 *~
 
 # ChromaDB Local Store
-uw_chroma_db/
+db/uw_chroma_db/
 
 # Large Data Files
-courses.json
-rag_documents.jsonl
+data/courses.json
+data/rag_documents.jsonl
 
 # Playwright
 playwright-report/

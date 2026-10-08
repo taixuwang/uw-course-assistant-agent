@@ -132,7 +132,7 @@ async def main():
 
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     vectorstore = Chroma(
-        persist_directory="./uw_chroma_db", 
+        persist_directory="db/uw_chroma_db", 
         embedding_function=embeddings
     )
 
@@ -164,8 +164,8 @@ async def main():
     # 2. BM25 Sparse Retriever (Load catalog documents)
     print("Building BM25 sparse index...")
     all_docs = []
-    if os.path.exists("courses.json"):
-        with open("courses.json", "r", encoding="utf-8") as f:
+    if os.path.exists("data/courses.json"):
+        with open("data/courses.json", "r", encoding="utf-8") as f:
             course_data = json.load(f)
         for course in course_data:
             code = course.get("course") or "unknown"

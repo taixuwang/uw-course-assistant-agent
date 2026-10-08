@@ -123,20 +123,26 @@ python eval_ragas.py
 
 ```
 uw-course-assistant-agent/
-├── app.py                  # Main agent application (ReAct agent, tools, conversation loop)
-├── build_vector_db.py      # Parses courses.json → ChromaDB vector store
-├── uw_course_scraper.py    # Web scraper for UW course catalog → courses.json
-├── courses.json            # Raw course dataset (scraped from UW catalog)
-├── requirements.txt        # Python dependencies
-├── .env                    # Environment variables (not tracked)
-└── test/
-    ├── eval_ragas.py           # RAGAS retriever evaluation script
-    ├── test_latency.py         # Playwright browser pool latency benchmark
-    ├── build_test_set_60.py    # Test set generator (60 basic Q&A pairs)
-    ├── build_hard_benchmark.py # Hard benchmark generator (60 queries + 1K distractors)
-    ├── test_set_30.json        # Pre-built test set (30 pairs)
-    ├── test_set_60.json        # Pre-built test set (60 pairs)
-    └── test_set_hard_60.json   # Pre-built hard benchmark dataset
+├── src/
+│   └── uw_course_assistant/
+│       └── app.py                  # Main agent application (ReAct agent, tools, conversation loop)
+├── scripts/
+│   ├── build_vector_db.py          # Parses courses.json → ChromaDB vector store
+│   └── uw_course_scraper.py        # Web scraper for UW course catalog → courses.json
+├── data/
+│   └── courses.json                # Raw course dataset (scraped from UW catalog)
+├── db/
+│   └── uw_chroma_db/               # Persistent Chroma vector store
+├── pyproject.toml                  # Python project metadata and dependencies
+├── .env                            # Environment variables (not tracked)
+└── tests/
+    ├── eval_ragas.py               # RAGAS retriever evaluation script
+    ├── test_latency.py             # Playwright browser pool latency benchmark
+    ├── build_test_set_60.py        # Test set generator (60 basic Q&A pairs)
+    ├── build_hard_benchmark.py     # Hard benchmark generator (60 queries + 1K distractors)
+    └── fixtures/
+        ├── test_set_60.json        # Pre-built test set (60 pairs)
+        └── test_set_hard_60.json   # Pre-built hard benchmark dataset
 ```
 
 ## Tech Stack

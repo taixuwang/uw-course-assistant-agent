@@ -18,10 +18,10 @@ def main():
     # Adjust the key names here based on your actual json file structure
     documents = []
     try:
-        with open("courses.json", "r", encoding="utf-8") as f:
+        with open("data/courses.json", "r", encoding="utf-8") as f:
             course_data = json.load(f)
     except FileNotFoundError:
-        print("Error: courses.json file not found, please check the path.")
+        print("Error: data/courses.json file not found, please check the path.")
         return
 
     # 3. Convert JSON data to LangChain Document objects
@@ -67,24 +67,24 @@ Description: {description}"""
     print("Calling OpenAI Embedding model and batch inserting into ChromaDB (may take a few minutes)...")
 
     # 4. If an old database exists, delete it first to prevent duplicate data appending
-    if os.path.exists("./uw_chroma_db"):
+    if os.path.exists("db/uw_chroma_db"):
         print("Detected old database, cleaning up to avoid data duplication...")
         import shutil
-        shutil.rmtree("./uw_chroma_db")
+        shutil.rmtree("db/uw_chroma_db")
 
     # 5. Vectorize and persist storage
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     
-    # This will generate a uw_chroma_db folder in your RAG directory
+    # This will generate a db/uw_chroma_db folder in your RAG directory
     # Use tqdm for batch processing to show a progress bar and avoid large single requests
-    vectorstore = Chroma(persist_directory="./uw_chroma_db", embedding_function=embeddings)
+    vectorstore = Chroma(persist_directory="db/uw_chroma_db", embedding_function=embeddings)
     
     batch_size = 500
     for i in tqdm(range(0, len(documents), batch_size), desc="Vectorizing and inserting data"):
         batch = documents[i:i + batch_size]
         vectorstore.add_documents(batch)
 
-    print("✅ Offline knowledge base construction completed and persisted to ./uw_chroma_db directory!")
+    print("✅ Offline knowledge base construction completed and persisted to db/uw_chroma_db directory!")
 
 if __name__ == "__main__":
     main()

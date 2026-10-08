@@ -2,7 +2,7 @@ import json
 import os
 
 def main():
-    with open('courses.json', 'r', encoding='utf-8') as f:
+    with open('data/courses.json', 'r', encoding='utf-8') as f:
         courses = json.load(f)
 
     # Departments to pick from for wide variety
@@ -44,7 +44,7 @@ def main():
                 if len(selected_courses) >= 60:
                     break
 
-    print(f"Loaded {len(selected_courses)} courses from courses.json")
+    print(f"Loaded {len(selected_courses)} courses from data/courses.json")
 
     sample_docs = []
     test_queries = []
@@ -68,14 +68,14 @@ def main():
         test_queries.append(query)
         ground_truths.append(truth)
 
-    with open('test_set_60.json', 'w', encoding='utf-8') as out:
+    with open('tests/fixtures/test_set_60.json', 'w', encoding='utf-8') as out:
         json.dump({
             'documents': sample_docs,
             'queries': test_queries,
             'ground_truths': ground_truths
         }, out, indent=2, ensure_ascii=False)
 
-    print("Successfully generated test_set_60.json with 60 verified Q&A pairs.")
+    print("Successfully generated tests/fixtures/test_set_60.json with 60 verified Q&A pairs.")
 
 if __name__ == '__main__':
     main()
