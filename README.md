@@ -6,11 +6,12 @@ An intelligent, autonomous agent that helps students discover, filter, and plan 
 
 - **ReAct Agent Architecture** — The LLM autonomously selects tools based on user queries, seamlessly switching between a static knowledge base and live web scraping.
 - **Concurrent Tool Execution** — Powered by LangGraph's `create_react_agent`, the assistant can invoke multiple tools in parallel (e.g., searching catalog data while simultaneously scraping schedule pages), reducing response latency.
-- **Hybrid RAG Pipeline** — Combines three retrieval stages for high-precision results:
-  1. **Self-Query Dense Retriever** — Translates natural-language filters (department, credits, prerequisites, etc.) into ChromaDB metadata queries.
-  2. **BM25 Sparse Retriever** — Keyword-based retrieval for exact term matching.
-  3. **Reciprocal Rank Fusion (RRF)** — Merges dense and sparse results into a unified ranking.
-  4. **Cross-Encoder Re-Ranker** (`cross-encoder/ms-marco-MiniLM-L-6-v2`) — Re-scores top candidates for final precision.
+- **Hybrid RAG Pipeline with Shared Filtering**:
+  1. **Query Planning & Validation** — Parses the question once into a relevance query and typed hard constraints. Invalid constraints fail explicitly instead of being silently removed.
+  2. **Shared Eligibility Filter** — Applies constraints to a catalog snapshot from ChromaDB, producing one eligible course ID set before retrieval.
+  3. **Dense + BM25 Retrieval** — Both branches rank only eligible courses, returning up to 20 candidates each. BM25 reuses corpus-wide IDF statistics while scoring only eligible courses.
+  4. **Reciprocal Rank Fusion (RRF)** — Deduplicates by course ID and retains up to 20 fused candidates.
+  5. **Cross-Encoder Re-Ranker** (`cross-encoder/ms-marco-MiniLM-L-6-v2`) — Scores candidates against the original question. A final eligibility check returns up to five courses, respecting smaller requested limits.
 - **Live Schedule Scraping via Playwright** — An async browser pool singleton (`BrowserPool`) keeps a long-lived Chromium instance for low-latency page loads. Supports automatic UW NetID / 2FA login with interactive browser pop-up.
 - **Conversational Memory with Dynamic Summarization** — Maintains multi-turn context with a sliding-window summarization strategy. When chat history exceeds a configurable threshold, older messages are compressed into a concise summary to prevent context window overflow.
 
@@ -101,7 +102,31 @@ Example queries:
 
 Type `quit` or `exit` to stop.
 
+Catalog retrieval uses the persisted vector database as the common source of text
+and metadata for both branches, so this change does not require rebuilding an
+existing index. If the catalog data changes, rebuild the index as usual.
+Fixed-credit filters are numeric: `5` and `5, max. 15` match a five-credit filter;
+variable-credit entries such as `1-5` or `3/5` and unknown credits do not match
+numeric credit filters. General education filters match individual codes, including
+codes separated by `/`. Missing metadata does not satisfy a constraint, including
+negated constraints. No matching courses produces an empty result without relaxing
+the user's constraints. Eligibility remains dependent on the accuracy of indexed
+course metadata and the LLM's extraction of the user's constraints.
+
 ## Evaluation & Testing
+
+Run the shared-filter retrieval regression tests without API calls, model downloads,
+or browser launches (after installing the project dependencies):
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests -p test_retrieval.py -v
+```
+
+These tests cover filter validation, numeric credits, general education membership,
+logical conditions, shared eligibility before top-k selection, course ID deduplication,
+empty results, and ID restriction with a temporary real Chroma database. The older
+RAGAS script below evaluates its own retrieval implementation; it does not exercise
+the production query planner or shared eligibility filter.
 
 The `test/` directory contains a RAGAS-based evaluation suite and latency benchmarks:
 
