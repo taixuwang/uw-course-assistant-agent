@@ -1,8 +1,11 @@
 """Agent construction with a deterministic response to unavailable live schedules."""
 
-from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langchain_core.messages import AIMessage, HumanMessage, RemoveMessage, ToolMessage
 from langchain_core.runnables import RunnableLambda
+from langgraph.graph.message import REMOVE_ALL_MESSAGES
 from langgraph.prebuilt import create_react_agent
+
+from uw_course_assistant.context import TokenBudgetContext
 
 
 SCHEDULE_FAILURE_INSTRUCTIONS = (
@@ -63,9 +66,19 @@ def _schedule_unavailable_reply(messages):
     return reply
 
 
-def create_course_agent(llm, tools, prompt):
+def create_course_agent(llm, tools, prompt, *, context_budget=None):
     """End the turn on any failed schedule, including mixed parallel tool calls."""
-    bound_model = llm.bind_tools(tools)
+    full_prompt = f"{prompt}\n{SCHEDULE_FAILURE_INSTRUCTIONS}"
+    context = TokenBudgetContext(llm, tools, full_prompt, context_budget)
+    bound_model = llm.bind_tools(tools).bind(max_tokens=context.budget.max_output_tokens)
+
+    async def prepare_context(state):
+        # No LLM is needed for an unavailable schedule; preserve its artifacts for
+        # the deterministic response even when this turn exceeds the token budget.
+        if _schedule_unavailable_reply(state["messages"]) is not None:
+            return {"messages": []}
+        messages = await context.compact(state["messages"])
+        return {"messages": [RemoveMessage(id=REMOVE_ALL_MESSAGES), *messages]}
 
     def select_model(state, runtime):
         failure_reply = _schedule_unavailable_reply(state["messages"])
@@ -74,5 +87,5 @@ def create_course_agent(llm, tools, prompt):
         return bound_model
 
     return create_react_agent(
-        select_model, tools, prompt=f"{prompt}\n{SCHEDULE_FAILURE_INSTRUCTIONS}"
+        select_model, tools, prompt=full_prompt, pre_model_hook=prepare_context
     )

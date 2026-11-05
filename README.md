@@ -14,7 +14,7 @@ An intelligent, autonomous agent that helps students discover, filter, and plan 
   5. **Cross-Encoder Re-Ranker** (`cross-encoder/ms-marco-MiniLM-L-6-v2`) — Scores candidates against the original question. A final eligibility check returns up to five courses, respecting smaller requested limits.
 - **Live Schedule Scraping via Playwright** — An async browser pool singleton (`BrowserPool`) keeps a long-lived Chromium instance for low-latency page loads. Supports interactive UW NetID / 2FA login in a browser pop-up. Transient failures receive up to three attempts with 1- and 2-second backoff; invalid arguments, permanent HTTP errors, and login timeout stop early. Each attempt closes its browser context, and retrieval uses an isolated temporary index.
 - **Explicit Live-Data Failures** — Browser, parsing, embedding, and retrieval failures return a structured unavailable result. If any schedule call fails in the current turn, the agent ends that turn with a fixed unavailable notice and official source links, without asking the LLM to generate schedule details or retry again. A later user message can try again. Unavailable data is never treated as evidence that there are no courses or open seats.
-- **Conversational Memory with Dynamic Summarization** — Maintains multi-turn context with a sliding-window summarization strategy. When chat history exceeds a configurable threshold, older messages are compressed into a concise summary to prevent context window overflow.
+- **Token-Budgeted Conversational Memory** — Checks the system prompt, tool schemas, and message history before every agent model call, including after tools return, with reserved output tokens and a safety margin. Compresses older complete user turns into a rolling summary while preserving the entire current turn and all tool-call/result pairs.
 
 ## Multi-Tool Integration
 
@@ -103,6 +103,35 @@ Example queries:
 
 Type `quit` or `exit` to stop.
 
+Context budgets can be configured in `.env`:
+
+| Variable | Default | Purpose |
+|---|---:|---|
+| `CONTEXT_WINDOW_TOKENS` | 16000 | Total working budget for input, output, and safety margin; keep this within the model's supported context window. |
+| `MAX_OUTPUT_TOKENS` | 2048 | Reserved and enforced maximum output tokens per agent model call. |
+| `CONTEXT_SAFETY_MARGIN_TOKENS` | 512 | Headroom for provider-specific token framing and estimation differences. |
+| `CONTEXT_SUMMARY_TOKENS` | 512 | Maximum output tokens for the rolling summary. |
+
+The default input allowance is `16000 - 2048 - 512 = 13440` tokens, including
+the system prompt and tool schemas. Counts use the model's local tokenizer;
+tool schemas are estimated separately because the message counter does not count
+them. These are estimates rather than exact provider usage. When the input exceeds
+the allowance, the agent retains the newest complete turns that fit, aiming for
+75% of the input allowance after reserving summary space. The current user turn
+is always kept intact, including parallel tools and repeated tool calls.
+
+Older turns, including tool contents and result status, are summarized as a plain
+transcript, so the summarizer never receives dangling structured tool calls.
+Summarization batches also respect input/output budgets and keep each older turn
+whole. A prior summary is updated rather than accumulated. The compressed history
+replaces the graph's history and is used by later turns; it remains in memory
+only and is cleared on restart.
+
+If the current turn cannot fit, a complete older turn cannot fit in a summary
+request, or the summarizer fails its output checks, the request stops with a
+clear error instead of sending an oversized prompt or splitting tool pairs.
+The CLI retains the last successful history so another request can be tried.
+
 Catalog retrieval uses the persisted vector database as the common source of text
 and metadata for both branches, so this change does not require rebuilding an
 existing index. If the catalog data changes, rebuild the index as usual.
@@ -144,6 +173,7 @@ uw-course-assistant-agent/
 ├── src/
 │   └── uw_course_assistant/
 │       ├── app.py                  # Main application and conversation loop
+│       ├── context.py              # Token budgets and complete-turn summarization
 │       ├── retrieval.py            # Static catalog retrieval and constraint filtering
 │       ├── time_schedule.py        # Live schedule scraping, retries, and cleanup
 │       └── schedule_agent.py       # ReAct agent and deterministic unavailable response

@@ -21,7 +21,13 @@ class RecordingModel:
         self.tools = list(tools)
         return RunnableLambda(self.respond)
 
-    def respond(self, messages):
+    def get_num_tokens(self, text):
+        return len(text)
+
+    def get_num_tokens_from_messages(self, messages):
+        return sum(len(str(message.content)) + 10 for message in messages)
+
+    def respond(self, messages, **kwargs):
         self.inputs.append(messages)
         if not self.responses:
             raise AssertionError("Unexpected extra model call")

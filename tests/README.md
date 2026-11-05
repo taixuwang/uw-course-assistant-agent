@@ -12,7 +12,7 @@ venv/bin/python -m pip install -e '.[test]'
 
 | Path | Purpose |
 | --- | --- |
-| `unit/` | Automated, offline tests for retrieval, live-schedule failure handling, evaluation inputs, and the independent constraint scorer. |
+| `unit/` | Automated, offline tests for retrieval, context budgets, live-schedule failure handling, evaluation inputs, and the independent constraint scorer. |
 | `evaluation/` | The benchmark runner, shared RAGAS support, and constraint scorer. |
 | `benchmarks/` | Opt-in browser initialization microbenchmark. |
 | `fixtures/` | Versioned benchmark questions and references. |
@@ -34,6 +34,14 @@ Schedule tests simulate browser/network failures, bounded retries, login timeout
 parsing and embedding failures, and resource cleanup. A fake-model agent test
 verifies that an unavailable schedule ends the current turn with a fixed notice,
 without another model call or fabricated schedule details.
+
+Context tests use deterministic fake token counts and summary responses. They
+cover input/output reserves, system prompt and schema overhead, exact budget
+boundaries, checks after tool execution, parallel and sequential tool pairing,
+complete-turn summary batches, rolling summaries, and rejection of indivisible
+oversized turns. They also verify that compressed messages replace graph history
+and that schedule failures still produce the fixed reply. These tests validate
+budget enforcement and message structure, not summary quality from a real model.
 
 ## Catalog evaluation
 
