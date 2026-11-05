@@ -1,209 +1,119 @@
-import os
+"""Evaluate the application's catalog retriever against reference answers.
+
+The fixture supplies questions and answers only; retrieval uses the same persisted
+catalog index and code path as the application.
+"""
+
+import argparse
+import importlib.util
+import json
+from pathlib import Path
 import sys
 import types
 
-# Polyfill for missing vertexai module in newer langchain_community
-try:
-    import langchain_community.chat_models.vertexai
-except ModuleNotFoundError:
-    m = types.ModuleType("langchain_community.chat_models.vertexai")
-    m.ChatVertexAI = type("ChatVertexAI", (), {})
-    sys.modules["langchain_community.chat_models.vertexai"] = m
 
-import pandas as pd
-from datasets import Dataset
-from dotenv import load_dotenv
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_DATASET = PROJECT_ROOT / "tests/fixtures/test_set_hard_60.json"
+DEFAULT_INDEX = PROJECT_ROOT / "db/uw_chroma_db"
 
-# Ragas core modules
-from ragas import evaluate
-try:
-    from ragas.metrics import LLMContextPrecisionWithReference, LLMContextRecall
-    metric_precision = LLMContextPrecisionWithReference()
-    metric_recall = LLMContextRecall()
-except ImportError:
-    from ragas.metrics import context_precision, context_recall
-    metric_precision = context_precision
-    metric_recall = context_recall
 
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+def load_benchmark(path):
+    with Path(path).open(encoding="utf-8") as file:
+        benchmark = json.load(file)
+    queries = benchmark["queries"]
+    references = benchmark["ground_truths"]
+    if not isinstance(queries, list) or not isinstance(references, list):
+        raise ValueError("Benchmark queries and ground_truths must be lists")
+    if not queries or len(queries) != len(references):
+        raise ValueError("Benchmark must contain equal, nonzero numbers of queries and ground_truths")
+    return queries, references
 
-# Retriever libraries
-from langchain_community.retrievers import BM25Retriever
-from langchain_community.document_loaders import JSONLoader
-from langchain_chroma import Chroma
-from langchain_core.documents import Document
 
-load_dotenv()
+def build_evaluation_data(retriever, queries, references):
+    """Run each question through the actual retriever; preserve empty results."""
+    if len(queries) != len(references):
+        raise ValueError("queries and references must have the same length")
+    contexts = []
+    for index, query in enumerate(queries, start=1):
+        print(f"Retrieving {index}/{len(queries)}: {query}", flush=True)
+        docs = retriever.search(query)
+        contexts.append([doc.page_content for doc in docs])
+    return {"user_input": queries, "retrieved_contexts": contexts, "reference": references}
 
-import json
 
-# ==========================================
-# 1. Load Hard Benchmark Dataset (60 queries + 1000 distractor corpus docs)
-# ==========================================
-test_set_file = "tests/fixtures/test_set_hard_60.json"
-if os.path.exists(test_set_file):
-    with open(test_set_file, "r", encoding="utf-8") as f:
-        test_data = json.load(f)
-    raw_documents = test_data.get("corpus", test_data.get("documents"))
-    test_queries = test_data["queries"]
-    ground_truths = test_data["ground_truths"]
-    sample_docs = [Document(page_content=doc_str) for doc_str in raw_documents]
-    print(f"[Loaded] Hard benchmark: {len(test_queries)} queries against {len(sample_docs)} distractor corpus documents from {test_set_file}.")
-elif os.path.exists("tests/fixtures/test_set_60.json"):
-    with open("tests/fixtures/test_set_60.json", "r", encoding="utf-8") as f:
-        test_data = json.load(f)
-    raw_documents = test_data["documents"]
-    test_queries = test_data["queries"]
-    ground_truths = test_data["ground_truths"]
-    sample_docs = [Document(page_content=doc_str) for doc_str in raw_documents]
-    print(f"[Loaded] {len(test_queries)} verified Q&A test pairs from tests/fixtures/test_set_60.json.")
-else:
-    print("[Warning] Test dataset not found, using fallback test pairs.")
-    test_queries = ["What are the prerequisites for CSE 374?"]
-    ground_truths = ["CSE 374 prerequisites are CSE 143, CSE 143X, or CSE 163."]
-    sample_docs = [Document(page_content="CSE 374: Intermediate Topics in Programming Techniques. Prerequisites: CSE 143, CSE 143X, or CSE 163. Covers C, C++, Linux system tools.")]
+def create_catalog_retriever(index_path):
+    # Check before opening Chroma: it otherwise silently creates an empty database.
+    index_path = Path(index_path)
+    if not (index_path / "chroma.sqlite3").is_file():
+        raise FileNotFoundError(
+            f"Catalog index not found at {index_path}. "
+            "Build it first with python scripts/build_vector_db.py from the project root."
+        )
 
-# ==========================================
-# 2. Construct retriever configurations
-# ==========================================
+    from langchain_chroma import Chroma
+    from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+    from sentence_transformers import CrossEncoder
+    from uw_course_assistant.retrieval import CatalogRetriever, create_query_planner
 
-def setup_retrievers(documents):
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-    
-    # A. Dense Vector Retriever (Directly load persistent db/uw_chroma_db)
-    if os.path.exists("db/uw_chroma_db"):
-        vectorstore = Chroma(persist_directory="db/uw_chroma_db", embedding_function=embeddings)
-        print("[Loaded] Connected directly to persistent db/uw_chroma_db directory.")
-    else:
-        vectorstore = Chroma.from_documents(documents, embeddings)
-        print("[Notice] db/uw_chroma_db not found, created temporary Chroma instance.")
-        
-    dense_retriever = vectorstore.as_retriever(search_kwargs={"k": 20})
-    
-    # B. Sparse BM25 Retriever
-    bm25_retriever = BM25Retriever.from_documents(documents)
-    bm25_retriever.k = 20
-    
-    return dense_retriever, bm25_retriever
-
-# RRF (Reciprocal Rank Fusion) Hybrid Search Algorithm
-def rrf_hybrid_search(query, dense_retriever, bm25_retriever, k=60, top_n=20):
-    dense_docs = dense_retriever.invoke(query)
-    bm25_docs = bm25_retriever.invoke(query)
-    
-    doc_scores = {}
-    doc_map = {}
-    
-    for rank, doc in enumerate(dense_docs):
-        doc_id = doc.page_content
-        doc_map[doc_id] = doc
-        doc_scores[doc_id] = doc_scores.get(doc_id, 0) + 1.0 / (k + rank + 1)
-        
-    for rank, doc in enumerate(bm25_docs):
-        doc_id = doc.page_content
-        doc_map[doc_id] = doc
-        doc_scores[doc_id] = doc_scores.get(doc_id, 0) + 1.0 / (k + rank + 1)
-        
-    sorted_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
-    return [doc_map[doc_id] for doc_id, _ in sorted_docs[:top_n]]
-
-# Cross-Encoder Re-ranking
-from sentence_transformers import CrossEncoder
-cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
-
-def rerank_search(query, candidate_docs, top_n=5):
-    pairs = [[query, doc.page_content] for doc in candidate_docs]
-    scores = cross_encoder.predict(pairs)
-    
-    scored_docs = list(zip(candidate_docs, scores))
-    scored_docs.sort(key=lambda x: x[1], reverse=True)
-    return [doc for doc, _ in scored_docs[:top_n]]
-
-
-# ==========================================
-# 3. Run Ragas Evaluation Loop
-# ==========================================
-def evaluate_retriever(retriever_type, dense_retriever, bm25_retriever):
-    retrieved_contexts_list = []
-    
-    for query in test_queries:
-        if retriever_type == "dense":
-            docs = dense_retriever.invoke(query)
-        elif retriever_type == "hybrid":
-            docs = rrf_hybrid_search(query, dense_retriever, bm25_retriever, top_n=10)
-        elif retriever_type == "hybrid_rerank":
-            candidates = rrf_hybrid_search(query, dense_retriever, bm25_retriever, top_n=20)
-            docs = rerank_search(query, candidates, top_n=5)
-            
-        retrieved_contexts_list.append([doc.page_content for doc in docs])
-        
-    # Construct Dataset format required by Ragas
-    dataset_dict = {
-        "user_input": test_queries,
-        "retrieved_contexts": retrieved_contexts_list,
-        "reference": ground_truths
-    }
-    
-    eval_dataset = Dataset.from_dict(dataset_dict)
-    
-    # Initialize LLM for evaluation
-    evaluator_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-    
-    # Run Ragas evaluation
-    results = evaluate(
-        dataset=eval_dataset,
-        metrics=[metric_precision, metric_recall],
-        llm=evaluator_llm
+    vectorstore = Chroma(persist_directory=str(index_path), embedding_function=embeddings)
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    return CatalogRetriever(
+        vectorstore=vectorstore,
+        query_planner=create_query_planner(llm),
+        cross_encoder=CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2"),
     )
-    
-    return results
 
-def get_score_val(results, metric_name):
+
+def evaluate_retriever(retriever, queries, references):
+    from datasets import Dataset
+    from langchain_openai import ChatOpenAI
+
+    # RAGAS 0.4.x imports this removed optional Vertex AI integration even
+    # when using OpenAI. Restore the legacy compatibility shim for that case.
+    if importlib.util.find_spec("langchain_community.chat_models.vertexai") is None:
+        module = types.ModuleType("langchain_community.chat_models.vertexai")
+        module.ChatVertexAI = type("ChatVertexAI", (), {})
+        sys.modules[module.__name__] = module
+    from ragas import evaluate
+
     try:
-        # Ragas 0.4 EvaluationResult object
-        if hasattr(results, "to_pandas"):
-            df = results.to_pandas()
-            for col in df.columns:
-                if metric_name in col:
-                    val = df[col].mean()
-                    if pd.notna(val):
-                        return round(float(val), 3)
-        # Dictionary format fallback
-        if isinstance(results, dict):
-            for k, v in results.items():
-                if metric_name in k and isinstance(v, (int, float)):
-                    return round(float(v), 3)
-    except Exception as e:
-        print(f"Error parsing score for {metric_name}: {e}")
-    return 0.0
+        from ragas.metrics import LLMContextPrecisionWithReference, LLMContextRecall
+        metrics = [LLMContextPrecisionWithReference(), LLMContextRecall()]
+    except ImportError:
+        from ragas.metrics import context_precision, context_recall
+        metrics = [context_precision, context_recall]
+
+    data = build_evaluation_data(retriever, queries, references)
+    empty_count = sum(not contexts for contexts in data["retrieved_contexts"])
+    print(f"Retrieval returned no contexts for {empty_count}/{len(queries)} queries.")
+    return evaluate(
+        dataset=Dataset.from_dict(data),
+        metrics=metrics,
+        llm=ChatOpenAI(model="gpt-4o-mini", temperature=0),
+        raise_exceptions=True,
+    )
 
 
-# ==========================================
-# 4. Run Benchmark on Final Production Retriever
-# ==========================================
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET,
+                        help="JSON fixture containing queries and ground_truths")
+    parser.add_argument("--index", type=Path, default=DEFAULT_INDEX,
+                        help="Persisted production-format Chroma index")
+    args = parser.parse_args()
+
+    from dotenv import load_dotenv
+    load_dotenv(PROJECT_ROOT / ".env")
+    queries, references = load_benchmark(args.dataset)
+    print(f"Evaluating {len(queries)} queries from {args.dataset} against {args.index}.")
+    print("The fixture corpus is not used; both retrieval branches use the catalog index.")
+    retriever = create_catalog_retriever(args.index)
+    print(f"Catalog snapshot contains {len(retriever.documents)} distinct courses.")
+    results = evaluate_retriever(retriever, queries, references)
+    print("Production catalog retriever RAGAS results:")
+    print(results)
+
+
 if __name__ == "__main__":
-    dense_ret, bm25_ret = setup_retrievers(sample_docs)
-    
-    print(f"[Testing] Running Ragas Benchmark on Final Retriever (Hybrid + Re-ranker) across {len(test_queries)} verified Q&A pairs...\n")
-    
-    score_rerank = evaluate_retriever("hybrid_rerank", dense_ret, bm25_ret)
-    
-    # Construct final production retriever results DataFrame
-    df_results = pd.DataFrame([
-        {
-            "Retriever Architecture": "Final Production Retriever (Hybrid RAG + MiniLM Reranker)",
-            "Benchmark Queries": len(test_queries),
-            "Context Precision": get_score_val(score_rerank, "context_precision"),
-            "Context Recall": get_score_val(score_rerank, "context_recall")
-        }
-    ])
-    
-    print("================ FINAL RETRIEVER RAGAS EVALUATION RESULTS ================")
-    try:
-        print(df_results.to_markdown(index=False))
-    except Exception:
-        print(df_results.to_string(index=False))
-
-
-
-
+    main()

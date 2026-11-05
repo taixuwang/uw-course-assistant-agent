@@ -30,7 +30,8 @@ def create_query_planner(llm):
         "University of Washington courses. Extract every explicit hard constraint "
         "into the filter and keep topic/skill preferences in the search query. "
         "Do not invent hard constraints for subjective preferences like introductory. "
-        "Use contain(gen_ed, attribute) for a general education requirement.",
+        'For general education, quote the field name and value, for example '
+        'contain("gen_ed", "SSc").',
         [AttributeInfo(name=name, type=kind, description=description)
          for name, kind, description in [
              ("course", "string", "Exact course code, e.g. CSE 374"),

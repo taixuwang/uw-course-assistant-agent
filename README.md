@@ -124,25 +124,41 @@ PYTHONPATH=src python -m unittest discover -s tests -p test_retrieval.py -v
 
 These tests cover filter validation, numeric credits, general education membership,
 logical conditions, shared eligibility before top-k selection, course ID deduplication,
-empty results, and ID restriction with a temporary real Chroma database. The older
-RAGAS script below evaluates its own retrieval implementation; it does not exercise
-the production query planner or shared eligibility filter.
+empty results, and ID restriction with a temporary real Chroma database.
 
-The `test/` directory contains a RAGAS-based evaluation suite and latency benchmarks:
+The `tests/` directory contains a RAGAS-based evaluation suite and latency benchmarks:
 
 | File | Description |
 |---|---|
-| `test/build_test_set_60.py` | Generates a 60-query test set from `courses.json` with verified ground-truth answers. |
-| `test/build_hard_benchmark.py` | Generates a harder 60-query benchmark with a 1,000-document distractor corpus (5 query categories: topic/skill, prerequisite, gen-ed/credit, concept overlap, and disambiguation). |
-| `test/eval_ragas.py` | Runs RAGAS evaluation (Context Precision & Context Recall) on the final hybrid + re-ranker retriever pipeline. |
-| `test/test_latency.py` | Benchmarks Playwright page-initialization latency: cold browser launch vs. async browser pool singleton. |
+| `tests/build_test_set_60.py` | Generates a 60-query test set from `courses.json`. |
+| `tests/build_hard_benchmark.py` | Generates a harder 60-query benchmark (5 query categories: topic/skill, prerequisite, gen-ed/credit, concept overlap, and disambiguation). |
+| `tests/eval_ragas.py` | Runs RAGAS Context Precision and Context Recall on the actual catalog retriever, including query planning and shared filtering. |
+| `tests/test_latency.py` | Benchmarks Playwright page-initialization latency: cold browser launch vs. async browser pool singleton. |
 
-Run the evaluation:
+Run the evaluation from the project root, after installing the project with its
+test dependencies, configuring `OPENAI_API_KEY`, and building the catalog index
+with `python scripts/build_vector_db.py`:
 
 ```bash
-cd test
-python eval_ragas.py
+pip install -e '.[test]'
+python tests/eval_ragas.py
 ```
+
+The evaluator uses the persisted index at `db/uw_chroma_db`, the same model
+configuration and `CatalogRetriever.search()` as the application. It reads
+questions and reference answers from `tests/fixtures/test_set_hard_60.json`;
+the fixture's text-only corpus is **not** used for retrieval. To select different
+inputs, pass `--dataset PATH` and/or `--index PATH`. The index must already exist
+and contain the metadata required by the application; the script does not create
+or rebuild it. Retrieval and RAGAS evaluation make paid model API calls, and the
+cross-encoder may need to download model weights.
+
+These generated questions and references may describe an older catalog snapshot
+than the index, so check their provenance before interpreting scores. The metrics
+measure retrieved-context quality relative to the references; they do not by
+themselves measure constraint violations or final agent answer quality. Empty
+retrieval results are retained and counted; retrieval or evaluation errors stop
+the run rather than being silently recorded as zero scores.
 
 ## Project Structure
 
