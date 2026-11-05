@@ -12,7 +12,7 @@ venv/bin/python -m pip install -e '.[test]'
 
 | Path | Purpose |
 | --- | --- |
-| `unit/` | Automated, offline tests for retrieval, evaluation inputs, and the independent constraint scorer. |
+| `unit/` | Automated, offline tests for retrieval, live-schedule failure handling, evaluation inputs, and the independent constraint scorer. |
 | `evaluation/` | The benchmark runner, shared RAGAS support, and constraint scorer. |
 | `benchmarks/` | Opt-in browser initialization microbenchmark. |
 | `fixtures/` | Versioned benchmark questions and references. |
@@ -29,6 +29,11 @@ browser. It includes a temporary Chroma index with deterministic fake embeddings
 as well as test doubles for query planning and reranking. These tests verify
 specific behavior; they do not establish quality on real user questions or
 measure real-model accuracy.
+
+Schedule tests simulate browser/network failures, bounded retries, login timeout,
+parsing and embedding failures, and resource cleanup. A fake-model agent test
+verifies that an unavailable schedule ends the current turn with a fixed notice,
+without another model call or fabricated schedule details.
 
 ## Catalog evaluation
 

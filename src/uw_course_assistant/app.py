@@ -1,124 +1,17 @@
 import asyncio
-from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.async_api import async_playwright
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
 from sentence_transformers import CrossEncoder
 from langchain_core.tools import tool
-from langgraph.prebuilt import create_react_agent
-from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
 from uw_course_assistant.retrieval import CatalogRetriever, create_query_planner
+from uw_course_assistant.schedule_agent import create_course_agent
+from uw_course_assistant.time_schedule import BrowserPool, get_time_schedule
 
 load_dotenv()
-
-# --- Async Playwright Pool Singleton ---
-class BrowserPool:
-    _playwright = None
-    _browser = None
-
-    @classmethod
-    async def get_browser(cls):
-        if cls._playwright is None:
-            cls._playwright = await async_playwright().start()
-        if cls._browser is None or not cls._browser.is_connected():
-            cls._browser = await cls._playwright.chromium.launch(headless=False)
-        return cls._browser
-
-    @classmethod
-    async def close(cls):
-        if cls._browser:
-            await cls._browser.close()
-            cls._browser = None
-        if cls._playwright:
-            await cls._playwright.stop()
-            cls._playwright = None
-
-@tool
-async def get_time_schedule(quarter_year: str, department: str, query: str) -> str:
-    """
-    Call this tool when you need to query real-time course schedule information (including specific class times, locations, instructors, availability, etc.) for a specific quarter (e.g., 'SPR2024') and department (e.g., 'cse').
-    Input parameters:
-    - quarter_year: Quarter and year, e.g., 'AUT2024', 'WIN2024', 'SPR2024', 'SUM2024'
-    - department: Department code, e.g., 'cse', 'math'
-    - query: The user's specific question, e.g., 'Which sections of CSE 121 are Open?' or 'What is the class time for CSE 143?'
-    """
-    url = f"https://www.washington.edu/students/timeschd/{quarter_year.upper()}/{department.lower()}.html"
-    
-    try:
-        browser = await BrowserPool.get_browser()
-        context = await browser.new_context()
-        page = await context.new_page()
-        
-        try:
-            await page.goto(url)
-            
-            # Check if redirected to a login page or UW NetID authentication
-            current_url = page.url.lower()
-            if "login" in current_url or "signin" in current_url or "identity" in current_url or "shibboleth" in current_url:
-                print(f"\n⚠️ Login required. Please complete UW NetID login and 2FA in the popped-up browser window...")
-                print(f"⏳ Waiting for you to log in and be redirected back to the schedule page (up to 5 minutes)...")
-                
-                # Wait for the URL to change back to the intended quarter/department page.
-                # using a 5-minute timeout (300000 ms)
-                await page.wait_for_url(f"**/{quarter_year.upper()}/**", timeout=300000)
-                
-            # Wait for the course table to ensure page is loaded
-            try:
-                await page.wait_for_selector("table[bgcolor='#ccffcc']", timeout=10000)
-            except Exception:
-                pass # If it times out, we will just pass the current content to BeautifulSoup to let it handle "no courses found"
-                
-            html_content = await page.content()
-        finally:
-            await page.close() # Close tab page, keep browser in pool alive
-            
-    except Exception as e:
-        return f"Failed to fetch data from {url}, error: {e}"
-        
-    soup = BeautifulSoup(html_content, 'html.parser')
-    course_tables = soup.find_all('table', bgcolor='#ccffcc')
-    
-    documents = []
-    for c_table in course_tables:
-        # Get the course Header (e.g., CSE 121 COMP PROGRAMMING I)
-        course_header = c_table.get_text(separator=" ", strip=True)
-        
-        # The series of tables immediately following this Header contain the Section information, until the next colored Header
-        curr = c_table.find_next_sibling('table')
-        sections_text = []
-        while curr and curr.get('bgcolor') != '#ccffcc':
-            pre = curr.find('pre')
-            if pre:
-                # Extract the plain text formatting from <pre>
-                text = pre.get_text(separator="  ", strip=True)
-                sections_text.append(text)
-            curr = curr.find_next_sibling('table')
-            
-        if sections_text:
-            # Concatenate all Sections under the same course into a single Document for the LLM to read uniformly
-            page_content = f"Course Info: {course_header}\nSections:\n" + "\n---\n".join(sections_text)
-            documents.append(Document(page_content=page_content))
-            
-    if not documents:
-        return f"No structured course information found at {url}. Please check if the link is valid."
-        
-    # Create a temporary vector database to retrieve current webpage information
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-    vectorstore = Chroma.from_documents(documents, embeddings)
-    # k=10, fetch data for the 10 most relevant courses
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
-    
-    docs = retriever.invoke(query)
-    if not docs:
-        return "No relevant course sections found."
-        
-    # Simply return the raw text of the retrieved documents.
-    # The main Agent's LLM will read this string (as the "Observation") and generate the final answer.
-    return "\n\n".join([doc.page_content for doc in docs])
 
 async def main():
     print("Initializing UW Course Agent Assistant...")
@@ -159,7 +52,7 @@ async def main():
 
     prompt_str = "You are a professional University of Washington course selection Agent assistant.\nYou can use uw_course_catalog to query static course syllabi (including descriptions and attributes), or use get_time_schedule to query real-time schedule information for a specific quarter (such as instructors, class times, and seat availability). If the user wants to know how a course is taught in a specific quarter or if there are open seats, you MUST use get_time_schedule. If you need to combine both, you can call these two tools concurrently. Include all explicit user constraints in catalog tool queries. Recommend only courses returned by the catalog tool that satisfy those constraints. If none match, say so without relaxing constraints."
 
-    agent_executor = create_react_agent(llm, tools, prompt=prompt_str)
+    agent_executor = create_course_agent(llm, tools, prompt=prompt_str)
 
     # Initialize chat history
     chat_history = []

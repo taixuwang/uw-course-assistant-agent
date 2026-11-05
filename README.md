@@ -12,7 +12,8 @@ An intelligent, autonomous agent that helps students discover, filter, and plan 
   3. **Dense + BM25 Retrieval** — Both branches rank only eligible courses, returning up to 20 candidates each. BM25 reuses corpus-wide IDF statistics while scoring only eligible courses.
   4. **Reciprocal Rank Fusion (RRF)** — Deduplicates by course ID and retains up to 20 fused candidates.
   5. **Cross-Encoder Re-Ranker** (`cross-encoder/ms-marco-MiniLM-L-6-v2`) — Scores candidates against the original question. A final eligibility check returns up to five courses, respecting smaller requested limits.
-- **Live Schedule Scraping via Playwright** — An async browser pool singleton (`BrowserPool`) keeps a long-lived Chromium instance for low-latency page loads. Supports automatic UW NetID / 2FA login with interactive browser pop-up.
+- **Live Schedule Scraping via Playwright** — An async browser pool singleton (`BrowserPool`) keeps a long-lived Chromium instance for low-latency page loads. Supports interactive UW NetID / 2FA login in a browser pop-up. Transient failures receive up to three attempts with 1- and 2-second backoff; invalid arguments, permanent HTTP errors, and login timeout stop early. Each attempt closes its browser context, and retrieval uses an isolated temporary index.
+- **Explicit Live-Data Failures** — Browser, parsing, embedding, and retrieval failures return a structured unavailable result. If any schedule call fails in the current turn, the agent ends that turn with a fixed unavailable notice and official source links, without asking the LLM to generate schedule details or retry again. A later user message can try again. Unavailable data is never treated as evidence that there are no courses or open seats.
 - **Conversational Memory with Dynamic Summarization** — Maintains multi-turn context with a sliding-window summarization strategy. When chat history exceeds a configurable threshold, older messages are compressed into a concise summary to prevent context window overflow.
 
 ## Multi-Tool Integration
@@ -142,7 +143,10 @@ benchmark interpretation, prerequisites, and output options.
 uw-course-assistant-agent/
 ├── src/
 │   └── uw_course_assistant/
-│       └── app.py                  # Main agent application (ReAct agent, tools, conversation loop)
+│       ├── app.py                  # Main application and conversation loop
+│       ├── retrieval.py            # Static catalog retrieval and constraint filtering
+│       ├── time_schedule.py        # Live schedule scraping, retries, and cleanup
+│       └── schedule_agent.py       # ReAct agent and deterministic unavailable response
 ├── scripts/
 │   ├── build_vector_db.py          # Parses courses.json → ChromaDB vector store
 │   └── uw_course_scraper.py        # Web scraper for UW course catalog → courses.json
