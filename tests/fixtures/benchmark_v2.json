@@ -1,0 +1,370 @@
+{
+  "metadata": {
+    "name": "UW catalog benchmark v2",
+    "source": "data/courses.json (local catalog snapshot; file is not tracked)",
+    "source_sha256": "c5968dc11230e6a8efed6f1bfbff841105ef9488a86cea9c1b4f2911f5220e9c",
+    "construction": "Deterministic template-generated factual questions and manually authored constraint questions; factual references are copied from the catalog snapshot. No human relevance review. Discovery questions are manually written from the source course descriptions; listed course IDs are known relevant examples, not exhaustive relevance labels.",
+    "limitations": "Synthetic questions, not a representative sample of student questions. Factual cases request specific course codes. Constraint labels depend on source metadata and do not assess semantic relevance. Catalog and evaluation index must refer to the same snapshot. Prerequisite labels reflect the indexed metadata and may conflate missing data with no prerequisites. Discovery prompts were authored after viewing the catalog descriptions and are not independent real-user queries; relevance labels are incomplete.",
+    "expected_empty_ids": [
+      "constraint-11",
+      "constraint-12"
+    ]
+  },
+  "cases": [
+    {
+      "id": "fact-01",
+      "category": "factual",
+      "query": "What topics does CSE 121 cover?",
+      "course_id": "CSE 121",
+      "reference": "CSE 121 — Introduction to Computer Programming I: Introduction to computer programming for students without previous programming experience. Students write programs to express algorithmic thinking and solve computational problems motivated by modern societal and scientific needs. Includes procedural programming constructs (methods), control structures (loops, conditionals), and standard data types, including arrays. Course overlaps with: CSE 142; CSS 142; and TCSS 142. Recommended: completion of Paul G. Allen School's Guided Self-Placement. Offered: AWSpS."
+    },
+    {
+      "id": "fact-02",
+      "category": "factual",
+      "query": "Describe the content of CSE 163.",
+      "course_id": "CSE 163",
+      "reference": "CSE 163 — Intermediate Data Programming: Intermediate data programming. Topics include writing programs that manipulate different types of data; leveraging the growing ecosystem of tools and libraries for data programming; writing programs that are both efficient and elegant; and writing medium-scale programs (100 to 200 lines). Course overlaps with: ATM S 310 and CSSSKL 132. Prerequisite: either CSE 122, CSE 123, CSE 142, CSE 143, or CSE 160."
+    },
+    {
+      "id": "fact-03",
+      "category": "factual",
+      "query": "What is taught in MATH 124?",
+      "course_id": "MATH 124",
+      "reference": "MATH 124 — Calculus with Analytic Geometry I: First quarter in calculus of functions of a single variable. Emphasizes differential calculus. Emphasizes applications and problem solving using the tools of calculus. Course equivalent to: STMATH 124 and TMATH 124. Course overlaps with: MATH 112; B MATH 144; STMATH 113; STMATH 114; and TMATH 122. Recommended: completion of Department of Mathematics' Guided Self-Placement. Offered: AWSpS."
+    },
+    {
+      "id": "fact-04",
+      "category": "factual",
+      "query": "Summarize the official catalog description for MATH 125.",
+      "course_id": "MATH 125",
+      "reference": "MATH 125 — Calculus with Analytic Geometry II: Second quarter in the calculus of functions of a single variable. Emphasizes integral calculus. Emphasizes applications and problem solving using the tools of calculus. Cannot be taken for credit if credit has already been earned for MATH 207. Course equivalent to: STMATH 125 and TMATH 125. Prerequisite: either minimum grade of 2.0 in MATH 124, score of 3 on AB advanced placement test, or score of 3 on BC advanced placement test. Offered: AWSpS."
+    },
+    {
+      "id": "fact-05",
+      "category": "factual",
+      "query": "What topics does STAT 311 cover?",
+      "course_id": "STAT 311",
+      "reference": "STAT 311 — Elements of Statistical Methods: Elements of good study design. Descriptive statistics including correlation and regression. Introductory concepts of probability and sampling; binomial and normal distributions. Basic concepts of hypothesis testing, estimation, and confidence intervals; t-tests and chi-square tests. Experience with computer software. Course overlaps with: STMATH 341. Prerequisite: either STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, MATH 120, MATH 124, MATH 125, MATH 126, MATH 134, MATH 135, MATH 136, QMETH 201, Q SCI 190, Q SCI 291, or Q SCI 292. Offered: AWSpS."
+    },
+    {
+      "id": "fact-06",
+      "category": "factual",
+      "query": "Describe the content of STAT 340.",
+      "course_id": "STAT 340",
+      "reference": "STAT 340 — Introduction to Probability and Mathematical Statistics I: Fundamentals of probability for statistics; axioms of probability, conditional and joint probability, independence; random variables, univariate and multivariate distributions and densities, moments, and moment generating functions; binomial, negative binomial, geometric, Poisson, uniform, normal, exponential distributions; and transformations of a random variable. Course overlaps with: TSTAT 345. Prerequisite: either MATH 126 or MATH 136; and either STAT 311, STAT 390, or Q SCI 381. Offered: A."
+    },
+    {
+      "id": "fact-07",
+      "category": "factual",
+      "query": "What is taught in PHYS 121?",
+      "course_id": "PHYS 121",
+      "reference": "PHYS 121 — Mechanics: Basic principles of mechanics and experiments in mechanics for physical science and engineering majors. Lecture tutorial and lab components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 114; PHYS 117; PHYS 121; and PHYS 141 (or equivalents). Course equivalent to: B PHYS 121. Course overlaps with: PHYS 114; PHYS 117; PHYS 141; B PHYS 114; and B PHYS 117. Prerequisite: either MATH 124 or MATH 134, which may be taken concurrently. Offered: AWSpS."
+    },
+    {
+      "id": "fact-08",
+      "category": "factual",
+      "query": "Summarize the official catalog description for PHYS 122.",
+      "course_id": "PHYS 122",
+      "reference": "PHYS 122 — Electromagnetism: Covers the basic principles of electromagnetism and experiments in these topics for physical science and engineering majors. Lecture tutorial and lab components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 115; PHYS 118; PHYS 122; and PHYS 142 (or equivalents). Course equivalent to: B PHYS 122. Course overlaps with: PHYS 115; PHYS 118; PHYS 142; B PHYS 115; and B PHYS 118. Prerequisite: either PHYS 121 or PHYS 141; and either MATH 125 or MATH 134, which may be taken concurrently. Offered: AWSpS."
+    },
+    {
+      "id": "fact-09",
+      "category": "factual",
+      "query": "What topics does BIOL 180 cover?",
+      "course_id": "BIOL 180",
+      "reference": "BIOL 180 — Introductory Biology: Mendelian genetics, evolution, biodiversity of life forms, ecology, and conservation biology. Open to all students interested in biology whether intending to major in the biological sciences, enroll in preprofessional programs, or fulfill a Natural World requirement. First course in a three-quarter series (BIOL 180, BIOL 200, BIOL 220). Maximum 15 credits allowed between BIOL 180; BIOL 200; BIOL 220 (or equivalents); and BIOL 240. Course equivalent to: B BIO 180. Course overlaps with: T BIOL 120. Offered: AWSpS."
+    },
+    {
+      "id": "fact-10",
+      "category": "factual",
+      "query": "Describe the content of BIOL 200.",
+      "course_id": "BIOL 200",
+      "reference": "BIOL 200 — Introductory Biology: For students intending to take advanced courses in the biological sciences or enroll in preprofessional programs. Metabolism and energetics, structure and function of biomolecules, cell structure and function, developmental patterning. Second course in a three-quarter series (BIOL 180, BIOL 200, BIOL 220). Maximum 15 credits allowed between BIOL 180; BIOL 200; BIOL 220 (or equivalents); and BIOL 240. Course equivalent to: B BIO 200. Course overlaps with: T BIOL 130. Prerequisite: a minimum grade of 1.7 in either BIOL 180, B BIO 180, or T BIOL 120; and either CHEM 143, CHEM 145, CHEM 223, CHEM 237, or OCEAN 295, or concurrently taking either CHEM 152, CHEM 153, CHEM 155, or CHEM 220. Offered: AWSpS."
+    },
+    {
+      "id": "fact-11",
+      "category": "factual",
+      "query": "What is taught in CHEM 142?",
+      "course_id": "CHEM 142",
+      "reference": "CHEM 142 — General Chemistry I: For science and engineering majors. Atomic nature of matter, quantum mechanics, ionic and covalent bonding, molecular geometry, stoichiometry, solution stoichiometry, and gas laws. Includes laboratory. Maximum 6 credits allowed between CHEM 120; CHEM 142; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and B CHEM 144. Course overlaps with: CHEM 120; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and T CHEM 142. Prerequisite: either a minimum grade of 1.7 in CHEM 110, a passing score in the General Chemistry Placement exam, or a minimum score of 1 on the Chemistry AP exam; recommended: MATH 120 or MATH 124. Offered: AWSpS."
+    },
+    {
+      "id": "fact-12",
+      "category": "factual",
+      "query": "Summarize the official catalog description for CHEM 152.",
+      "course_id": "CHEM 152",
+      "reference": "CHEM 152 — General Chemistry II: Gas phase and aqueous equilibria (with emphasis on acid-base equilibrium), thermochemistry, thermodynamics, and electrochemistry. Includes laboratory. Maximum 6 credits allowed between CHEM 152; CHEM 153; CHEM 155; B CHEM 153; and B CHEM 154. Course overlaps with: CHEM 153; CHEM 155; B CHEM 153; and T CHEM 152. Prerequisite: a minimum grade of 1.7 in either CHEM 142, CHEM 143, or CHEM 145. Offered: AWSpS."
+    },
+    {
+      "id": "fact-13",
+      "category": "factual",
+      "query": "What topics does ECON 200 cover?",
+      "course_id": "ECON 200",
+      "reference": "ECON 200 — Introduction to Microeconomics: Analysis of markets: consumer demand, production, exchange, the price system, resource allocation, government intervention. Course equivalent to: B BUS 220/BIS 200; TBECON 220; and TECON 200. Offered: AWSpS."
+    },
+    {
+      "id": "fact-14",
+      "category": "factual",
+      "query": "Describe the content of ECON 201.",
+      "course_id": "ECON 201",
+      "reference": "ECON 201 — Introduction to Macroeconomics: Analysis of the aggregate economy: national income, inflation, business fluctuations, unemployment, monetary system, federal budget, international trade and finance. Course equivalent to: B BUS 221/BIS 201; TBECON 221; and TECON 201. Prerequisite: ECON 200. Offered: AWSpS."
+    },
+    {
+      "id": "fact-15",
+      "category": "factual",
+      "query": "What is taught in PSYCH 101?",
+      "course_id": "PSYCH 101",
+      "reference": "PSYCH 101 — Introduction to Psychology: Surveys major areas of psychological science. Core topics include human social behavior, personality, psychological disorders and treatment, learning, memory, human development, biological influences, and research methods. Related topics may include sensation, perception, states of consciousness, thinking, intelligence, language, motivation, emotion, stress and health, cross-cultural psychology, and applied psychology. Prerequisite: null Offered: AWSpS."
+    },
+    {
+      "id": "fact-16",
+      "category": "factual",
+      "query": "Summarize the official catalog description for PSYCH 202.",
+      "course_id": "PSYCH 202",
+      "reference": "PSYCH 202 — Biopsychology: Examines the biological basis of behavior, the nervous system, how it works to control behavior and sense the world, and what happens when it malfunctions. Topics include learning and memory, development, sex, drugs, sleep, the senses, emotions, and mental disorders. Course overlaps with: TPSYCH 260/T BIOL 260. Prerequisite: PSYCH 101. Offered: AWSpS."
+    },
+    {
+      "id": "fact-17",
+      "category": "factual",
+      "query": "What topics does INFO 200 cover?",
+      "course_id": "INFO 200",
+      "reference": "INFO 200 — Intellectual Foundations of Informatics: Introduces the intellectual foundations of information, including what it is; how people create, categorize, find, interpret, manipulate and use information; how human values shape the design of information, information technology, and information systems; and how these systems shape people, organizations, and society. Includes analytic, design, empirical, and technical skill development."
+    },
+    {
+      "id": "fact-18",
+      "category": "factual",
+      "query": "Describe the content of INFO 201.",
+      "course_id": "INFO 201",
+      "reference": "INFO 201 — Foundational Skills for Data Science: Introduces fundamental tools, technologies, and skills necessary to transform data into knowledge, including data manipulation, analysis, and visualization, as well as version control and programming languages used in data programming. Students learn to work with real data, and reflect on the power and perils of using data to inform. Course overlaps with: T GIS 470."
+    },
+    {
+      "id": "fact-19",
+      "category": "factual",
+      "query": "What is taught in ENGL 111?",
+      "course_id": "ENGL 111",
+      "reference": "ENGL 111 — Composition: Literature: Uses narratives to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSpS."
+    },
+    {
+      "id": "fact-20",
+      "category": "factual",
+      "query": "Summarize the official catalog description for ENGL 131.",
+      "course_id": "ENGL 131",
+      "reference": "ENGL 131 — Composition: Exposition: Uses a variety of texts across genres to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131.\nOffered: AWSp."
+    },
+    {
+      "id": "constraint-01",
+      "category": "constraints",
+      "query": "Find CSE courses worth 4 credits that satisfy the RSN requirement and have no prerequisites.",
+      "constraints": {
+        "department": "CSE",
+        "credits": 4,
+        "gen_ed": [
+          "RSN"
+        ],
+        "has_prerequisite": false
+      }
+    },
+    {
+      "id": "constraint-02",
+      "category": "constraints",
+      "query": "Find MATH courses worth 5 credits that satisfy the NSc requirement and have no prerequisites.",
+      "constraints": {
+        "department": "MATH",
+        "credits": 5,
+        "gen_ed": [
+          "NSc"
+        ],
+        "has_prerequisite": false
+      }
+    },
+    {
+      "id": "constraint-03",
+      "category": "constraints",
+      "query": "Find STAT courses worth 4 credits.",
+      "constraints": {
+        "department": "STAT",
+        "credits": 4
+      }
+    },
+    {
+      "id": "constraint-04",
+      "category": "constraints",
+      "query": "Find PHYS courses worth 5 credits that satisfy the NSc requirement.",
+      "constraints": {
+        "department": "PHYS",
+        "credits": 5,
+        "gen_ed": [
+          "NSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-05",
+      "category": "constraints",
+      "query": "Find BIOL courses worth 5 credits.",
+      "constraints": {
+        "department": "BIOL",
+        "credits": 5
+      }
+    },
+    {
+      "id": "constraint-06",
+      "category": "constraints",
+      "query": "Find CHEM courses worth 5 credits that satisfy the RSN requirement.",
+      "constraints": {
+        "department": "CHEM",
+        "credits": 5,
+        "gen_ed": [
+          "RSN"
+        ]
+      }
+    },
+    {
+      "id": "constraint-07",
+      "category": "constraints",
+      "query": "Find ECON courses worth 5 credits that satisfy both SSc and DIV requirements.",
+      "constraints": {
+        "department": "ECON",
+        "credits": 5,
+        "gen_ed": [
+          "SSc",
+          "DIV"
+        ]
+      }
+    },
+    {
+      "id": "constraint-08",
+      "category": "constraints",
+      "query": "Find PSYCH courses worth 5 credits that satisfy the SSc requirement.",
+      "constraints": {
+        "department": "PSYCH",
+        "credits": 5,
+        "gen_ed": [
+          "SSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-09",
+      "category": "constraints",
+      "query": "Find INFO courses worth 5 credits that satisfy the RSN requirement.",
+      "constraints": {
+        "department": "INFO",
+        "credits": 5,
+        "gen_ed": [
+          "RSN"
+        ]
+      }
+    },
+    {
+      "id": "constraint-10",
+      "category": "constraints",
+      "query": "Find ENGL courses worth 5 credits that satisfy the C requirement.",
+      "constraints": {
+        "department": "ENGL",
+        "credits": 5,
+        "gen_ed": [
+          "C"
+        ]
+      }
+    },
+    {
+      "id": "constraint-11",
+      "category": "constraints",
+      "query": "Find CSE courses worth exactly 100 credits.",
+      "constraints": {
+        "department": "CSE",
+        "credits": 100
+      }
+    },
+    {
+      "id": "constraint-12",
+      "category": "constraints",
+      "query": "Find MATH courses worth exactly 100 credits.",
+      "constraints": {
+        "department": "MATH",
+        "credits": 100
+      }
+    },
+    {
+      "id": "discovery-01",
+      "category": "discovery",
+      "query": "I am new to coding and want to learn loops, conditionals, and arrays while solving problems with programs.",
+      "known_course_ids": [
+        "CSE 121"
+      ]
+    },
+    {
+      "id": "discovery-02",
+      "category": "discovery",
+      "query": "I want a class on using derivatives to solve problems involving functions of one variable.",
+      "known_course_ids": [
+        "MATH 124"
+      ]
+    },
+    {
+      "id": "discovery-03",
+      "category": "discovery",
+      "query": "Find a class that covers study design, correlation, confidence intervals, and hypothesis tests.",
+      "known_course_ids": [
+        "STAT 311"
+      ]
+    },
+    {
+      "id": "discovery-04",
+      "category": "discovery",
+      "query": "I am interested in learning about electric and magnetic phenomena with a hands-on lab.",
+      "known_course_ids": [
+        "PHYS 122"
+      ]
+    },
+    {
+      "id": "discovery-05",
+      "category": "discovery",
+      "query": "Find an introduction to evolution, inherited traits, biodiversity, and ecology.",
+      "known_course_ids": [
+        "BIOL 180"
+      ]
+    },
+    {
+      "id": "discovery-06",
+      "category": "discovery",
+      "query": "I would like a chemistry class covering acid-base equilibria, thermodynamics, and electrochemistry.",
+      "known_course_ids": [
+        "CHEM 152"
+      ]
+    },
+    {
+      "id": "discovery-07",
+      "category": "discovery",
+      "query": "I want to study inflation, unemployment, national income, and the economy as a whole.",
+      "known_course_ids": [
+        "ECON 201"
+      ]
+    },
+    {
+      "id": "discovery-08",
+      "category": "discovery",
+      "query": "Find a course exploring how the nervous system relates to behavior, sleep, emotions, and memory.",
+      "known_course_ids": [
+        "PSYCH 202"
+      ]
+    },
+    {
+      "id": "discovery-09",
+      "category": "discovery",
+      "query": "I want to understand how human values shape information technology and how information systems affect society.",
+      "known_course_ids": [
+        "INFO 200"
+      ]
+    },
+    {
+      "id": "discovery-10",
+      "category": "discovery",
+      "query": "Find a writing course using narratives to explore the relationship between language, identity, and culture.",
+      "known_course_ids": [
+        "ENGL 111"
+      ]
+    }
+  ]
+}

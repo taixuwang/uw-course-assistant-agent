@@ -12,7 +12,7 @@ import sys
 import types
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DATASET = PROJECT_ROOT / "tests/fixtures/test_set_hard_60.json"
 DEFAULT_INDEX = PROJECT_ROOT / "db/uw_chroma_db"
 
@@ -65,7 +65,8 @@ def create_catalog_retriever(index_path):
     )
 
 
-def evaluate_retriever(retriever, queries, references):
+def evaluate_data(data):
+    """Score previously retrieved contexts without running retrieval again."""
     from datasets import Dataset
     from langchain_openai import ChatOpenAI
 
@@ -84,15 +85,19 @@ def evaluate_retriever(retriever, queries, references):
         from ragas.metrics import context_precision, context_recall
         metrics = [context_precision, context_recall]
 
-    data = build_evaluation_data(retriever, queries, references)
-    empty_count = sum(not contexts for contexts in data["retrieved_contexts"])
-    print(f"Retrieval returned no contexts for {empty_count}/{len(queries)} queries.")
     return evaluate(
         dataset=Dataset.from_dict(data),
         metrics=metrics,
         llm=ChatOpenAI(model="gpt-4o-mini", temperature=0),
         raise_exceptions=True,
     )
+
+
+def evaluate_retriever(retriever, queries, references):
+    data = build_evaluation_data(retriever, queries, references)
+    empty_count = sum(not contexts for contexts in data["retrieved_contexts"])
+    print(f"Retrieval returned no contexts for {empty_count}/{len(queries)} queries.")
+    return evaluate_data(data)
 
 
 def main():

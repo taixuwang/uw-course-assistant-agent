@@ -1,16 +1,9 @@
 """Offline tests for the evaluation adapter; no API or model downloads needed."""
 
-import importlib.util
-from pathlib import Path
 from types import SimpleNamespace
 import unittest
 
-
-SPEC = importlib.util.spec_from_file_location(
-    "eval_ragas", Path(__file__).with_name("eval_ragas.py")
-)
-eval_ragas = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(eval_ragas)
+from tests.evaluation import eval_ragas
 
 
 class RecordingRetriever:

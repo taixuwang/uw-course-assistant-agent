@@ -24,7 +24,7 @@ An intelligent, autonomous agent that helps students discover, filter, and plan 
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.10+
 - An OpenAI API key (`OPENAI_API_KEY`)
 - Playwright browsers installed (`playwright install chromium`)
 
@@ -47,7 +47,7 @@ An intelligent, autonomous agent that helps students discover, filter, and plan 
 
 3. **Install Python dependencies:**
    ```bash
-   pip install -r requirements.txt
+   pip install -e .
    ```
 
 4. **Install Playwright browser binaries:**
@@ -62,16 +62,16 @@ An intelligent, autonomous agent that helps students discover, filter, and plan 
    ```
 
 6. **Provide course data:**
-   Ensure `courses.json` is present in the project root. You can generate it by running the scraper (see below).
+   Ensure `data/courses.json` is present. You can generate it by running the scraper (see below).
 
 ## Usage
 
 ### 1. (Optional) Scrape Course Catalog
 
-Crawl the UW course catalog and produce `courses.json`:
+Crawl the UW course catalog and produce `data/courses.json`:
 
 ```bash
-python uw_course_scraper.py
+python scripts/uw_course_scraper.py
 ```
 
 ### 2. Build the Vector Database
@@ -79,17 +79,17 @@ python uw_course_scraper.py
 Embed the course data into a local ChromaDB instance:
 
 ```bash
-python build_vector_db.py
+python scripts/build_vector_db.py
 ```
 
-> Re-running this command automatically deletes the old `./uw_chroma_db` directory to prevent duplicate entries.
+> Re-running this command automatically deletes the old `db/uw_chroma_db` directory to prevent duplicate entries.
 
 ### 3. Run the Agent
 
 Start the interactive chat session:
 
 ```bash
-python app.py
+python -m uw_course_assistant.app
 ```
 
 Example queries:
@@ -115,50 +115,26 @@ course metadata and the LLM's extraction of the user's constraints.
 
 ## Evaluation & Testing
 
-Run the shared-filter retrieval regression tests without API calls, model downloads,
-or browser launches (after installing the project dependencies):
+Run the offline regression suite from the project root:
 
 ```bash
-PYTHONPATH=src python -m unittest discover -s tests -p test_retrieval.py -v
+python -m pip install -e '.[test]'
+python -m pytest -q
 ```
 
-These tests cover filter validation, numeric credits, general education membership,
-logical conditions, shared eligibility before top-k selection, course ID deduplication,
-empty results, and ID restriction with a temporary real Chroma database.
-
-The `tests/` directory contains a RAGAS-based evaluation suite and latency benchmarks:
-
-| File | Description |
-|---|---|
-| `tests/build_test_set_60.py` | Generates a 60-query test set from `courses.json`. |
-| `tests/build_hard_benchmark.py` | Generates a harder 60-query benchmark (5 query categories: topic/skill, prerequisite, gen-ed/credit, concept overlap, and disambiguation). |
-| `tests/eval_ragas.py` | Runs RAGAS Context Precision and Context Recall on the actual catalog retriever, including query planning and shared filtering. |
-| `tests/test_latency.py` | Benchmarks Playwright page-initialization latency: cold browser launch vs. async browser pool singleton. |
-
-Run the evaluation from the project root, after installing the project with its
-test dependencies, configuring `OPENAI_API_KEY`, and building the catalog index
-with `python scripts/build_vector_db.py`:
+The suite uses test doubles and a temporary Chroma database; it does not call
+external APIs, download models, or launch a browser. To run the opt-in catalog
+benchmark against a built index and configured OpenAI API key:
 
 ```bash
-pip install -e '.[test]'
-python tests/eval_ragas.py
+python -m tests.evaluation.eval_benchmark_v2
 ```
 
-The evaluator uses the persisted index at `db/uw_chroma_db`, the same model
-configuration and `CatalogRetriever.search()` as the application. It reads
-questions and reference answers from `tests/fixtures/test_set_hard_60.json`;
-the fixture's text-only corpus is **not** used for retrieval. To select different
-inputs, pass `--dataset PATH` and/or `--index PATH`. The index must already exist
-and contain the metadata required by the application; the script does not create
-or rebuild it. Retrieval and RAGAS evaluation make paid model API calls, and the
-cross-encoder may need to download model weights.
-
-These generated questions and references may describe an older catalog snapshot
-than the index, so check their provenance before interpreting scores. The metrics
-measure retrieved-context quality relative to the references; they do not by
-themselves measure constraint violations or final agent answer quality. Empty
-retrieval results are retained and counted; retrieval or evaluation errors stop
-the run rather than being silently recorded as zero scores.
+The benchmark makes paid API calls and may download cross-encoder weights. It
+reports factual retrieval, discovery, and multi-answer constraint cases
+separately; its synthetic questions and metadata-based labels have important
+limitations. See [tests/README.md](tests/README.md) for the test layout,
+benchmark interpretation, prerequisites, legacy tools, and output options.
 
 ## Project Structure
 
@@ -177,13 +153,12 @@ uw-course-assistant-agent/
 ├── pyproject.toml                  # Python project metadata and dependencies
 ├── .env                            # Environment variables (not tracked)
 └── tests/
-    ├── eval_ragas.py               # RAGAS retriever evaluation script
-    ├── test_latency.py             # Playwright browser pool latency benchmark
-    ├── build_test_set_60.py        # Test set generator (60 basic Q&A pairs)
-    ├── build_hard_benchmark.py     # Hard benchmark generator (60 queries + 1K distractors)
-    └── fixtures/
-        ├── test_set_60.json        # Pre-built test set (60 pairs)
-        └── test_set_hard_60.json   # Pre-built hard benchmark dataset
+    ├── unit/                       # Offline automated tests
+    ├── evaluation/                 # Evaluation runners and legacy data generators
+    ├── benchmarks/                 # Opt-in browser lifecycle microbenchmark
+    ├── fixtures/                   # Benchmark data
+    ├── results/                    # Saved benchmark runs
+    └── README.md                   # Commands and interpretation
 ```
 
 ## Tech Stack
