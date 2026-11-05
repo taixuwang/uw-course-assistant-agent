@@ -3,12 +3,19 @@
     "name": "UW catalog benchmark v2",
     "source": "data/courses.json (local catalog snapshot; file is not tracked)",
     "source_sha256": "c5968dc11230e6a8efed6f1bfbff841105ef9488a86cea9c1b4f2911f5220e9c",
-    "construction": "Deterministic template-generated factual questions and manually authored constraint questions; factual references are copied from the catalog snapshot. No human relevance review. Discovery questions are manually written from the source course descriptions; listed course IDs are known relevant examples, not exhaustive relevance labels.",
+    "construction": "Synthetic factual questions use templates and catalog descriptions as references; constraint questions and topic-discovery questions were authored from the catalog. Discovery course IDs are known relevant examples, not exhaustive labels. The cases have not been independently human reviewed.",
     "limitations": "Synthetic questions, not a representative sample of student questions. Factual cases request specific course codes. Constraint labels depend on source metadata and do not assess semantic relevance. Catalog and evaluation index must refer to the same snapshot. Prerequisite labels reflect the indexed metadata and may conflate missing data with no prerequisites. Discovery prompts were authored after viewing the catalog descriptions and are not independent real-user queries; relevance labels are incomplete.",
     "expected_empty_ids": [
       "constraint-11",
-      "constraint-12"
-    ]
+      "constraint-12",
+      "constraint-29",
+      "constraint-30"
+    ],
+    "case_counts": {
+      "factual": 30,
+      "discovery": 30,
+      "constraints": 30
+    }
   },
   "cases": [
     {
@@ -365,6 +372,460 @@
       "known_course_ids": [
         "ENGL 111"
       ]
+    },
+    {
+      "id": "fact-21",
+      "category": "factual",
+      "query": "What does ANTH 100 introduce about anthropology?",
+      "course_id": "ANTH 100",
+      "reference": "ANTH 100 — Introduction to Anthropology: Introduction to the subfields of archaeology, biocultural anthropology, and sociocultural anthropology through the examination of selected problems in human physical, cultural, and social evolution. Not recommended for students who have had other courses in anthropology, archaeology, or biocultural anthropology. Course equivalent to: T ANTH 101."
+    },
+    {
+      "id": "fact-22",
+      "category": "factual",
+      "query": "What topics are covered in GEOG 123?",
+      "course_id": "GEOG 123",
+      "reference": "GEOG 123 — Introduction to Globalization: Provides an introduction to the debates over globalization. Focuses on the growth and intensification of global ties. Addresses the resulting inequalities and tensions, as well as the new opportunities for cultural and political exchange. Topics include the impacts on government, finance, labor, culture, the environment, health, and activism. Course equivalent to: BIS 282. Course overlaps with: TPOL S 123."
+    },
+    {
+      "id": "fact-23",
+      "category": "factual",
+      "query": "What are the main subjects of PHIL 100?",
+      "course_id": "PHIL 100",
+      "reference": "PHIL 100 — Introduction to Philosophy: Major philosophical questions relating to such matters as the existence of God, the foundations of knowledge, the nature of reality, and the nature of morality. Approach may be either historical or topical. Course equivalent to: BIS 193 and T PHIL 101. Offered: AWSpS."
+    },
+    {
+      "id": "fact-24",
+      "category": "factual",
+      "query": "Describe the content of MUSIC 120.",
+      "course_id": "MUSIC 120",
+      "reference": "MUSIC 120 — Introduction to Classical Music: Studies in listening, with emphasis on the changing components of Western art music. Illustrated lectures, laboratory section meetings, and presentations by guest artists. Intended for non-majors."
+    },
+    {
+      "id": "fact-25",
+      "category": "factual",
+      "query": "What does COM 200 teach about communication?",
+      "course_id": "COM 200",
+      "reference": "COM 200 — Introduction to Communication: Introduces theories and research in communication. Explores the myriad ways scholars approach fundamental issues of contemporary human communication. Focuses on theories and research of communication (e.g. relational, group, political, cultural, and international). Acts as a gateway to knowledge about the communication discipline. Course overlaps with: BIS 178."
+    },
+    {
+      "id": "fact-26",
+      "category": "factual",
+      "query": "What does ART 190 cover?",
+      "course_id": "ART 190",
+      "reference": "ART 190 — Introduction to Drawing: Builds basic drawing skills, develops understanding of primary concepts which relate to drawing and develops an understanding of the grammar or syntax of two-dimensional language. Students move beyond their current knowledge and abilities and link new skills, concepts, and understandings to creative expressing. Course equivalent to: BIS 121."
+    },
+    {
+      "id": "fact-27",
+      "category": "factual",
+      "query": "Summarize the catalog description of AFRAM 101.",
+      "course_id": "AFRAM 101",
+      "reference": "AFRAM 101 — Introduction to African American Studies: History, culture, religion, institutions, politics, economics, arts, and psychology of peoples of African descent as developed from experience in both the old and new worlds. Multidisciplinary analysis of social life from a black perspective as illustrated in selected historical and contemporary writings."
+    },
+    {
+      "id": "fact-28",
+      "category": "factual",
+      "query": "What is studied in ARCHY 105?",
+      "course_id": "ARCHY 105",
+      "reference": "ARCHY 105 — The Human Past: Explores human cultural and biological evolution: how ancestors 2,500,000 years ago were like us but still different, Neanderthals and their extinction, social/economic revolutions from foraging to farming to states and empires, setbacks, failures, relationships with social and natural environments, and the role of technology. Examines the astonishing variety of adaptations humans have made."
+    },
+    {
+      "id": "fact-29",
+      "category": "factual",
+      "query": "What topics are introduced in LING 200?",
+      "course_id": "LING 200",
+      "reference": "LING 200 — Introduction to Linguistics: Language as the fundamental characteristic of the human species; diversity and complexity of human languages; phonological and grammatical analysis; dimensions of language use; and language acquisition and historical language change. Cannot be taken for credit if credit has already been earned for LING 400. Course overlaps with: LING 201."
+    },
+    {
+      "id": "fact-30",
+      "category": "factual",
+      "query": "What does ENVIR 100 cover?",
+      "course_id": "ENVIR 100",
+      "reference": "ENVIR 100 — Environment and Society: Understanding Issues, Finding Solutions: Examines the ethical, political, social, and scientific dimensions of environmental issues. Integrates knowledge from different disciplines while evaluating environmental problems at various scales. Uses an environmental justice lens to examine the ways problems are concentrated in some communities while providing opportunities to practice environmental communication and collaboration across disciplines. Course overlaps with: TESC 220. Offered: AWSpS."
+    },
+    {
+      "id": "discovery-11",
+      "category": "discovery",
+      "query": "I want to learn how linked lists, graphs, trees, hashing, and sorting are implemented, with an emphasis on practical programming.",
+      "known_course_ids": [
+        "CSE 373"
+      ]
+    },
+    {
+      "id": "discovery-12",
+      "category": "discovery",
+      "query": "Which calculus course covers three-dimensional vectors, functions of several variables, and Taylor series?",
+      "known_course_ids": [
+        "MATH 126"
+      ]
+    },
+    {
+      "id": "discovery-13",
+      "category": "discovery",
+      "query": "I am looking for an engineering physics class that combines optics and thermodynamics with experiments.",
+      "known_course_ids": [
+        "PHYS 123"
+      ]
+    },
+    {
+      "id": "discovery-14",
+      "category": "discovery",
+      "query": "Find a biology course about how animals function and how plants develop and function.",
+      "known_course_ids": [
+        "BIOL 220"
+      ]
+    },
+    {
+      "id": "discovery-15",
+      "category": "discovery",
+      "query": "I would like to study molecular bonding, atomic structure, chemical quantities, and gas laws in a laboratory course.",
+      "known_course_ids": [
+        "CHEM 142"
+      ]
+    },
+    {
+      "id": "discovery-16",
+      "category": "discovery",
+      "query": "I want to understand how consumer demand, prices, production, and government interventions shape markets.",
+      "known_course_ids": [
+        "ECON 200"
+      ]
+    },
+    {
+      "id": "discovery-17",
+      "category": "discovery",
+      "query": "Find a course that teaches data cleaning, analysis, visualization, and version control using real datasets.",
+      "known_course_ids": [
+        "INFO 201"
+      ]
+    },
+    {
+      "id": "discovery-18",
+      "category": "discovery",
+      "query": "I want to explore foundational questions about knowledge, reality, morality, and whether a god exists.",
+      "known_course_ids": [
+        "PHIL 100"
+      ]
+    },
+    {
+      "id": "discovery-19",
+      "category": "discovery",
+      "query": "Which course introduces social institutions, inequality, deviance, and how societies change?",
+      "known_course_ids": [
+        "SOC 110"
+      ]
+    },
+    {
+      "id": "discovery-20",
+      "category": "discovery",
+      "query": "I would like to examine how global connections affect labor, culture, the environment, and inequality.",
+      "known_course_ids": [
+        "GEOG 123"
+      ]
+    },
+    {
+      "id": "discovery-21",
+      "category": "discovery",
+      "query": "Find an introduction to how languages are structured, acquired, and changed over time.",
+      "known_course_ids": [
+        "LING 200"
+      ]
+    },
+    {
+      "id": "discovery-22",
+      "category": "discovery",
+      "query": "I am interested in learning still-camera techniques and using photographs creatively in an artistic setting.",
+      "known_course_ids": [
+        "ART 140"
+      ]
+    },
+    {
+      "id": "discovery-23",
+      "category": "discovery",
+      "query": "Find a non-major course focused on listening to Western art music and how its components have changed.",
+      "known_course_ids": [
+        "MUSIC 120"
+      ]
+    },
+    {
+      "id": "discovery-24",
+      "category": "discovery",
+      "query": "I want to explore human physical and cultural evolution through archaeology and the study of human societies.",
+      "known_course_ids": [
+        "ANTH 100"
+      ]
+    },
+    {
+      "id": "discovery-25",
+      "category": "discovery",
+      "query": "Find an interdisciplinary course on environmental problems that considers justice, politics, science, and communication.",
+      "known_course_ids": [
+        "ENVIR 100"
+      ]
+    },
+    {
+      "id": "discovery-26",
+      "category": "discovery",
+      "query": "I want a mostly conceptual introduction to stars, planets, galaxies, and black holes rather than an advanced mathematical treatment.",
+      "known_course_ids": [
+        "ASTR 101"
+      ]
+    },
+    {
+      "id": "discovery-27",
+      "category": "discovery",
+      "query": "Which course surveys US political institutions and how political conflicts are addressed?",
+      "known_course_ids": [
+        "POL S 202"
+      ]
+    },
+    {
+      "id": "discovery-28",
+      "category": "discovery",
+      "query": "I want to study communication research and theories about interactions in groups, relationships, and politics.",
+      "known_course_ids": [
+        "COM 200"
+      ]
+    },
+    {
+      "id": "discovery-29",
+      "category": "discovery",
+      "query": "Find a course on how archaeologists collect evidence to study long-term human history and its relevance today.",
+      "known_course_ids": [
+        "ARCHY 101"
+      ]
+    },
+    {
+      "id": "discovery-30",
+      "category": "discovery",
+      "query": "I am interested in how nutrition affects wellness, chronic disease, food security, and nutritional needs through life.",
+      "known_course_ids": [
+        "NUTR 200"
+      ]
+    },
+    {
+      "id": "constraint-13",
+      "category": "constraints",
+      "query": "Show me five-credit SOC courses that fulfill the SSc requirement.",
+      "constraints": {
+        "department": "SOC",
+        "credits": 5,
+        "gen_ed": [
+          "SSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-14",
+      "category": "constraints",
+      "query": "Which PHIL courses have five credits and carry A&H credit?",
+      "constraints": {
+        "department": "PHIL",
+        "credits": 5,
+        "gen_ed": [
+          "A&H"
+        ]
+      }
+    },
+    {
+      "id": "constraint-15",
+      "category": "constraints",
+      "query": "Find GEOG courses for five credits that satisfy DIV and SSc.",
+      "constraints": {
+        "department": "GEOG",
+        "credits": 5,
+        "gen_ed": [
+          "DIV",
+          "SSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-16",
+      "category": "constraints",
+      "query": "List five-credit ANTH classes in SSc with no listed prerequisites.",
+      "constraints": {
+        "department": "ANTH",
+        "credits": 5,
+        "gen_ed": [
+          "SSc"
+        ],
+        "has_prerequisite": false
+      }
+    },
+    {
+      "id": "constraint-17",
+      "category": "constraints",
+      "query": "What three-credit MUSIC courses fulfill the A&H requirement?",
+      "constraints": {
+        "department": "MUSIC",
+        "credits": 3,
+        "gen_ed": [
+          "A&H"
+        ]
+      }
+    },
+    {
+      "id": "constraint-18",
+      "category": "constraints",
+      "query": "Give me ART courses worth five credits with A&H and no listed prerequisites.",
+      "constraints": {
+        "department": "ART",
+        "credits": 5,
+        "gen_ed": [
+          "A&H"
+        ],
+        "has_prerequisite": false
+      }
+    },
+    {
+      "id": "constraint-19",
+      "category": "constraints",
+      "query": "Find five-credit ARCHY courses carrying NSc credit.",
+      "constraints": {
+        "department": "ARCHY",
+        "credits": 5,
+        "gen_ed": [
+          "NSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-20",
+      "category": "constraints",
+      "query": "Show me LING classes worth five credits that satisfy A&H.",
+      "constraints": {
+        "department": "LING",
+        "credits": 5,
+        "gen_ed": [
+          "A&H"
+        ]
+      }
+    },
+    {
+      "id": "constraint-21",
+      "category": "constraints",
+      "query": "Which five-credit COM courses satisfy both SSc and DIV?",
+      "constraints": {
+        "department": "COM",
+        "credits": 5,
+        "gen_ed": [
+          "SSc",
+          "DIV"
+        ]
+      }
+    },
+    {
+      "id": "constraint-22",
+      "category": "constraints",
+      "query": "Find GWSS courses with five credits, DIV and SSc, and no prerequisites.",
+      "constraints": {
+        "department": "GWSS",
+        "credits": 5,
+        "gen_ed": [
+          "DIV",
+          "SSc"
+        ],
+        "has_prerequisite": false
+      }
+    },
+    {
+      "id": "constraint-23",
+      "category": "constraints",
+      "query": "List five-credit SPAN courses in A&H that have a listed prerequisite.",
+      "constraints": {
+        "department": "SPAN",
+        "credits": 5,
+        "gen_ed": [
+          "A&H"
+        ],
+        "has_prerequisite": true
+      }
+    },
+    {
+      "id": "constraint-24",
+      "category": "constraints",
+      "query": "Show AFRAM courses for five credits that satisfy A&H and DIV.",
+      "constraints": {
+        "department": "AFRAM",
+        "credits": 5,
+        "gen_ed": [
+          "A&H",
+          "DIV"
+        ]
+      }
+    },
+    {
+      "id": "constraint-25",
+      "category": "constraints",
+      "query": "Find ENVIR courses worth five credits that satisfy both NSc and DIV.",
+      "constraints": {
+        "department": "ENVIR",
+        "credits": 5,
+        "gen_ed": [
+          "NSc",
+          "DIV"
+        ]
+      }
+    },
+    {
+      "id": "constraint-26",
+      "category": "constraints",
+      "query": "List BIOL courses worth four credits that fulfill NSc.",
+      "constraints": {
+        "department": "BIOL",
+        "credits": 4,
+        "gen_ed": [
+          "NSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-27",
+      "category": "constraints",
+      "query": "Which CHEM courses offer three credits and NSc?",
+      "constraints": {
+        "department": "CHEM",
+        "credits": 3,
+        "gen_ed": [
+          "NSc"
+        ]
+      }
+    },
+    {
+      "id": "constraint-28",
+      "category": "constraints",
+      "query": "Find CSE courses worth four credits with a listed prerequisite.",
+      "constraints": {
+        "department": "CSE",
+        "credits": 4,
+        "has_prerequisite": true
+      }
+    },
+    {
+      "id": "constraint-29",
+      "category": "constraints",
+      "query": "Show two-credit SOC courses that satisfy the DIV requirement.",
+      "constraints": {
+        "department": "SOC",
+        "credits": 2,
+        "gen_ed": [
+          "DIV"
+        ]
+      }
+    },
+    {
+      "id": "constraint-30",
+      "category": "constraints",
+      "query": "Find three-credit MUSIC courses that satisfy both NSc and RSN.",
+      "constraints": {
+        "department": "MUSIC",
+        "credits": 3,
+        "gen_ed": [
+          "NSc",
+          "RSN"
+        ]
+      }
     }
   ]
 }

@@ -13,7 +13,7 @@ venv/bin/python -m pip install -e '.[test]'
 | Path | Purpose |
 | --- | --- |
 | `unit/` | Automated, offline tests for retrieval, evaluation inputs, and the independent constraint scorer. |
-| `evaluation/` | RAGAS and v2 benchmark runners, constraint scorer, and legacy fixture generators. |
+| `evaluation/` | The benchmark runner, shared RAGAS support, and constraint scorer. |
 | `benchmarks/` | Opt-in browser initialization microbenchmark. |
 | `fixtures/` | Versioned benchmark questions and references. |
 | `results/` | Saved benchmark results; record the fixture and index fingerprints when comparing runs. |
@@ -32,9 +32,9 @@ measure real-model accuracy.
 
 ## Catalog evaluation
 
-The evaluators use the actual `CatalogRetriever.search()` path, including the
+The evaluator uses the actual `CatalogRetriever.search()` path, including the
 LLM query planner, shared filtering, dense and sparse retrieval, and reranking.
-Both require:
+It requires:
 
 - A configured `OPENAI_API_KEY` in the environment or repository-root `.env`.
 - A built Chroma catalog index at `db/uw_chroma_db` (see the root README).
@@ -55,13 +55,13 @@ provided. Reference descriptions are checked against the index before evaluation
 
 The benchmark has three categories:
 
-- **Factual:** 20 questions name a course. RAGAS context precision and recall
+- **Factual:** 30 questions name a course. RAGAS context precision and recall
   evaluate retrieved contexts against that course's catalog description;
   target-course hit indicates whether the course appears among the results.
-- **Discovery:** 10 topic questions each have an incomplete list of known
+- **Discovery:** 30 topic questions each have an incomplete list of known
   relevant courses. A known-course hit is useful evidence, but a miss does not
   mean all returned courses are irrelevant.
-- **Constraints:** 12 questions are assessed against independent predicates
+- **Constraints:** 30 questions are assessed against independent predicates
   over the index metadata. The report includes known-eligible counts, returned
   violations and unknowns, positive-case hits, and correct empty responses.
   Unknown returned metadata is included in violations and counted separately.
@@ -75,34 +75,9 @@ unknown and absent prerequisites. The scorer uses exact department metadata and
 does not resolve cross-listed courses. Constraint scores do not measure topical
 relevance or final agent answer quality.
 
-For historical comparison only, the legacy benchmark can also be run:
-
-```bash
-venv/bin/python -m tests.evaluation.eval_ragas
-```
-
-It reads `fixtures/test_set_hard_60.json` questions and references, but retrieves
-from the persisted catalog index, not from the fixture's text-only corpus.
-The legacy fixture has duplicate questions paired with different single-course
-references and concentrates on two departments; its references may also come
-from an older snapshot. Its RAGAS scores are not directly comparable with v2.
-
-## Legacy fixture generators
-
-These generators produce synthetic, unreviewed data from `data/courses.json`;
-they do not build an index and do not regenerate the v2 benchmark. The raw
-catalog is not tracked in Git. Both commands support `--input`, `--output`, and
-`--force`; the hard generator also accepts `--seed`. By default they refuse to
-overwrite an existing fixture. For example:
-
-```bash
-venv/bin/python -m tests.evaluation.build_test_set_60 --output /tmp/basic-benchmark.json
-venv/bin/python -m tests.evaluation.build_hard_benchmark --output /tmp/hard-benchmark.json --seed 42
-```
-
-Use `--help` for defaults and options. The legacy construction is template-based;
-its reference for a broad question should not be interpreted as the only valid
-answer.
+The 90-question dataset extends the earlier 42-question fixture. Historical
+results apply to the fixture hash recorded in each results file, not the expanded
+dataset; compare scores only when they use the same questions.
 
 ## Browser microbenchmark
 

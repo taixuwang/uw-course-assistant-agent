@@ -8,7 +8,7 @@ import math
 from pathlib import Path
 
 from tests.evaluation.benchmark_constraints import evaluate_constraint_case
-from tests.evaluation.eval_ragas import (
+from tests.evaluation.ragas_support import (
     DEFAULT_INDEX, PROJECT_ROOT, create_catalog_retriever, evaluate_data,
 )
 

@@ -134,7 +134,7 @@ The benchmark makes paid API calls and may download cross-encoder weights. It
 reports factual retrieval, discovery, and multi-answer constraint cases
 separately; its synthetic questions and metadata-based labels have important
 limitations. See [tests/README.md](tests/README.md) for the test layout,
-benchmark interpretation, prerequisites, legacy tools, and output options.
+benchmark interpretation, prerequisites, and output options.
 
 ## Project Structure
 
@@ -154,7 +154,7 @@ uw-course-assistant-agent/
 ├── .env                            # Environment variables (not tracked)
 └── tests/
     ├── unit/                       # Offline automated tests
-    ├── evaluation/                 # Evaluation runners and legacy data generators
+    ├── evaluation/                 # Evaluation runner and shared scoring helpers
     ├── benchmarks/                 # Opt-in browser lifecycle microbenchmark
     ├── fixtures/                   # Benchmark data
     ├── results/                    # Saved benchmark runs
