@@ -1,0 +1,1748 @@
+{
+  "benchmark": "/Users/taixuwang/Projects/uw-course-assistant-agent/tests/fixtures/benchmark_v2.json",
+  "benchmark_sha256": "a152944b375210531b804fd05e3ca6fc06db9032792209a24494b81c2da4de08",
+  "index_snapshot_sha256": "9e6dc9ee3c837d5ce484bfa07e272fe142e8d3c61870e67e5f7a45aadddff1db",
+  "cases": [
+    {
+      "id": "fact-01",
+      "category": "factual",
+      "query": "What topics does CSE 121 cover?",
+      "returned_ids": [
+        "IND E 310",
+        "CSE 121",
+        "E E 271",
+        "CSE 154",
+        "MATH 381"
+      ],
+      "expected_course_id": "CSE 121",
+      "target_hit": true
+    },
+    {
+      "id": "fact-02",
+      "category": "factual",
+      "query": "Describe the content of CSE 163.",
+      "returned_ids": [
+        "CSE 163",
+        "CSE 154",
+        "INFO 376",
+        "CSE 414",
+        "CSE 412"
+      ],
+      "expected_course_id": "CSE 163",
+      "target_hit": true
+    },
+    {
+      "id": "fact-03",
+      "category": "factual",
+      "query": "What is taught in MATH 124?",
+      "returned_ids": [
+        "MATH 124",
+        "MATH 125",
+        "ENGR 191",
+        "MATH 134",
+        "MATH 136"
+      ],
+      "expected_course_id": "MATH 124",
+      "target_hit": true
+    },
+    {
+      "id": "fact-04",
+      "category": "factual",
+      "query": "Summarize the official catalog description for MATH 125.",
+      "returned_ids": [
+        "MATH 125",
+        "MATH 135",
+        "AMATH 351",
+        "QMETH 201",
+        "MATH 126"
+      ],
+      "expected_course_id": "MATH 125",
+      "target_hit": true
+    },
+    {
+      "id": "fact-05",
+      "category": "factual",
+      "query": "What topics does STAT 311 cover?",
+      "returned_ids": [
+        "STAT 302",
+        "OPMGT 301",
+        "STAT 509",
+        "QMETH 490",
+        "STAT 311"
+      ],
+      "expected_course_id": "STAT 311",
+      "target_hit": true
+    },
+    {
+      "id": "fact-06",
+      "category": "factual",
+      "query": "Describe the content of STAT 340.",
+      "returned_ids": [
+        "STAT 340",
+        "STAT 341",
+        "STAT 395",
+        "MATH 395",
+        "INFO 474"
+      ],
+      "expected_course_id": "STAT 340",
+      "target_hit": true
+    },
+    {
+      "id": "fact-07",
+      "category": "factual",
+      "query": "What is taught in PHYS 121?",
+      "returned_ids": [
+        "PHYS 121",
+        "PHYS 407",
+        "PHYS 409",
+        "ESS 431",
+        "PHYS 114"
+      ],
+      "expected_course_id": "PHYS 121",
+      "target_hit": true
+    },
+    {
+      "id": "fact-08",
+      "category": "factual",
+      "query": "Summarize the official catalog description for PHYS 122.",
+      "returned_ids": [
+        "PHYS 122",
+        "PHYS 123",
+        "PHYS 142",
+        "BIOL 461",
+        "ESS 305"
+      ],
+      "expected_course_id": "PHYS 122",
+      "target_hit": true
+    },
+    {
+      "id": "fact-09",
+      "category": "factual",
+      "query": "What topics does BIOL 180 cover?",
+      "returned_ids": [
+        "BIOL 315",
+        "BIOL 481",
+        "PSYCH 300",
+        "BIOL 106",
+        "BIOL 480"
+      ],
+      "expected_course_id": "BIOL 180",
+      "target_hit": false
+    },
+    {
+      "id": "fact-10",
+      "category": "factual",
+      "query": "Describe the content of BIOL 200.",
+      "returned_ids": [
+        "MICROM 402",
+        "BIOL 200",
+        "MICROM 412",
+        "BIOL 340",
+        "MICROM 445"
+      ],
+      "expected_course_id": "BIOL 200",
+      "target_hit": true
+    },
+    {
+      "id": "fact-11",
+      "category": "factual",
+      "query": "What is taught in CHEM 142?",
+      "returned_ids": [
+        "CHEM 142",
+        "MSE 197",
+        "NME 220",
+        "CHEM 153",
+        "CHEM 143"
+      ],
+      "expected_course_id": "CHEM 142",
+      "target_hit": true
+    },
+    {
+      "id": "fact-12",
+      "category": "factual",
+      "query": "Summarize the official catalog description for CHEM 152.",
+      "returned_ids": [
+        "CHEM 152",
+        "CHEM 153",
+        "CHEM 162",
+        "ENV H 432",
+        "OCEAN 295"
+      ],
+      "expected_course_id": "CHEM 152",
+      "target_hit": true
+    },
+    {
+      "id": "fact-13",
+      "category": "factual",
+      "query": "What topics does ECON 200 cover?",
+      "returned_ids": [
+        "ECON 222",
+        "ECON 200",
+        "POL S 476",
+        "ECON 502",
+        "I BUS 300"
+      ],
+      "expected_course_id": "ECON 200",
+      "target_hit": true
+    },
+    {
+      "id": "fact-14",
+      "category": "factual",
+      "query": "Describe the content of ECON 201.",
+      "returned_ids": [
+        "ECON 201",
+        "ECON 494",
+        "B ECON 301",
+        "JSIS 501",
+        "ECON 301"
+      ],
+      "expected_course_id": "ECON 201",
+      "target_hit": true
+    },
+    {
+      "id": "fact-15",
+      "category": "factual",
+      "query": "What is taught in PSYCH 101?",
+      "returned_ids": [
+        "PSYCH 101",
+        "PSYCH 222",
+        "PSYCH 202",
+        "PSYCH 206",
+        "PSYCH 245"
+      ],
+      "expected_course_id": "PSYCH 101",
+      "target_hit": true
+    },
+    {
+      "id": "fact-16",
+      "category": "factual",
+      "query": "Summarize the official catalog description for PSYCH 202.",
+      "returned_ids": [
+        "PSYCH 322",
+        "PSYCH 202",
+        "PSYCH 302",
+        "PSYCH 421",
+        "PSYCH 400"
+      ],
+      "expected_course_id": "PSYCH 202",
+      "target_hit": true
+    },
+    {
+      "id": "fact-17",
+      "category": "factual",
+      "query": "What topics does INFO 200 cover?",
+      "returned_ids": [
+        "INFO 200",
+        "INFO 300",
+        "INFO 468",
+        "INFO 280",
+        "INFO 180"
+      ],
+      "expected_course_id": "INFO 200",
+      "target_hit": true
+    },
+    {
+      "id": "fact-18",
+      "category": "factual",
+      "query": "Describe the content of INFO 201.",
+      "returned_ids": [
+        "INFO 201",
+        "INFO 478",
+        "INFO 370",
+        "INFO 376",
+        "INFO 340"
+      ],
+      "expected_course_id": "INFO 201",
+      "target_hit": true
+    },
+    {
+      "id": "fact-19",
+      "category": "factual",
+      "query": "What is taught in ENGL 111?",
+      "returned_ids": [
+        "ENGL 111",
+        "ENGL 141",
+        "ENGL 121",
+        "ENGL 131",
+        "ENGR 231"
+      ],
+      "expected_course_id": "ENGL 111",
+      "target_hit": true
+    },
+    {
+      "id": "fact-20",
+      "category": "factual",
+      "query": "Summarize the official catalog description for ENGL 131.",
+      "returned_ids": [
+        "ENGL 141",
+        "ENGL 131",
+        "ENGR 231",
+        "ENGL 121",
+        "ENGL 111"
+      ],
+      "expected_course_id": "ENGL 131",
+      "target_hit": true
+    },
+    {
+      "id": "constraint-01",
+      "category": "constraints",
+      "query": "Find CSE courses worth 4 credits that satisfy the RSN requirement and have no prerequisites.",
+      "returned_ids": [
+        "CSE 160",
+        "CSE 142",
+        "CSE 121",
+        "CSE 180",
+        "CSE 123"
+      ],
+      "eligible_count": 6,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-02",
+      "category": "constraints",
+      "query": "Find MATH courses worth 5 credits that satisfy the NSc requirement and have no prerequisites.",
+      "returned_ids": [
+        "EDUC 170",
+        "MATH 200",
+        "PHIL 473",
+        "EDUC 171",
+        "MATH 120"
+      ],
+      "eligible_count": 5,
+      "returned_count": 5,
+      "valid_count": 2,
+      "violation_count": 3,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-03",
+      "category": "constraints",
+      "query": "Find STAT courses worth 4 credits.",
+      "returned_ids": [
+        "STAT 390",
+        "STAT 583",
+        "STAT 513",
+        "STAT 511",
+        "STAT 512"
+      ],
+      "eligible_count": 46,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-04",
+      "category": "constraints",
+      "query": "Find PHYS courses worth 5 credits that satisfy the NSc requirement.",
+      "returned_ids": [
+        "PHYS 121",
+        "PHYS 123",
+        "PHYS 141",
+        "PHYS 122",
+        "PHYS 142"
+      ],
+      "eligible_count": 17,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-05",
+      "category": "constraints",
+      "query": "Find BIOL courses worth 5 credits.",
+      "returned_ids": [
+        "BIOL 100",
+        "BIOL 180",
+        "BIOL 425",
+        "BIOL 220",
+        "BIOL 200"
+      ],
+      "eligible_count": 42,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-06",
+      "category": "constraints",
+      "query": "Find CHEM courses worth 5 credits that satisfy the RSN requirement.",
+      "returned_ids": [
+        "CHEM 165",
+        "CHEM 162",
+        "CHEM 155",
+        "CHEM 152",
+        "CHEM 120"
+      ],
+      "eligible_count": 7,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-07",
+      "category": "constraints",
+      "query": "Find ECON courses worth 5 credits that satisfy both SSc and DIV requirements.",
+      "returned_ids": [
+        "ECON 448",
+        "ECON 447",
+        "ECON 412",
+        "GWSS 447",
+        "ENVIR 100"
+      ],
+      "eligible_count": 3,
+      "returned_count": 5,
+      "valid_count": 3,
+      "violation_count": 2,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-08",
+      "category": "constraints",
+      "query": "Find PSYCH courses worth 5 credits that satisfy the SSc requirement.",
+      "returned_ids": [
+        "PSYCH 345",
+        "PSYCH 400",
+        "PSYCH 305",
+        "PSYCH 449",
+        "PSYCH 331"
+      ],
+      "eligible_count": 38,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-09",
+      "category": "constraints",
+      "query": "Find INFO courses worth 5 credits that satisfy the RSN requirement.",
+      "returned_ids": [
+        "INFO 340",
+        "INFO 330",
+        "INFO 371",
+        "INFO 310",
+        "INFO 201"
+      ],
+      "eligible_count": 8,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-10",
+      "category": "constraints",
+      "query": "Find ENGL courses worth 5 credits that satisfy the C requirement.",
+      "returned_ids": [
+        "ENGL 141",
+        "ENGL 199",
+        "ENGL 288",
+        "ENGL 299",
+        "ENGL 198"
+      ],
+      "eligible_count": 21,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-11",
+      "category": "constraints",
+      "query": "Find CSE courses worth exactly 100 credits.",
+      "returned_ids": [],
+      "eligible_count": 0,
+      "returned_count": 0,
+      "valid_count": 0,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": true
+    },
+    {
+      "id": "constraint-12",
+      "category": "constraints",
+      "query": "Find MATH courses worth exactly 100 credits.",
+      "returned_ids": [],
+      "eligible_count": 0,
+      "returned_count": 0,
+      "valid_count": 0,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": true
+    },
+    {
+      "id": "discovery-01",
+      "category": "discovery",
+      "query": "I am new to coding and want to learn loops, conditionals, and arrays while solving problems with programs.",
+      "returned_ids": [
+        "CSE 121",
+        "CSE 142",
+        "IND E 412",
+        "CSE 122",
+        "LIS 511"
+      ],
+      "known_course_ids": [
+        "CSE 121"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-02",
+      "category": "discovery",
+      "query": "I want a class on using derivatives to solve problems involving functions of one variable.",
+      "returned_ids": [
+        "MATH 124",
+        "MATH 424",
+        "Q SCI 291",
+        "CFRM 504",
+        "IND E 515"
+      ],
+      "known_course_ids": [
+        "MATH 124"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-03",
+      "category": "discovery",
+      "query": "Find a class that covers study design, correlation, confidence intervals, and hypothesis tests.",
+      "returned_ids": [
+        "STAT 311",
+        "EDPSY 490",
+        "EDPSY 580",
+        "SOC 221",
+        "CSSS 221"
+      ],
+      "known_course_ids": [
+        "STAT 311"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-04",
+      "category": "discovery",
+      "query": "I am interested in learning about electric and magnetic phenomena with a hands-on lab.",
+      "returned_ids": [
+        "PHYS 514",
+        "PHYS 543",
+        "MSE 550",
+        "MSE 450",
+        "A A 448"
+      ],
+      "known_course_ids": [
+        "PHYS 122"
+      ],
+      "known_hit": false
+    },
+    {
+      "id": "discovery-05",
+      "category": "discovery",
+      "query": "Find an introduction to evolution, inherited traits, biodiversity, and ecology.",
+      "returned_ids": [
+        "BIOL 180",
+        "BIOL 563",
+        "BIO A 100",
+        "BIOL 108",
+        "BIOL 481"
+      ],
+      "known_course_ids": [
+        "BIOL 180"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-06",
+      "category": "discovery",
+      "query": "I would like a chemistry class covering acid-base equilibria, thermodynamics, and electrochemistry.",
+      "returned_ids": [
+        "CHEM 152",
+        "CHEM 143",
+        "CEWA 543",
+        "CHEM E 326",
+        "CHEM 456"
+      ],
+      "known_course_ids": [
+        "CHEM 152"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-07",
+      "category": "discovery",
+      "query": "I want to study inflation, unemployment, national income, and the economy as a whole.",
+      "returned_ids": [
+        "ECON 201",
+        "B ECON 301",
+        "ECON 443",
+        "ECON 542",
+        "ECON 421"
+      ],
+      "known_course_ids": [
+        "ECON 201"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-08",
+      "category": "discovery",
+      "query": "Find a course exploring how the nervous system relates to behavior, sleep, emotions, and memory.",
+      "returned_ids": [
+        "PSYCH 202",
+        "NEUSCI 198",
+        "SPHSC 461",
+        "MEDSCI 560",
+        "DENTFN 560"
+      ],
+      "known_course_ids": [
+        "PSYCH 202"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-09",
+      "category": "discovery",
+      "query": "I want to understand how human values shape information technology and how information systems affect society.",
+      "returned_ids": [
+        "INFO 200",
+        "COM 303",
+        "CHID 370",
+        "COM 302",
+        "JSIS 535"
+      ],
+      "known_course_ids": [
+        "INFO 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-10",
+      "category": "discovery",
+      "query": "Find a writing course using narratives to explore the relationship between language, identity, and culture.",
+      "returned_ids": [
+        "ENGL 111",
+        "ENGL 182",
+        "GLITS 253",
+        "ANTH 560",
+        "ENGL 109"
+      ],
+      "known_course_ids": [
+        "ENGL 111"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "fact-21",
+      "category": "factual",
+      "query": "What does ANTH 100 introduce about anthropology?",
+      "returned_ids": [
+        "ANTH 100"
+      ],
+      "expected_course_id": "ANTH 100",
+      "target_hit": true
+    },
+    {
+      "id": "fact-22",
+      "category": "factual",
+      "query": "What topics are covered in GEOG 123?",
+      "returned_ids": [
+        "GEOG 123",
+        "GEOG 375",
+        "GEOG 277",
+        "JSIS B 375",
+        "GEOG 477"
+      ],
+      "expected_course_id": "GEOG 123",
+      "target_hit": true
+    },
+    {
+      "id": "fact-23",
+      "category": "factual",
+      "query": "What are the main subjects of PHIL 100?",
+      "returned_ids": [
+        "PHIL 100",
+        "PHIL 102",
+        "PHIL 360",
+        "PHIL 400",
+        "PHIL 326"
+      ],
+      "expected_course_id": "PHIL 100",
+      "target_hit": true
+    },
+    {
+      "id": "fact-24",
+      "category": "factual",
+      "query": "Describe the content of MUSIC 120.",
+      "returned_ids": [
+        "MUSIC 120",
+        "MUSIC 216",
+        "MUSIC 118",
+        "MUSIC 119",
+        "MUSIC 201"
+      ],
+      "expected_course_id": "MUSIC 120",
+      "target_hit": true
+    },
+    {
+      "id": "fact-25",
+      "category": "factual",
+      "query": "What does COM 200 teach about communication?",
+      "returned_ids": [
+        "COM 200"
+      ],
+      "expected_course_id": "COM 200",
+      "target_hit": true
+    },
+    {
+      "id": "fact-26",
+      "category": "factual",
+      "query": "What does ART 190 cover?",
+      "returned_ids": [
+        "ART 190",
+        "ART 290",
+        "ART 292",
+        "C ENV 190",
+        "ART 240"
+      ],
+      "expected_course_id": "ART 190",
+      "target_hit": true
+    },
+    {
+      "id": "fact-27",
+      "category": "factual",
+      "query": "Summarize the catalog description of AFRAM 101.",
+      "returned_ids": [
+        "AFRAM 101",
+        "AFRAM 335",
+        "AFRAM 102",
+        "AFRAM 150",
+        "AFRAM 315"
+      ],
+      "expected_course_id": "AFRAM 101",
+      "target_hit": true
+    },
+    {
+      "id": "fact-28",
+      "category": "factual",
+      "query": "What is studied in ARCHY 105?",
+      "returned_ids": [
+        "ARCHY 105",
+        "ARCHY 299",
+        "ARCHY 469",
+        "ARCHY 101",
+        "ARCHY 509"
+      ],
+      "expected_course_id": "ARCHY 105",
+      "target_hit": true
+    },
+    {
+      "id": "fact-29",
+      "category": "factual",
+      "query": "What topics are introduced in LING 200?",
+      "returned_ids": [
+        "LING 403",
+        "LING 441",
+        "LING 200",
+        "LING 542",
+        "LING 442"
+      ],
+      "expected_course_id": "LING 200",
+      "target_hit": true
+    },
+    {
+      "id": "fact-30",
+      "category": "factual",
+      "query": "What does ENVIR 100 cover?",
+      "returned_ids": [
+        "ENVIR 379",
+        "SOC 379",
+        "ESRM 371",
+        "ENVIR 100",
+        "ENVIR 400"
+      ],
+      "expected_course_id": "ENVIR 100",
+      "target_hit": true
+    },
+    {
+      "id": "discovery-11",
+      "category": "discovery",
+      "query": "I want to learn how linked lists, graphs, trees, hashing, and sorting are implemented, with an emphasis on practical programming.",
+      "returned_ids": [
+        "CSE 373",
+        "CSE 332",
+        "CSE 143",
+        "CSE 123",
+        "CSE 122"
+      ],
+      "known_course_ids": [
+        "CSE 373"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-12",
+      "category": "discovery",
+      "query": "Which calculus course covers three-dimensional vectors, functions of several variables, and Taylor series?",
+      "returned_ids": [
+        "MATH 126",
+        "AMATH 501",
+        "AMATH 401",
+        "MATH 424",
+        "MATH 124"
+      ],
+      "known_course_ids": [
+        "MATH 126"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-13",
+      "category": "discovery",
+      "query": "I am looking for an engineering physics class that combines optics and thermodynamics with experiments.",
+      "returned_ids": [
+        "PHYS 123",
+        "M E 323",
+        "M E 521",
+        "M E 557",
+        "CHEM E 525"
+      ],
+      "known_course_ids": [
+        "PHYS 123"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-14",
+      "category": "discovery",
+      "query": "Find a biology course about how animals function and how plants develop and function.",
+      "returned_ids": [
+        "BIOL 416",
+        "BIOL 467",
+        "ANTH 458",
+        "BIOL 411",
+        "BIOL 447"
+      ],
+      "known_course_ids": [
+        "BIOL 220"
+      ],
+      "known_hit": false
+    },
+    {
+      "id": "discovery-15",
+      "category": "discovery",
+      "query": "I would like to study molecular bonding, atomic structure, chemical quantities, and gas laws in a laboratory course.",
+      "error_type": "ValueError",
+      "error_message": "contain requires a text field"
+    },
+    {
+      "id": "discovery-16",
+      "category": "discovery",
+      "query": "I want to understand how consumer demand, prices, production, and government interventions shape markets.",
+      "returned_ids": [
+        "ECON 200",
+        "PUBPOL 516",
+        "MKTG 301",
+        "ECON 431",
+        "B ECON 500"
+      ],
+      "known_course_ids": [
+        "ECON 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-17",
+      "category": "discovery",
+      "query": "Find a course that teaches data cleaning, analysis, visualization, and version control using real datasets.",
+      "returned_ids": [
+        "INFO 201",
+        "STAT 302",
+        "R E 519",
+        "CEE 467",
+        "CEWA 567"
+      ],
+      "known_course_ids": [
+        "INFO 201"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-18",
+      "category": "discovery",
+      "query": "I want to explore foundational questions about knowledge, reality, morality, and whether a god exists.",
+      "returned_ids": [
+        "PHIL 100",
+        "EDLPS 520",
+        "PHIL 450",
+        "PHIL 467",
+        "PHIL 456"
+      ],
+      "known_course_ids": [
+        "PHIL 100"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-19",
+      "category": "discovery",
+      "query": "Which course introduces social institutions, inequality, deviance, and how societies change?",
+      "returned_ids": [
+        "SOC 110",
+        "SOC 360",
+        "SOC 212",
+        "SOC 374",
+        "SOC 111"
+      ],
+      "known_course_ids": [
+        "SOC 110"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-20",
+      "category": "discovery",
+      "query": "I would like to examine how global connections affect labor, culture, the environment, and inequality.",
+      "returned_ids": [
+        "GEOG 123",
+        "GEOG 230",
+        "SOC W 594",
+        "LABOR 370",
+        "JSIS B 250"
+      ],
+      "known_course_ids": [
+        "GEOG 123"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-21",
+      "category": "discovery",
+      "query": "Find an introduction to how languages are structured, acquired, and changed over time.",
+      "returned_ids": [
+        "C LIT 300",
+        "LING 200",
+        "LING 535",
+        "SLAVIC 351",
+        "LING 403"
+      ],
+      "known_course_ids": [
+        "LING 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-22",
+      "category": "discovery",
+      "query": "I am interested in learning still-camera techniques and using photographs creatively in an artistic setting.",
+      "returned_ids": [
+        "ART 140",
+        "ART 339",
+        "ART 340",
+        "ART H 273",
+        "ART 240"
+      ],
+      "known_course_ids": [
+        "ART 140"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-23",
+      "category": "discovery",
+      "query": "Find a non-major course focused on listening to Western art music and how its components have changed.",
+      "returned_ids": [
+        "MUSIC 120",
+        "MUSIC 333",
+        "MUSIC 384",
+        "ART H 203",
+        "ART H 524"
+      ],
+      "known_course_ids": [
+        "MUSIC 120"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-24",
+      "category": "discovery",
+      "query": "I want to explore human physical and cultural evolution through archaeology and the study of human societies.",
+      "returned_ids": [
+        "ANTH 100",
+        "ARCHY 105",
+        "ARCHY 101",
+        "ANTH 461",
+        "SOC 212"
+      ],
+      "known_course_ids": [
+        "ANTH 100"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-25",
+      "category": "discovery",
+      "query": "Find an interdisciplinary course on environmental problems that considers justice, politics, science, and communication.",
+      "returned_ids": [
+        "ENVIR 100",
+        "ENVIR 361",
+        "ENVIR 386",
+        "ENVIR 200",
+        "ENVIR 500"
+      ],
+      "known_course_ids": [
+        "ENVIR 100"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-26",
+      "category": "discovery",
+      "query": "I want a mostly conceptual introduction to stars, planets, galaxies, and black holes rather than an advanced mathematical treatment.",
+      "returned_ids": [
+        "ASTR 101",
+        "ASTR 102",
+        "ASTR 322",
+        "ASTR 190",
+        "ASTR 160"
+      ],
+      "known_course_ids": [
+        "ASTR 101"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-27",
+      "category": "discovery",
+      "query": "Which course surveys US political institutions and how political conflicts are addressed?",
+      "returned_ids": [
+        "POL S 202",
+        "POL S 571",
+        "POL S 470",
+        "POL S 447",
+        "PUBPOL 510"
+      ],
+      "known_course_ids": [
+        "POL S 202"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-28",
+      "category": "discovery",
+      "query": "I want to study communication research and theories about interactions in groups, relationships, and politics.",
+      "returned_ids": [
+        "COM 200",
+        "COM 472",
+        "COM 576",
+        "COM 577",
+        "COM 512"
+      ],
+      "known_course_ids": [
+        "COM 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-29",
+      "category": "discovery",
+      "query": "Find a course on how archaeologists collect evidence to study long-term human history and its relevance today.",
+      "returned_ids": [
+        "ARCHY 101",
+        "ARCHY 519",
+        "ARCHY 319",
+        "ARCHY 208",
+        "ARCHY 345"
+      ],
+      "known_course_ids": [
+        "ARCHY 101"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-30",
+      "category": "discovery",
+      "query": "I am interested in how nutrition affects wellness, chronic disease, food security, and nutritional needs through life.",
+      "returned_ids": [
+        "NUTR 200",
+        "NUTR 562",
+        "NUTR 310",
+        "NUTR 511",
+        "NUTR 560"
+      ],
+      "known_course_ids": [
+        "NUTR 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "constraint-13",
+      "category": "constraints",
+      "query": "Show me five-credit SOC courses that fulfill the SSc requirement.",
+      "returned_ids": [
+        "SOC 494",
+        "SOC 365",
+        "SOC 111",
+        "SOC 460",
+        "SOC 110"
+      ],
+      "eligible_count": 102,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-14",
+      "category": "constraints",
+      "query": "Which PHIL courses have five credits and carry A&H credit?",
+      "returned_ids": [
+        "PHIL 335",
+        "PHIL 345",
+        "PHIL 102",
+        "PHIL 411",
+        "PHIL 326"
+      ],
+      "eligible_count": 19,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-15",
+      "category": "constraints",
+      "query": "Find GEOG courses for five credits that satisfy DIV and SSc.",
+      "returned_ids": [
+        "GEOG 277",
+        "GEOG 331",
+        "GEOG 404",
+        "GEOG 445",
+        "GEOG 375"
+      ],
+      "eligible_count": 21,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-16",
+      "category": "constraints",
+      "query": "List five-credit ANTH classes in SSc with no listed prerequisites.",
+      "returned_ids": [
+        "ANTH 313",
+        "ANTH 414",
+        "ANTH 408",
+        "ANTH 407",
+        "ANTH 100"
+      ],
+      "eligible_count": 95,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-17",
+      "category": "constraints",
+      "query": "What three-credit MUSIC courses fulfill the A&H requirement?",
+      "returned_ids": [
+        "MUSIC 442",
+        "MUSIC 485",
+        "MUSIC 390",
+        "MUHST 100",
+        "MUSIC 300"
+      ],
+      "eligible_count": 58,
+      "returned_count": 5,
+      "valid_count": 4,
+      "violation_count": 1,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-18",
+      "category": "constraints",
+      "query": "Give me ART courses worth five credits with A&H and no listed prerequisites.",
+      "returned_ids": [
+        "ART H 380",
+        "ART 131",
+        "ART 460",
+        "ART H 225",
+        "ART H 471"
+      ],
+      "eligible_count": 102,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-19",
+      "category": "constraints",
+      "query": "Find five-credit ARCHY courses carrying NSc credit.",
+      "returned_ids": [
+        "ARCHY 482",
+        "ARCHY 491",
+        "ARCHY 495",
+        "ARCHY 484",
+        "ARCHY 483"
+      ],
+      "eligible_count": 9,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-20",
+      "category": "constraints",
+      "query": "Show me LING classes worth five credits that satisfy A&H.",
+      "returned_ids": [
+        "LING 449",
+        "LING 407",
+        "LING 451",
+        "LING 461",
+        "LING 403"
+      ],
+      "eligible_count": 29,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-21",
+      "category": "constraints",
+      "query": "Which five-credit COM courses satisfy both SSc and DIV?",
+      "returned_ids": [
+        "SOC 270",
+        "COM 389",
+        "COM 458",
+        "COM 289",
+        "AES 389"
+      ],
+      "eligible_count": 11,
+      "returned_count": 5,
+      "valid_count": 3,
+      "violation_count": 2,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-22",
+      "category": "constraints",
+      "query": "Find GWSS courses with five credits, DIV and SSc, and no prerequisites.",
+      "returned_ids": [
+        "GWSS 390",
+        "GWSS 372",
+        "GWSS 490",
+        "GWSS 201",
+        "GWSS 386"
+      ],
+      "eligible_count": 65,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-23",
+      "category": "constraints",
+      "query": "List five-credit SPAN courses in A&H that have a listed prerequisite.",
+      "returned_ids": [
+        "SPAN 414",
+        "SPAN 440",
+        "SPAN 438",
+        "SPAN 423",
+        "SPAN 315"
+      ],
+      "eligible_count": 81,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-24",
+      "category": "constraints",
+      "query": "Show AFRAM courses for five credits that satisfy A&H and DIV.",
+      "returned_ids": [
+        "AFRAM 220",
+        "AFRAM 214",
+        "AFRAM 320",
+        "AFRAM 358",
+        "AFRAM 318"
+      ],
+      "eligible_count": 10,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-25",
+      "category": "constraints",
+      "query": "Find ENVIR courses worth five credits that satisfy both NSc and DIV.",
+      "returned_ids": [
+        "ENVIR 100",
+        "ENVIR 103",
+        "ENVIR 315",
+        "ENVIR 201",
+        "SMEA 103"
+      ],
+      "eligible_count": 5,
+      "returned_count": 5,
+      "valid_count": 4,
+      "violation_count": 1,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-26",
+      "category": "constraints",
+      "query": "List BIOL courses worth four credits that fulfill NSc.",
+      "returned_ids": [
+        "BIOL 465",
+        "BIOL 417",
+        "BIOL 407",
+        "BIOL 401",
+        "BIOL 356"
+      ],
+      "eligible_count": 22,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-27",
+      "category": "constraints",
+      "query": "Which CHEM courses offer three credits and NSc?",
+      "returned_ids": [
+        "CHEM 418",
+        "CHEM 422",
+        "CHEM 461",
+        "CHEM 457",
+        "CHEM 456"
+      ],
+      "eligible_count": 35,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-28",
+      "category": "constraints",
+      "query": "Find CSE courses worth four credits with a listed prerequisite.",
+      "returned_ids": [
+        "CSE M 501",
+        "CSE 451",
+        "CSE 550",
+        "CSE 484",
+        "CSE 333"
+      ],
+      "eligible_count": 66,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-29",
+      "category": "constraints",
+      "query": "Show two-credit SOC courses that satisfy the DIV requirement.",
+      "returned_ids": [
+        "HSERV 493",
+        "EDUC 214",
+        "EDUC 212",
+        "G H 493",
+        "EDUC 213"
+      ],
+      "eligible_count": 0,
+      "returned_count": 5,
+      "valid_count": 0,
+      "violation_count": 5,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": false
+    },
+    {
+      "id": "constraint-30",
+      "category": "constraints",
+      "query": "Find three-credit MUSIC courses that satisfy both NSc and RSN.",
+      "returned_ids": [
+        "ARCHY 496",
+        "ASTR 302",
+        "CFRM 405",
+        "BIOL 359",
+        "OCEAN 351"
+      ],
+      "eligible_count": 0,
+      "returned_count": 5,
+      "valid_count": 0,
+      "violation_count": 5,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": false
+    }
+  ],
+  "ragas_data": {
+    "user_input": [
+      "What topics does CSE 121 cover?",
+      "Describe the content of CSE 163.",
+      "What is taught in MATH 124?",
+      "Summarize the official catalog description for MATH 125.",
+      "What topics does STAT 311 cover?",
+      "Describe the content of STAT 340.",
+      "What is taught in PHYS 121?",
+      "Summarize the official catalog description for PHYS 122.",
+      "What topics does BIOL 180 cover?",
+      "Describe the content of BIOL 200.",
+      "What is taught in CHEM 142?",
+      "Summarize the official catalog description for CHEM 152.",
+      "What topics does ECON 200 cover?",
+      "Describe the content of ECON 201.",
+      "What is taught in PSYCH 101?",
+      "Summarize the official catalog description for PSYCH 202.",
+      "What topics does INFO 200 cover?",
+      "Describe the content of INFO 201.",
+      "What is taught in ENGL 111?",
+      "Summarize the official catalog description for ENGL 131.",
+      "What does ANTH 100 introduce about anthropology?",
+      "What topics are covered in GEOG 123?",
+      "What are the main subjects of PHIL 100?",
+      "Describe the content of MUSIC 120.",
+      "What does COM 200 teach about communication?",
+      "What does ART 190 cover?",
+      "Summarize the catalog description of AFRAM 101.",
+      "What is studied in ARCHY 105?",
+      "What topics are introduced in LING 200?",
+      "What does ENVIR 100 cover?"
+    ],
+    "reference": [
+      "CSE 121 — Introduction to Computer Programming I: Introduction to computer programming for students without previous programming experience. Students write programs to express algorithmic thinking and solve computational problems motivated by modern societal and scientific needs. Includes procedural programming constructs (methods), control structures (loops, conditionals), and standard data types, including arrays. Course overlaps with: CSE 142; CSS 142; and TCSS 142. Recommended: completion of Paul G. Allen School's Guided Self-Placement. Offered: AWSpS.",
+      "CSE 163 — Intermediate Data Programming: Intermediate data programming. Topics include writing programs that manipulate different types of data; leveraging the growing ecosystem of tools and libraries for data programming; writing programs that are both efficient and elegant; and writing medium-scale programs (100 to 200 lines). Course overlaps with: ATM S 310 and CSSSKL 132. Prerequisite: either CSE 122, CSE 123, CSE 142, CSE 143, or CSE 160.",
+      "MATH 124 — Calculus with Analytic Geometry I: First quarter in calculus of functions of a single variable. Emphasizes differential calculus. Emphasizes applications and problem solving using the tools of calculus. Course equivalent to: STMATH 124 and TMATH 124. Course overlaps with: MATH 112; B MATH 144; STMATH 113; STMATH 114; and TMATH 122. Recommended: completion of Department of Mathematics' Guided Self-Placement. Offered: AWSpS.",
+      "MATH 125 — Calculus with Analytic Geometry II: Second quarter in the calculus of functions of a single variable. Emphasizes integral calculus. Emphasizes applications and problem solving using the tools of calculus. Cannot be taken for credit if credit has already been earned for MATH 207. Course equivalent to: STMATH 125 and TMATH 125. Prerequisite: either minimum grade of 2.0 in MATH 124, score of 3 on AB advanced placement test, or score of 3 on BC advanced placement test. Offered: AWSpS.",
+      "STAT 311 — Elements of Statistical Methods: Elements of good study design. Descriptive statistics including correlation and regression. Introductory concepts of probability and sampling; binomial and normal distributions. Basic concepts of hypothesis testing, estimation, and confidence intervals; t-tests and chi-square tests. Experience with computer software. Course overlaps with: STMATH 341. Prerequisite: either STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, MATH 120, MATH 124, MATH 125, MATH 126, MATH 134, MATH 135, MATH 136, QMETH 201, Q SCI 190, Q SCI 291, or Q SCI 292. Offered: AWSpS.",
+      "STAT 340 — Introduction to Probability and Mathematical Statistics I: Fundamentals of probability for statistics; axioms of probability, conditional and joint probability, independence; random variables, univariate and multivariate distributions and densities, moments, and moment generating functions; binomial, negative binomial, geometric, Poisson, uniform, normal, exponential distributions; and transformations of a random variable. Course overlaps with: TSTAT 345. Prerequisite: either MATH 126 or MATH 136; and either STAT 311, STAT 390, or Q SCI 381. Offered: A.",
+      "PHYS 121 — Mechanics: Basic principles of mechanics and experiments in mechanics for physical science and engineering majors. Lecture tutorial and lab components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 114; PHYS 117; PHYS 121; and PHYS 141 (or equivalents). Course equivalent to: B PHYS 121. Course overlaps with: PHYS 114; PHYS 117; PHYS 141; B PHYS 114; and B PHYS 117. Prerequisite: either MATH 124 or MATH 134, which may be taken concurrently. Offered: AWSpS.",
+      "PHYS 122 — Electromagnetism: Covers the basic principles of electromagnetism and experiments in these topics for physical science and engineering majors. Lecture tutorial and lab components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 115; PHYS 118; PHYS 122; and PHYS 142 (or equivalents). Course equivalent to: B PHYS 122. Course overlaps with: PHYS 115; PHYS 118; PHYS 142; B PHYS 115; and B PHYS 118. Prerequisite: either PHYS 121 or PHYS 141; and either MATH 125 or MATH 134, which may be taken concurrently. Offered: AWSpS.",
+      "BIOL 180 — Introductory Biology: Mendelian genetics, evolution, biodiversity of life forms, ecology, and conservation biology. Open to all students interested in biology whether intending to major in the biological sciences, enroll in preprofessional programs, or fulfill a Natural World requirement. First course in a three-quarter series (BIOL 180, BIOL 200, BIOL 220). Maximum 15 credits allowed between BIOL 180; BIOL 200; BIOL 220 (or equivalents); and BIOL 240. Course equivalent to: B BIO 180. Course overlaps with: T BIOL 120. Offered: AWSpS.",
+      "BIOL 200 — Introductory Biology: For students intending to take advanced courses in the biological sciences or enroll in preprofessional programs. Metabolism and energetics, structure and function of biomolecules, cell structure and function, developmental patterning. Second course in a three-quarter series (BIOL 180, BIOL 200, BIOL 220). Maximum 15 credits allowed between BIOL 180; BIOL 200; BIOL 220 (or equivalents); and BIOL 240. Course equivalent to: B BIO 200. Course overlaps with: T BIOL 130. Prerequisite: a minimum grade of 1.7 in either BIOL 180, B BIO 180, or T BIOL 120; and either CHEM 143, CHEM 145, CHEM 223, CHEM 237, or OCEAN 295, or concurrently taking either CHEM 152, CHEM 153, CHEM 155, or CHEM 220. Offered: AWSpS.",
+      "CHEM 142 — General Chemistry I: For science and engineering majors. Atomic nature of matter, quantum mechanics, ionic and covalent bonding, molecular geometry, stoichiometry, solution stoichiometry, and gas laws. Includes laboratory. Maximum 6 credits allowed between CHEM 120; CHEM 142; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and B CHEM 144. Course overlaps with: CHEM 120; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and T CHEM 142. Prerequisite: either a minimum grade of 1.7 in CHEM 110, a passing score in the General Chemistry Placement exam, or a minimum score of 1 on the Chemistry AP exam; recommended: MATH 120 or MATH 124. Offered: AWSpS.",
+      "CHEM 152 — General Chemistry II: Gas phase and aqueous equilibria (with emphasis on acid-base equilibrium), thermochemistry, thermodynamics, and electrochemistry. Includes laboratory. Maximum 6 credits allowed between CHEM 152; CHEM 153; CHEM 155; B CHEM 153; and B CHEM 154. Course overlaps with: CHEM 153; CHEM 155; B CHEM 153; and T CHEM 152. Prerequisite: a minimum grade of 1.7 in either CHEM 142, CHEM 143, or CHEM 145. Offered: AWSpS.",
+      "ECON 200 — Introduction to Microeconomics: Analysis of markets: consumer demand, production, exchange, the price system, resource allocation, government intervention. Course equivalent to: B BUS 220/BIS 200; TBECON 220; and TECON 200. Offered: AWSpS.",
+      "ECON 201 — Introduction to Macroeconomics: Analysis of the aggregate economy: national income, inflation, business fluctuations, unemployment, monetary system, federal budget, international trade and finance. Course equivalent to: B BUS 221/BIS 201; TBECON 221; and TECON 201. Prerequisite: ECON 200. Offered: AWSpS.",
+      "PSYCH 101 — Introduction to Psychology: Surveys major areas of psychological science. Core topics include human social behavior, personality, psychological disorders and treatment, learning, memory, human development, biological influences, and research methods. Related topics may include sensation, perception, states of consciousness, thinking, intelligence, language, motivation, emotion, stress and health, cross-cultural psychology, and applied psychology. Prerequisite: null Offered: AWSpS.",
+      "PSYCH 202 — Biopsychology: Examines the biological basis of behavior, the nervous system, how it works to control behavior and sense the world, and what happens when it malfunctions. Topics include learning and memory, development, sex, drugs, sleep, the senses, emotions, and mental disorders. Course overlaps with: TPSYCH 260/T BIOL 260. Prerequisite: PSYCH 101. Offered: AWSpS.",
+      "INFO 200 — Intellectual Foundations of Informatics: Introduces the intellectual foundations of information, including what it is; how people create, categorize, find, interpret, manipulate and use information; how human values shape the design of information, information technology, and information systems; and how these systems shape people, organizations, and society. Includes analytic, design, empirical, and technical skill development.",
+      "INFO 201 — Foundational Skills for Data Science: Introduces fundamental tools, technologies, and skills necessary to transform data into knowledge, including data manipulation, analysis, and visualization, as well as version control and programming languages used in data programming. Students learn to work with real data, and reflect on the power and perils of using data to inform. Course overlaps with: T GIS 470.",
+      "ENGL 111 — Composition: Literature: Uses narratives to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSpS.",
+      "ENGL 131 — Composition: Exposition: Uses a variety of texts across genres to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131.\nOffered: AWSp.",
+      "ANTH 100 — Introduction to Anthropology: Introduction to the subfields of archaeology, biocultural anthropology, and sociocultural anthropology through the examination of selected problems in human physical, cultural, and social evolution. Not recommended for students who have had other courses in anthropology, archaeology, or biocultural anthropology. Course equivalent to: T ANTH 101.",
+      "GEOG 123 — Introduction to Globalization: Provides an introduction to the debates over globalization. Focuses on the growth and intensification of global ties. Addresses the resulting inequalities and tensions, as well as the new opportunities for cultural and political exchange. Topics include the impacts on government, finance, labor, culture, the environment, health, and activism. Course equivalent to: BIS 282. Course overlaps with: TPOL S 123.",
+      "PHIL 100 — Introduction to Philosophy: Major philosophical questions relating to such matters as the existence of God, the foundations of knowledge, the nature of reality, and the nature of morality. Approach may be either historical or topical. Course equivalent to: BIS 193 and T PHIL 101. Offered: AWSpS.",
+      "MUSIC 120 — Introduction to Classical Music: Studies in listening, with emphasis on the changing components of Western art music. Illustrated lectures, laboratory section meetings, and presentations by guest artists. Intended for non-majors.",
+      "COM 200 — Introduction to Communication: Introduces theories and research in communication. Explores the myriad ways scholars approach fundamental issues of contemporary human communication. Focuses on theories and research of communication (e.g. relational, group, political, cultural, and international). Acts as a gateway to knowledge about the communication discipline. Course overlaps with: BIS 178.",
+      "ART 190 — Introduction to Drawing: Builds basic drawing skills, develops understanding of primary concepts which relate to drawing and develops an understanding of the grammar or syntax of two-dimensional language. Students move beyond their current knowledge and abilities and link new skills, concepts, and understandings to creative expressing. Course equivalent to: BIS 121.",
+      "AFRAM 101 — Introduction to African American Studies: History, culture, religion, institutions, politics, economics, arts, and psychology of peoples of African descent as developed from experience in both the old and new worlds. Multidisciplinary analysis of social life from a black perspective as illustrated in selected historical and contemporary writings.",
+      "ARCHY 105 — The Human Past: Explores human cultural and biological evolution: how ancestors 2,500,000 years ago were like us but still different, Neanderthals and their extinction, social/economic revolutions from foraging to farming to states and empires, setbacks, failures, relationships with social and natural environments, and the role of technology. Examines the astonishing variety of adaptations humans have made.",
+      "LING 200 — Introduction to Linguistics: Language as the fundamental characteristic of the human species; diversity and complexity of human languages; phonological and grammatical analysis; dimensions of language use; and language acquisition and historical language change. Cannot be taken for credit if credit has already been earned for LING 400. Course overlaps with: LING 201.",
+      "ENVIR 100 — Environment and Society: Understanding Issues, Finding Solutions: Examines the ethical, political, social, and scientific dimensions of environmental issues. Integrates knowledge from different disciplines while evaluating environmental problems at various scales. Uses an environmental justice lens to examine the ways problems are concentrated in some communities while providing opportunities to practice environmental communication and collaboration across disciplines. Course overlaps with: TESC 220. Offered: AWSpS."
+    ],
+    "retrieved_contexts": [
+      [
+        "Course: IND E 310 - Linear and Network Programming\nCredits: 4\nGeneral Education: N/A\nPrerequisites: either MATH 136 or MATH 208; and either CSE 121, CSE 122, or CSE 142.  Offered: A.\nDescription: Modeling and optimization of linear network problems. Topics include: optimization of linear systems, mathematical model design, simplex method, primal-dual algorithms, parametric programming, goal programming, network problems and algorithms, and PERT/CPM. Prerequisite: either MATH 136 or MATH 208; and either CSE 121, CSE 122, or CSE 142.  Offered: A.",
+        "Course: CSE 121 - Introduction to Computer Programming I\nCredits: 4\nGeneral Education: NSc, RSN\nPrerequisites: None\nDescription: Introduction to computer programming for students without previous programming experience. Students write programs to express algorithmic thinking and solve computational problems motivated by modern societal and scientific needs. Includes procedural programming constructs (methods), control structures (loops, conditionals), and standard data types, including arrays. Course overlaps with: CSE 142; CSS 142; and TCSS 142. Recommended: completion of Paul G. Allen School's Guided Self-Placement. Offered: AWSpS.",
+        "Course: E E 271 - Digital Circuits and Systems\nCredits: 5\nGeneral Education: N/A\nPrerequisites: either CSE 121, CSE 122, CSE 123, CSE 142, or CSE 143.\nDescription: Overview of digital computer systems. Covers logic, Boolean algebra, combinational and sequential circuits and logic design; programmable logic devices; and the design and operation of digital computers, including ALU, memory, and I/O. Weekly laboratories. Course overlaps with: CSE 369 and B EE 271. Prerequisite: either CSE 121, CSE 122, CSE 123, CSE 142, or CSE 143.",
+        "Course: CSE 154 - Web Programming\nCredits: 5\nGeneral Education: RSN\nPrerequisites: a minimum grade of 2.0 in either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163.\nDescription: Covers languages, tools, and techniques for developing interactive and dynamic web pages. Topics include page styling, design, and layout; client and server side scripting; web security; and interacting with data sources such as databases. Prerequisite: a minimum grade of 2.0 in either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163.",
+        "Course: MATH 381 - Discrete Mathematical Modeling\nCredits: 4\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.0 in either CSE 121, CSE 122, CSE 123, CSE 142, CSE 143, or AMATH 301; and a minimum grade of 2.0 in either MATH 136 or MATH 208. Offered: AW.\nDescription: Introduction to methods of discrete mathematics, including topics from graph theory, network flows, and combinatorics. Emphasis on these tools to formulate models and solve problems arising in variety of applications, such as computer science, biology, and management science. Course overlaps with: STMATH 381. Prerequisite: a minimum grade of 2.0 in either CSE 121, CSE 122, CSE 123, CSE 142, CSE 143, or AMATH 301; and a minimum grade of 2.0 in either MATH 136 or MATH 208. Offered: AW."
+      ],
+      [
+        "Course: CSE 163 - Intermediate Data Programming\nCredits: 4\nGeneral Education: RSN\nPrerequisites: either CSE 122, CSE 123, CSE 142, CSE 143, or CSE 160.\nDescription: Intermediate data programming. Topics include writing programs that manipulate different types of data; leveraging the growing ecosystem of tools and libraries for data programming; writing programs that are both efficient and elegant; and writing medium-scale programs (100 to 200 lines). Course overlaps with: ATM S 310 and CSSSKL 132. Prerequisite: either CSE 122, CSE 123, CSE 142, CSE 143, or CSE 160.",
+        "Course: CSE 154 - Web Programming\nCredits: 5\nGeneral Education: RSN\nPrerequisites: a minimum grade of 2.0 in either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163.\nDescription: Covers languages, tools, and techniques for developing interactive and dynamic web pages. Topics include page styling, design, and layout; client and server side scripting; web security; and interacting with data sources such as databases. Prerequisite: a minimum grade of 2.0 in either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163.",
+        "Course: INFO 376 - Introduction to Search and Recommender Systems\nCredits: 4\nGeneral Education: N/A\nPrerequisites: INFO 201; and either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163; recommended: basic Python programming.\nDescription: Covers search engines, recommendation systems, web crawling, and search interface technologies. Includes hands-on experience with a focus on techniques used to access, retrieve, organize, present, and recommend information. Students work with developmental tools and learn relevant concepts through experimentation. Introduces techniques used by e-commerce, social media, and streaming for recommending content and engaging users. Prerequisite: INFO 201; and either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163; recommended: basic Python programming.",
+        "Course: CSE 414 - Introduction to Database Systems\nCredits: 4\nGeneral Education: N/A\nPrerequisites: a minimum grade of 2.5 in either CSE 123, CSE 143, or CSE 163.\nDescription: Introduces database management systems and writing applications that use such systems; data models, query languages, transactions, database tuning, data warehousing, and parallelism. Intended for non-majors. Course overlaps with: CSE 344. Prerequisite: a minimum grade of 2.5 in either CSE 123, CSE 143, or CSE 163.",
+        "Course: CSE 412 - Introduction to Data Visualization\nCredits: 4\nGeneral Education: N/A\nPrerequisites: either CSE 123, CSE 143, or CSE 163.\nDescription: Introduction to data visualization design and use for both data exploration and explanation. Methods for creating effective visualizations using principles from graphic design, psychology, and statistics. Topics include data models, visual encoding methods, data preparation, exploratory analysis, uncertainty, cartography, interaction techniques, visual perception, and evaluation methods. Course overlaps with: CSE 442; HCDE 411; INFO 474; and STAT 451. Prerequisite: either CSE 123, CSE 143, or CSE 163."
+      ],
+      [
+        "Course: MATH 124 - Calculus with Analytic Geometry I\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: None\nDescription: First quarter in calculus of functions of a single variable. Emphasizes differential calculus. Emphasizes applications and problem solving using the tools of calculus. Course equivalent to: STMATH 124 and TMATH 124. Course overlaps with: MATH 112; B MATH 144; STMATH 113; STMATH 114; and TMATH 122. Recommended: completion of Department of Mathematics' Guided Self-Placement. Offered: AWSpS.",
+        "Course: MATH 125 - Calculus with Analytic Geometry II\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either minimum grade of 2.0 in MATH 124, score of 3 on AB advanced placement test, or score of 3 on BC advanced placement test. Offered: AWSpS.\nDescription: Second quarter in the calculus of functions of a single variable. Emphasizes integral calculus. Emphasizes applications and problem solving using the tools of calculus. Cannot be taken for credit if credit has already been earned for MATH 207. Course equivalent to: STMATH 125 and TMATH 125. Prerequisite: either minimum grade of 2.0 in MATH 124, score of 3 on AB advanced placement test, or score of 3 on BC advanced placement test. Offered: AWSpS.",
+        "Course: ENGR 191 - Mathematical Problem Solving for Engineers\nCredits: 1, max. 6\nGeneral Education: N/A\nPrerequisites: None\nDescription: Collaborative problem-solving sessions to develop skills in math with a small community of fellow engineering students. To be taken with either MATH 124, MATH 125, MATH 126, MATH 207, MATH 208, or another MATH course. Credit/no-credit only. Offered: AWSp.",
+        "Course: MATH 134 - Accelerated [Honors] Calculus\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: None\nDescription: Covers the material of MATH 124, MATH 125, MATH 126; MATH 207, MATH 208. First year of a two-year accelerated sequence. May receive advanced placement (AP) credit for MATH 124 after taking MATH 134. For students with above average preparation, interest, and ability in mathematics. Offered: A.",
+        "Course: MATH 136 - Accelerated [Honors] Calculus\nCredits: 5\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.0 in MATH 135. Offered: Sp.\nDescription: Covers the material of MATH 124, MATH 125, MATH 126; MATH 207, MATH 208. First year of a two-year accelerated sequence. For students with above average preparation, interest, and ability in mathematics. Course overlaps with: MATH 126. Prerequisite: a minimum grade of 2.0 in MATH 135. Offered: Sp."
+      ],
+      [
+        "Course: MATH 125 - Calculus with Analytic Geometry II\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either minimum grade of 2.0 in MATH 124, score of 3 on AB advanced placement test, or score of 3 on BC advanced placement test. Offered: AWSpS.\nDescription: Second quarter in the calculus of functions of a single variable. Emphasizes integral calculus. Emphasizes applications and problem solving using the tools of calculus. Cannot be taken for credit if credit has already been earned for MATH 207. Course equivalent to: STMATH 125 and TMATH 125. Prerequisite: either minimum grade of 2.0 in MATH 124, score of 3 on AB advanced placement test, or score of 3 on BC advanced placement test. Offered: AWSpS.",
+        "Course: MATH 135 - Accelerated [Honors] Calculus\nCredits: 5\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.0 in MATH 134. Offered: W.\nDescription: Covers the material of MATH 124, MATH 125, MATH 126; MATH 207, MATH 208. First year of a two-year accelerated sequence. May receive advanced placement (AP) credit for MATH 125 after taking MATH 135. For students with above average preparation, interest, and ability in mathematics. Prerequisite: a minimum grade of 2.0 in MATH 134. Offered: W.",
+        "Course: AMATH 351 - Introduction to Differential Equations and Applications\nCredits: 3\nGeneral Education: NSc\nPrerequisites: MATH 125 or MATH 135. Offered: AWSpS.\nDescription: Introductory survey of ordinary differential equations; linear and nonlinear equations; Taylor series; and. Laplace transforms. Emphasizes on formulation, solution, and interpretation of results. Examples drawn from physical and biological sciences and engineering. Prerequisite: MATH 125 or MATH 135. Offered: AWSpS.",
+        "Course: QMETH 201 - Introduction to Statistical Methods\nCredits: 4\nGeneral Education: NSc, RSN\nPrerequisites: either MATH 112, MATH 124, MATH 125, MATH 134, or MATH 145.\nDescription: Survey of principles of data analysis and their applications for management problems. Elementary techniques of classification, summarization, and visual display of data. Applications of probability models for inference and decision making are illustrated through examples. Prerequisite: either MATH 112, MATH 124, MATH 125, MATH 134, or MATH 145.",
+        "Course: MATH 126 - Calculus with Analytic Geometry III\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either a minimum grade of 2.0 in MATH 125, a minimum grade of 2.0 in MATH 135, or a minimum score of 4 on BC advanced placement test. Offered: AWSpS.\nDescription: Third quarter in calculus sequence. Introduction to vector geometry in three dimensions, vector functions, multivariate differential calculus, and Taylor polynomials and Taylor series. Course equivalent to: STMATH 126 and TMATH 126. Course overlaps with: MATH 136. Prerequisite: either a minimum grade of 2.0 in MATH 125, a minimum grade of 2.0 in MATH 135, or a minimum score of 4 on BC advanced placement test. Offered: AWSpS."
+      ],
+      [
+        "Course: STAT 302 - Statistical Computing\nCredits: 3\nGeneral Education: N/A\nPrerequisites: either STAT 290, STAT 311, STAT 390, STAT 391, or Q SCI 381; recommended: experience with R programming language. Offered: AWSpS.\nDescription: An introduction to the foundations of statistical computing and data analysis. Topics include programming fundamentals, data cleaning, data visualization, debugging, and version control. Topics are motivated by methods in statistics and machine learning. Taught using the R programming language. Course overlaps with: B BUS 301. Prerequisite: either STAT 290, STAT 311, STAT 390, STAT 391, or Q SCI 381; recommended: experience with R programming language. Offered: AWSpS.",
+        "Course: OPMGT 301 - Principles of Operations Management\nCredits: 4\nGeneral Education: N/A\nPrerequisites: ACCTG 225; ECON 200; either MATH 112, MATH 124, MATH125, MATH 134, or Q SCI 291; either ECON 311, IND E 315, QMETH 201, Q SCI 381, PSYCH 315, PSYCH 318, STAT 220, STAT 301, STAT 221/SOC 221/CS&SS 221, STAT 311, or STAT 390.\nDescription: Examines problems encountered in planning, operating, and controlling production of goods and services. Topics include: waiting-line management, quality assurance, production systems, project management, and inventory management. Computer and quantitative models used in formulating managerial problems. Prerequisite: ACCTG 225; ECON 200; either MATH 112, MATH 124, MATH125, MATH 134, or Q SCI 291; either ECON 311, IND E 315, QMETH 201, Q SCI 381, PSYCH 315, PSYCH 318, STAT 220, STAT 301, STAT 221/SOC 221/CS&SS 221, STAT 311, or STAT 390.",
+        "Course: STAT 509 - Econometrics I: Introduction to Mathematical Statistics\nCredits: 4\nGeneral Education: N/A\nPrerequisites: STAT 311; either MATH 126 or MATH 136; and either MATH 208 or MATH 209. Offered: jointly with CSSS 509/ECON 580.\nDescription: Examines methods, tools, and theory of mathematical statistics. Covers probability densities, transformations, moment generating functions, conditional expectation. Bayesian analysis with conjugate priors, hypothesis tests, the Neyman-Pearson Lemma. Likelihood ratio tests, confidence intervals, maximum likelihood estimation, Central limit theorem, Slutsky Theorems, and the delta-method. Prerequisite: STAT 311; either MATH 126 or MATH 136; and either MATH 208 or MATH 209. Offered: jointly with CSSS 509/ECON 580.",
+        "Course: QMETH 490 - Special Problems in Quantitative Analysis\nCredits: 1-6, max. 12\nGeneral Education: N/A\nPrerequisites: either ECON 311, QMETH 201, PSYCH 213, PSYCH 218, STAT 220, STAT 301, STAT 311, or STAT 390.\nDescription: Specialized quantitative techniques useful for solving business problems. Topics from operation research, statistics, computer methods. Emphasis on application. Prerequisite: either ECON 311, QMETH 201, PSYCH 213, PSYCH 218, STAT 220, STAT 301, STAT 311, or STAT 390.",
+        "Course: STAT 311 - Elements of Statistical Methods\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: either STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, MATH 120, MATH 124, MATH 125, MATH 126, MATH 134, MATH 135, MATH 136, QMETH 201, Q SCI 190, Q SCI 291, or Q SCI 292. Offered: AWSpS.\nDescription: Elements of good study design. Descriptive statistics including correlation and regression. Introductory concepts of probability and sampling; binomial and normal distributions. Basic concepts of hypothesis testing, estimation, and confidence intervals; t-tests and chi-square tests. Experience with computer software. Course overlaps with: STMATH 341. Prerequisite: either STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, MATH 120, MATH 124, MATH 125, MATH 126, MATH 134, MATH 135, MATH 136, QMETH 201, Q SCI 190, Q SCI 291, or Q SCI 292. Offered: AWSpS."
+      ],
+      [
+        "Course: STAT 340 - Introduction to Probability and Mathematical Statistics I\nCredits: 4\nGeneral Education: RSN\nPrerequisites: either MATH 126 or MATH 136; and either STAT 311, STAT 390, or Q SCI 381. Offered: A.\nDescription: Fundamentals of probability for statistics; axioms of probability, conditional and joint probability, independence; random variables, univariate and multivariate distributions and densities, moments, and moment generating functions; binomial, negative binomial, geometric, Poisson, uniform, normal, exponential distributions; and transformations of a random variable. Course overlaps with: TSTAT 345. Prerequisite: either MATH 126 or MATH 136; and either STAT 311, STAT 390, or Q SCI 381. Offered: A.",
+        "Course: STAT 341 - Introduction to Probability and Mathematical Statistics II\nCredits: 4\nGeneral Education: NSc\nPrerequisites: STAT 340 or MATH 394/STAT 394; and STAT 311 or STAT 390. Offered: A.\nDescription: Brief review of: sample spaces, random variables, probability. Distribution: binomial, normal, Poisson, geometric. Followed by: expectation, variance, central limit theorem. Basic concepts of estimation, testing, and confidence intervals. Maximum likelihood estimators and likelihood ratio tests, efficiency. Introduction to regression. Course overlaps with: TSTAT 346. Prerequisite: STAT 340 or MATH 394/STAT 394; and STAT 311 or STAT 390. Offered: A.",
+        "Course: STAT 395 - Probability II\nCredits: 4\nGeneral Education: NSc\nPrerequisites: either a minimum grade of 2.0 in MATH 394/STAT 394, or a minimum grade of 2.0 in STAT 340. Offered: jointly with MATH 395; WSpS.\nDescription: Jointly distributed random variables; conditional distributions and densities; conditional expectations and variance; covariance, correlation, and Cauchy-Schwarz inequality; bivariate normal distribution; multivariate transformations; moment generating functions; sums of independent random variables; Central Limit Theorem; Chernoff's inequality; Jensen's inequality. Prerequisite: either a minimum grade of 2.0 in MATH 394/STAT 394, or a minimum grade of 2.0 in STAT 340. Offered: jointly with MATH 395; WSpS.",
+        "Course: MATH 395 - Probability II\nCredits: 4\nGeneral Education: NSc\nPrerequisites: either a minimum grade of 2.0 in MATH 394/STAT 394, or a minimum grade of 2.0 in STAT 340. Offered: jointly with STAT 395; WSpS.\nDescription: Jointly distributed random variables; conditional distributions and densities; conditional expectations and variance; covariance, correlation, and Cauchy-Schwarz inequality; bivariate normal distribution; multivariate transformations; moment generating functions; sums of independent random variables; Central Limit Theorem; Chernoff's inequality; Jensen's inequality. Prerequisite: either a minimum grade of 2.0 in MATH 394/STAT 394, or a minimum grade of 2.0 in STAT 340. Offered: jointly with STAT 395; WSpS.",
+        "Course: INFO 474 - Interactive Information Visualization\nCredits: 5\nGeneral Education: A&H, RSN\nPrerequisites: INFO 340 or CSE 154; CSE 123, CSE 143, or CSE 163; and either QMETH 201, Q SCI 381, STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, STAT 311, or STAT 390.\nDescription: Techniques and theory for visualizing, analyzing, and supporting interaction with structured data like numbers, text, and relations. Provides practical experience designing and building interactive visualizations for the web. Exposes students to cognitive science, statistics, and perceptual psychology. An empirical approach will be used to design and evaluate visualizations. Course overlaps with: CSE 412; CSE 442; and STAT 451. Prerequisite: INFO 340 or CSE 154; CSE 123, CSE 143, or CSE 163; and either QMETH 201, Q SCI 381, STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, STAT 311, or STAT 390."
+      ],
+      [
+        "Course: PHYS 121 - Mechanics\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: either MATH 124 or MATH 134, which may be taken concurrently. Offered: AWSpS.\nDescription: Basic principles of mechanics and experiments in mechanics for physical science and engineering majors. Lecture tutorial and lab components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 114; PHYS 117; PHYS 121; and PHYS 141 (or equivalents). Course equivalent to: B PHYS 121. Course overlaps with: PHYS 114; PHYS 117; PHYS 141; B PHYS 114; and B PHYS 117. Prerequisite: either MATH 124 or MATH 134, which may be taken concurrently. Offered: AWSpS.",
+        "Course: PHYS 407 - Physics by Inquiry I\nCredits: 5\nGeneral Education: NSc\nPrerequisites: minimum grade of 2.0 in PHYS 121, PHYS 122, PHYS 123. Offered: A.\nDescription: Selected topics in physics, with emphasis on the design and use of experiments and experimental evidence to construct physical models. Focus on promoting a deep understanding of the reasoning and representational skills essential to science. Provides background for teaching physics K-20+ through a process of inquiry and to promote scientific literacy. Development of writing skills. Prerequisite: minimum grade of 2.0 in PHYS 121, PHYS 122, PHYS 123. Offered: A.",
+        "Course: PHYS 409 - Physics by Inquiry III\nCredits: 5\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.0 in either PHYS 121, PHYS 122, or PHYS 123. Offered: Sp.\nDescription: Selected topics in physics, with emphasis on the design and use of experiments and experimental evidence to construct physical models. Focus on promoting a deep understanding of the reasoning and representational skills essential to science. Provides background for teaching physics K-20+ through a process of inquiry and to promote scientific literacy. Development of writing skills. Prerequisite: a minimum grade of 2.0 in either PHYS 121, PHYS 122, or PHYS 123. Offered: Sp.",
+        "Course: ESS 431 - Principles of Glaciology\nCredits: 4\nGeneral Education: NSc\nPrerequisites: PHYS 121.\nDescription: Covers snow deposition and metamorphism, avalanches, heat and mass balance at snow and ice surfaces, glacier flow, ice sheets, sea ice, permafrost, methods of paleoclimate reconstruction, Ice Age theories. Prerequisite: PHYS 121.",
+        "Course: PHYS 114 - Mechanics\nCredits: 4\nGeneral Education: NSc, RSN\nPrerequisites: None\nDescription: Principles of mechanics using algebra-based modeling with an emphasis on applications in life sciences. Maximum 5 credits allowed between PHYS 114; PHYS 117; PHYS 121; and PHYS 141 (or equivalents). Course equivalent to: B PHYS 114. Course overlaps with: PHYS 121; PHYS 141; and B PHYS 121. Offered: AWSpS."
+      ],
+      [
+        "Course: PHYS 122 - Electromagnetism\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either PHYS 121 or PHYS 141; and either MATH 125 or MATH 134, which may be taken concurrently. Offered: AWSpS.\nDescription: Covers the basic principles of electromagnetism and experiments in these topics for physical science and engineering majors. Lecture tutorial and lab components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 115; PHYS 118; PHYS 122; and PHYS 142 (or equivalents). Course equivalent to: B PHYS 122. Course overlaps with: PHYS 115; PHYS 118; PHYS 142; B PHYS 115; and B PHYS 118. Prerequisite: either PHYS 121 or PHYS 141; and either MATH 125 or MATH 134, which may be taken concurrently. Offered: AWSpS.",
+        "Course: PHYS 123 - Waves, Light, and Heat\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either PHYS 122 or PHYS 142; and either MATH 126 or MATH 134, which may be taken concurrently. Offered: AWSpS.\nDescription: Explores oscillatory motion, electromagnetic waves, optics, waves in matter, fluids, thermodynamics, and related experiments for physical science and engineering majors. Lecture, laboratory, and tutorial components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 116; PHYS 119; PHYS 123; and PHYS 143 (or equivalents). Course equivalent to: B PHYS 123. Course overlaps with: PHYS 116; PHYS 119; PHYS 143; B PHYS 116; and B PHYS 119. Prerequisite: either PHYS 122 or PHYS 142; and either MATH 126 or MATH 134, which may be taken concurrently. Offered: AWSpS.",
+        "Course: PHYS 142 - Honors Electromagnetism\nCredits: 5\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.5 in PHYS 141; and MATH 125 or MATH 134, either of which may be taken concurrently; recommended: high-school-level physics course. Offered: W.\nDescription: Addresses same material as PHYS 122 in more depth and with additional topics such as current research and cross-disciplinary applications. For students with strong calculus preparation. Maximum 5 credits allowed between PHYS 115; PHYS 118; PHYS 122; and PHYS 142 (or equivalents). Course overlaps with: PHYS 115; PHYS 118; PHYS 122; B PHYS 115; B PHYS 118; and B PHYS 122. Prerequisite: a minimum grade of 2.5 in PHYS 141; and MATH 125 or MATH 134, either of which may be taken concurrently; recommended: high-school-level physics course. Offered: W.",
+        "Course: BIOL 461 - Neurobiology\nCredits: 3\nGeneral Education: NSc\nPrerequisites: BIOL 220; and either PHYS 115 or PHYS 122.\nDescription: Examination of neuronal function with a focus on sensory systems, research techniques, neurological disease and potential therapeutics.  Discussion of primary literature highlights new data related to neurological disease. Course overlaps with: NEUSCI 301. Prerequisite: BIOL 220; and either PHYS 115 or PHYS 122.",
+        "Course: ESS 305 - Climate for Earth Sciences\nCredits: 3\nGeneral Education: NSc\nPrerequisites: MATH 124 or Q SCI 291; and either both PHYS 114 and PHYS 117, or PHYS 121; recommended: either both PHYS 115 and PHYS 118, or PHYS 122.\nDescription: Presents physical principles that govern Earth's climate system. Topics include: how conservation of energy and greenhouse effect maintain equable temperatures suitable for life; basic patterns of atmospheric and oceanic circulations; and physics of the hydrologic cycle. Covers statistical foundations of extreme weather events and projections of future climate. Prerequisite: MATH 124 or Q SCI 291; and either both PHYS 114 and PHYS 117, or PHYS 121; recommended: either both PHYS 115 and PHYS 118, or PHYS 122."
+      ],
+      [
+        "Course: BIOL 315 - Biological Impacts of Climate Change\nCredits: 3\nGeneral Education: NSc\nPrerequisites: either BIOL 180, BIOL 240, B BIO 180, or T BIOL 120.\nDescription: Covers the biological impacts of climate change, including changes in species distributions and interactions, altered phenology, and ecosystem dynamics. Discusses implications of these biological impacts for society (e.g., food security, public health, and resource management). Prerequisite: either BIOL 180, BIOL 240, B BIO 180, or T BIOL 120.",
+        "Course: BIOL 481 - Experimental Evolutionary Ecology\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either BIOL 180, BIOL 240, B BIO 180, or T BIOL 120. Offered: A.\nDescription: Explores experimentally approachable questions in ecology and evolution through lectures, laboratory, and field experiments. Topics may include evolution of bacterial antibiotic resistance, the evolution of virulence, seed predation, plant biodiversity, and others. Prerequisite: either BIOL 180, BIOL 240, B BIO 180, or T BIOL 120. Offered: A.",
+        "Course: PSYCH 300 - Animal Behavior\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either BIOL 118, BIOL 161, or BIOL 180.\nDescription: Introduces important concepts and empirical findings in animal behavior. Emphasizes evolutionary and mechanistic approaches to understanding diversity and complexity of behavior. Topics include communication, mating, migration, and sociality. Prerequisite: either BIOL 118, BIOL 161, or BIOL 180.",
+        "Course: BIOL 106 - Introductory Biology Seminar\nCredits: 1/3, max. 6\nGeneral Education: NSc\nPrerequisites: None\nDescription: Focuses on current topics in biology. Topics vary from quarter to quarter. Designed to enhance learning skills of students who intend to take BIOL 180/BIOL 200/BIOL 220 and major in one of the biological sciences.",
+        "Course: BIOL 480 - Field Ecology\nCredits: 4\nGeneral Education: NSc\nPrerequisites: either BIOL 356 or a minimum grade of 3.0 in either BIOL 180, BIOL 240, B BIO 180, or T BIOL 120.\nDescription: Field projects examining ecological and behavioral topics such as foraging and social behavior, species interactions, and structure of terrestrial and aquatic communities. Two weekend fieldtrips required. Prerequisite: either BIOL 356 or a minimum grade of 3.0 in either BIOL 180, BIOL 240, B BIO 180, or T BIOL 120."
+      ],
+      [
+        "Course: MICROM 402 - Fundamentals of General Microbiology Laboratory\nCredits: 3\nGeneral Education: NSc\nPrerequisites: BIOL 200. Offered: ASp.\nDescription: Isolation of a broad range of nonpathogenic bacteria from natural sources, using selective and enrichment techniques, with microscopic, biochemical, and molecular identification. Related exercises include genetics, physiology, quantitation, and growth energetics. Prerequisite: BIOL 200. Offered: ASp.",
+        "Course: BIOL 200 - Introductory Biology\nCredits: 5\nGeneral Education: NSc\nPrerequisites: a minimum grade of 1.7 in either BIOL 180, B BIO 180, or T BIOL 120; and either CHEM 143, CHEM 145, CHEM 223, CHEM 237, or OCEAN 295, or concurrently taking either CHEM 152, CHEM 153, CHEM 155, or CHEM 220. Offered: AWSpS.\nDescription: For students intending to take advanced courses in the biological sciences or enroll in preprofessional programs. Metabolism and energetics, structure and function of biomolecules, cell structure and function, developmental patterning. Second course in a three-quarter series (BIOL 180, BIOL 200, BIOL 220). Maximum 15 credits allowed between BIOL 180; BIOL 200; BIOL 220 (or equivalents); and BIOL 240. Course equivalent to: B BIO 200. Course overlaps with: T BIOL 130. Prerequisite: a minimum grade of 1.7 in either BIOL 180, B BIO 180, or T BIOL 120; and either CHEM 143, CHEM 145, CHEM 223, CHEM 237, or OCEAN 295, or concurrently taking either CHEM 152, CHEM 153, CHEM 155, or CHEM 220. Offered: AWSpS.",
+        "Course: MICROM 412 - Prokaryotic Diversity\nCredits: 3\nGeneral Education: NSc\nPrerequisites: BIOL 200. Offered: Sp.\nDescription: Structure, biochemical properties, and genetics of the major groups of prokaryotes. Prerequisite: BIOL 200. Offered: Sp.",
+        "Course: BIOL 340 - Genetics and Molecular Ecology\nCredits: 5\nGeneral Education: NSc\nPrerequisites: BIOL 200. Offered: jointly with FISH 340; A.\nDescription: Application of molecular markers to ecology, evolution, and the management of living resources. Emphasis on understanding the strengths and weaknesses of the approach based on case studies. Prerequisite: BIOL 200. Offered: jointly with FISH 340; A.",
+        "Course: MICROM 445 - Medical Virology\nCredits: 3\nGeneral Education: NSc\nPrerequisites: either BIOL 180 or BIOL 200.\nDescription: Introduces medical virology emphasizing basic understanding of the pathogenesis and replication of medically important viruses including the spread, diagnosis, epidemiology, treatment, and prevention of human viral diseases. Prerequisite: either BIOL 180 or BIOL 200."
+      ],
+      [
+        "Course: CHEM 142 - General Chemistry I\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: either a minimum grade of 1.7 in CHEM 110, a passing score in the General Chemistry Placement exam, or a minimum score of 1 on the Chemistry AP exam; recommended: MATH 120 or MATH 124. Offered: AWSpS.\nDescription: For science and engineering majors. Atomic nature of matter, quantum mechanics, ionic and covalent bonding, molecular geometry, stoichiometry, solution stoichiometry, and gas laws. Includes laboratory. Maximum 6 credits allowed between CHEM 120; CHEM 142; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and B CHEM 144. Course overlaps with: CHEM 120; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and T CHEM 142. Prerequisite: either a minimum grade of 1.7 in CHEM 110, a passing score in the General Chemistry Placement exam, or a minimum score of 1 on the Chemistry AP exam; recommended: MATH 120 or MATH 124. Offered: AWSpS.",
+        "Course: MSE 197 - Case Studies in Materials Innovation\nCredits: 2\nGeneral Education: N/A\nPrerequisites: either CHEM 142, CHEM 143, or CHEM 145. Offered: Sp.\nDescription: Materials science concepts, with emphasis on career opportunities in Materials Science and Engineering. Includes structural materials, electronic materials, biomaterials, and energy related materials. Development of scientific analysis and research proposal formulation skills. Prerequisite: either CHEM 142, CHEM 143, or CHEM 145. Offered: Sp.",
+        "Course: NME 220 - Introduction to Molecular and Nanoscale Principles\nCredits: 4\nGeneral Education: NSc\nPrerequisites: either CHEM 142, CHEM 144, or CHEM 145; either MATH 126 or MATH 136; PHYS 121.\nDescription: Introduction to theories and concepts of molecular and nanoscale systems to raise awareness of technological and societal transformations anticipated through progress in nanotechnology. Prerequisite: either CHEM 142, CHEM 144, or CHEM 145; either MATH 126 or MATH 136; PHYS 121.",
+        "Course: CHEM 153 - Accelerated General Chemistry II\nCredits: 6\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.0 in CHEM 143. Offered: W.\nDescription: Continuation of CHEM 143. Covers equivalent of half of year-long general chemistry sequence (CHEM 142, CHEM 152, CHEM 162). For science and engineering majors. Thermodynamics, electrochemistry, bonding, kinetics, liquids, solids, solutions, transition metals. Includes laboratory. Maximum 6 credits allowed between CHEM 152; CHEM 153; CHEM 155; B CHEM 153; and B CHEM 154. Course overlaps with: CHEM 152 and CHEM 155. Prerequisite: a minimum grade of 2.0 in CHEM 143. Offered: W.",
+        "Course: CHEM 143 - Accelerated General Chemistry I\nCredits: 6\nGeneral Education: NSc, RSN\nPrerequisites: either a minimum grade of 1.7 in CHEM 110, a passing score in the General Chemistry Placement exam, or a minimum score of 1 on the Chemistry AP exam; recommended: MATH 120 or MATH 124. Offered: A.\nDescription: Covers equivalent of half of year-long general chemistry sequence (CHEM 142, CHEM 152, CHEM 162). For science and engineering majors. Stoichiometry, gas laws, atomic structure, quantum mechanics, general bonding, gas-phase equilibria, acid-base equilibria, applications of aqueous equilibria. Includes laboratory. Maximum 6 credits allowed between CHEM 120; CHEM 142; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and B CHEM 144. Course overlaps with: CHEM 120; CHEM 142; CHEM 145; and B CHEM 115. Prerequisite: either a minimum grade of 1.7 in CHEM 110, a passing score in the General Chemistry Placement exam, or a minimum score of 1 on the Chemistry AP exam; recommended: MATH 120 or MATH 124. Offered: A."
+      ],
+      [
+        "Course: CHEM 152 - General Chemistry II\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: a minimum grade of 1.7 in either CHEM 142, CHEM 143, or CHEM 145. Offered: AWSpS.\nDescription: Gas phase and aqueous equilibria (with emphasis on acid-base equilibrium), thermochemistry, thermodynamics, and electrochemistry. Includes laboratory. Maximum 6 credits allowed between CHEM 152; CHEM 153; CHEM 155; B CHEM 153; and B CHEM 154. Course overlaps with: CHEM 153; CHEM 155; B CHEM 153; and T CHEM 152. Prerequisite: a minimum grade of 1.7 in either CHEM 142, CHEM 143, or CHEM 145. Offered: AWSpS.",
+        "Course: CHEM 153 - Accelerated General Chemistry II\nCredits: 6\nGeneral Education: NSc\nPrerequisites: a minimum grade of 2.0 in CHEM 143. Offered: W.\nDescription: Continuation of CHEM 143. Covers equivalent of half of year-long general chemistry sequence (CHEM 142, CHEM 152, CHEM 162). For science and engineering majors. Thermodynamics, electrochemistry, bonding, kinetics, liquids, solids, solutions, transition metals. Includes laboratory. Maximum 6 credits allowed between CHEM 152; CHEM 153; CHEM 155; B CHEM 153; and B CHEM 154. Course overlaps with: CHEM 152 and CHEM 155. Prerequisite: a minimum grade of 2.0 in CHEM 143. Offered: W.",
+        "Course: CHEM 162 - General Chemistry III\nCredits: 5\nGeneral Education: NSc, RSN\nPrerequisites: a minimum grade of 1.7 in CHEM 152. Offered: AWSpS.\nDescription: Molecular bonding theories, kinetics, liquids, solids, solutions, and introduction to organic and transition metal chemistry. Includes laboratory. Maximum 6 credits allowed between CHEM 162; CHEM 165; B CHEM 163; and B CHEM 164. Course overlaps with: CHEM 165; B CHEM 163; B CHEM 164; and T CHEM 162. Prerequisite: a minimum grade of 1.7 in CHEM 152. Offered: AWSpS.",
+        "Course: ENV H 432 - Chemical Sampling and Analysis\nCredits: 5\nGeneral Education: NSc\nPrerequisites: CHEM 152 Offered: Sp.\nDescription: Laboratory and lecture on chemical sampling and analysis. Field and laboratory anaylsis of chemical and physical agents found in the occupational and ambient environments. Prerequisite: CHEM 152 Offered: Sp.",
+        "Course: OCEAN 295 - Chemistry of Marine Organic Carbon\nCredits: 5\nGeneral Education: NSc\nPrerequisites: either CHEM 152 or CHEM 120. Offered: WSp.\nDescription: Explores the movement of organic carbon through the global carbon cycle, in the context of earth sciences and marine biogeochemical cycles. Prerequisite: either CHEM 152 or CHEM 120. Offered: WSp."
+      ],
+      [
+        "Course: ECON 222 - Economic Analysis of Everyday Decisions: Microeconomics in Action\nCredits: 5\nGeneral Education: SSc\nPrerequisites: ECON 200.\nDescription: Explores the hidden economic logic behind personal decisions. Applies economic frameworks to analyze housing purchases, investment strategies, insurance choices, and consumption timing. Develops analytical skills for evaluating tradeoffs through the economic lens of opportunity costs, market efficiency, and uncertainty. Equips students with decision-making tools grounded in economic theory. Prerequisite: ECON 200.",
+        "Course: ECON 200 - Introduction to Microeconomics\nCredits: 5\nGeneral Education: SSc, RSN\nPrerequisites: None\nDescription: Analysis of markets: consumer demand, production, exchange, the price system, resource allocation, government intervention. Course equivalent to: B BUS 220/BIS 200; TBECON 220; and TECON 200. Offered: AWSpS.",
+        "Course: POL S 476 - Introduction to Game Theory for Political Economy Research\nCredits: 5\nGeneral Education: SSc\nPrerequisites: ECON 200 and ECON 201; recommended: ECON 300 and MATH 124.\nDescription: Introduction to non-cooperative game theory. Covers expected utility theory, static and dynamic games, and games of complete and incomplete information including signaling and bargaining models.  Focus on applications in the social sciences. Prerequisite: ECON 200 and ECON 201; recommended: ECON 300 and MATH 124.",
+        "Course: ECON 502 - Macroeconomic Analysis I\nCredits: 4\nGeneral Education: N/A\nPrerequisites: permission of instructor.\nDescription: Topics include theories of business cycles, dynamics of price adjustments, consumption theory, dynamic programming, introduction to numerical techniques, and open economy macroeconomics. Prerequisite: permission of instructor.",
+        "Course: I BUS 300 - Introduction to Global Business\nCredits: 4\nGeneral Education: N/A\nPrerequisites: ECON 200.\nDescription: Prepares students to understand the most important aspects of the international political economy. Emphasis on the important relationships among nations and business and economic institutions that influence students' performances as managers, consumers, and citizens. Prerequisite: ECON 200."
+      ],
+      [
+        "Course: ECON 201 - Introduction to Macroeconomics\nCredits: 5\nGeneral Education: SSc, RSN\nPrerequisites: ECON 200. Offered: AWSpS.\nDescription: Analysis of the aggregate economy: national income, inflation, business fluctuations, unemployment, monetary system, federal budget, international trade and finance. Course equivalent to: B BUS 221/BIS 201; TBECON 221; and TECON 201. Prerequisite: ECON 200. Offered: AWSpS.",
+        "Course: ECON 494 - Economy of Japan\nCredits: 5\nGeneral Education: SSc\nPrerequisites: ECON 201.\nDescription: Analysis of the economic growth of Japan since about 1850 to the present. The reasons for rapid industrialization, various effects of sustained economic growth, and significant contemporary issues are investigated. Prerequisite: ECON 201.",
+        "Course: B ECON 301 - Intermediate Macroeconomics\nCredits: 4\nGeneral Education: N/A\nPrerequisites: ECON 201; may not be repeated.\nDescription: Analysis of economy with attention to the business cycle, output of goods and services (GNP), inflation, unemployment, and government's fiscal and monetary policies. How the economy affects individuals and firms and how to deal effectively with the economic environment. Prerequisite: ECON 201; may not be repeated.",
+        "Course: JSIS 501 - Seminar: Comparative International Studies\nCredits: 5\nGeneral Education: N/A\nPrerequisites: ECON 200; ECON 201. Offered: W.\nDescription: Focuses on comparison across geographical areas including comparative political economy, comparative cultures, and comparative institutions. Provides familiarity with the comparative method of inquiry, an understanding of the interplay between area studies and cross-regional theories, and skills in conducting comparative research and writing. Prerequisite: ECON 200; ECON 201. Offered: W.",
+        "Course: ECON 301 - Intermediate Macroeconomics\nCredits: 5\nGeneral Education: SSc\nPrerequisites: a minimum grade of 2.0 in ECON 201; and a minimum grade of 2.0 in ECON 300. Offered: AWSpS.\nDescription: Analysis of the determinants of the aggregate level of employment, output, prices, and income of an economy. Policy issues and applications with special reference to current monetary and fiscal policy. Course overlaps with: B BECN 303. Prerequisite: a minimum grade of 2.0 in ECON 201; and a minimum grade of 2.0 in ECON 300. Offered: AWSpS."
+      ],
+      [
+        "Course: PSYCH 101 - Introduction to Psychology\nCredits: 5\nGeneral Education: SSc\nPrerequisites: null Offered: AWSpS.\nDescription: Surveys major areas of psychological science. Core topics include human social behavior, personality, psychological disorders and treatment, learning, memory, human development, biological influences, and research methods. Related topics may include sensation, perception, states of consciousness, thinking, intelligence, language, motivation, emotion, stress and health, cross-cultural psychology, and applied psychology. Prerequisite: null Offered: AWSpS.",
+        "Course: PSYCH 222 - Current Topics in Psychology\nCredits: 3-5, max. 10\nGeneral Education: SSc\nPrerequisites: PSYCH 101. Offered: AWSpS.\nDescription: Topics of current interest, such as the psychology of happiness, psychology of friendship, technology and relationships, and developments in brain and behavior science. Choice of topics depends on instructor and class interest. Prerequisite: PSYCH 101. Offered: AWSpS.",
+        "Course: PSYCH 202 - Biopsychology\nCredits: 5\nGeneral Education: NSc\nPrerequisites: PSYCH 101. Offered: AWSpS.\nDescription: Examines the biological basis of behavior, the nervous system, how it works to control behavior and sense the world, and what happens when it malfunctions. Topics include learning and memory, development, sex, drugs, sleep, the senses, emotions, and mental disorders. Course overlaps with: TPSYCH 260/T BIOL 260. Prerequisite: PSYCH 101. Offered: AWSpS.",
+        "Course: PSYCH 206 - Human Development\nCredits: 5\nGeneral Education: SSc\nPrerequisites: PSYCH 101.\nDescription: Theoretical perspectives and research methods in child development with an overview of historical and current works. Includes prenatal and biological development, the development of cognitive, linguistic, and social and emotional abilities. Cannot be taken if credit received for PSYCH 306. Prerequisite: PSYCH 101.",
+        "Course: PSYCH 245 - Introduction to Social Psychology\nCredits: 5\nGeneral Education: SSc\nPrerequisites: PSYCH 101.\nDescription: Overview of major findings of social psychology, emphasizing the relevance for understanding the social behaviors of individuals and groups of individuals and their relationship to social context. Course overlaps with: PSYCH 345 and BIS 225. Prerequisite: PSYCH 101."
+      ],
+      [
+        "Course: PSYCH 322 - Introduction to Drugs and Behavior\nCredits: 5\nGeneral Education: NSc\nPrerequisites: PSYCH 202.\nDescription: Basic concepts of drug action emphasizing the behavioral consequences of the intake of a variety of drugs. Prerequisite: PSYCH 202.",
+        "Course: PSYCH 202 - Biopsychology\nCredits: 5\nGeneral Education: NSc\nPrerequisites: PSYCH 101. Offered: AWSpS.\nDescription: Examines the biological basis of behavior, the nervous system, how it works to control behavior and sense the world, and what happens when it malfunctions. Topics include learning and memory, development, sex, drugs, sleep, the senses, emotions, and mental disorders. Course overlaps with: TPSYCH 260/T BIOL 260. Prerequisite: PSYCH 101. Offered: AWSpS.",
+        "Course: PSYCH 302 - Neuroscience of the Mind\nCredits: 5\nGeneral Education: NSc\nPrerequisites: PSYCH 101; PSYCH 202; and PSYCH 209. Offered: AWSpS.\nDescription: Explores the capacity for flexible neural processing changes across the lifespan, and what may go awry in disorders of mental health and behavioral control. Provides a fundamental understanding of the dynamic, often reciprocal, relationship between brain neuroplasticity and a variety of complex behaviors (e.g. learning, memory, decision, language), including their modulation by social factors, development, aging, disease, and brain injury. Prerequisite: PSYCH 101; PSYCH 202; and PSYCH 209. Offered: AWSpS.",
+        "Course: PSYCH 421 - Neural Basis of Behavior\nCredits: 5\nGeneral Education: NSc\nPrerequisites: minimum 2.0 grade in PSYCH 202.\nDescription: Anatomical and physiological principles and resultant behavior involved in the integrative action of the nervous system. Prerequisite: minimum 2.0 grade in PSYCH 202.",
+        "Course: PSYCH 400 - Learning\nCredits: 5\nGeneral Education: SSc/NSc\nPrerequisites: minimum 2.0 grade in PSYCH 202.\nDescription: Experimental research and basic theories primarily in animal learning. Prerequisite: minimum 2.0 grade in PSYCH 202."
+      ],
+      [
+        "Course: INFO 200 - Intellectual Foundations of Informatics\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Introduces the intellectual foundations of information, including what it is; how people create, categorize, find, interpret, manipulate and use information; how human values shape the design of information, information technology, and information systems; and how these systems shape people, organizations, and society. Includes analytic, design, empirical, and technical skill development.",
+        "Course: INFO 300 - Research Methods\nCredits: 5\nGeneral Education: N/A\nPrerequisites: None\nDescription: Introduces research methods used to understand people's interactions with information, information technology, and information systems. Topics include epistemology, science, theory, research ethics, and a selection of qualitative, quantitative, and design methods for answering questions in both research and practical settings.",
+        "Course: INFO 468 - Designing for Personal Health and Wellness\nCredits: 5\nGeneral Education: SSc\nPrerequisites: either INFO 200, HCDE 210, HCDE 310, HCDE 318, or DESIGN 206.\nDescription: Focuses on human-centered design of technologies for personal health and wellness.  Students will learn how to understand people's health and wellness needs, consider ethical implications, assess existing tools, and design new health and wellness technologies. Students will learn theoretical and empirical approaches to evaluating these technologies. Prerequisite: either INFO 200, HCDE 210, HCDE 310, HCDE 318, or DESIGN 206.",
+        "Course: INFO 280 - Professional Practices in Informatics\nCredits: 4\nGeneral Education: DIV\nPrerequisites: None\nDescription: Introduces tools, skills, and professional practices for successful information careers. Covers understanding the information industry, collaborative  teamwork, conflict resolution, and communicating professionally within and outside an organization.  Students practice effective written and oral communication and develop their professional identity. Course overlaps with: INFO 290 and INFO 386.",
+        "Course: INFO 180 - Introduction to Data Science\nCredits: 4\nGeneral Education: RSN\nPrerequisites: None\nDescription: Survey course introducing the essential elements of data science: data collection, management, curation, and cleaning; summarizing and visualizing data; basic ideas of statistical inference, machine learning. Students will gain hands-on experience through computing labs. Course equivalent to: CSE 180 and STAT 180. Course overlaps with: B DATA 200."
+      ],
+      [
+        "Course: INFO 201 - Foundational Skills for Data Science\nCredits: 5\nGeneral Education: RSN\nPrerequisites: None\nDescription: Introduces fundamental tools, technologies, and skills necessary to transform data into knowledge, including data manipulation, analysis, and visualization, as well as version control and programming languages used in data programming. Students learn to work with real data, and reflect on the power and perils of using data to inform. Course overlaps with: T GIS 470.",
+        "Course: INFO 478 - Population Health Informatics\nCredits: 5\nGeneral Education: SSc, RSN\nPrerequisites: INFO 201.\nDescription: Introduces applications of Informatics skills to evaluating public health. Students will learn how to leverage their programming and data competencies towards measuring and describing the health of a population. Students will learn about and compute metrics of population health, and leverage visualization to communicate statistical insights to broad audiences. Prerequisite: INFO 201.",
+        "Course: INFO 370 - Core Methods in Data Science\nCredits: 5\nGeneral Education: RSN\nPrerequisites: INFO 201; either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163; and either STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, STAT 311, STAT 390, QMETH 201, or Q SCI 381.\nDescription: Surveys the major topics within data science, including data ingestion, cloud computing, statistical inference, machine learning, information visualization, and data ethics. Includes programming in R and Python. Prerequisite: INFO 201; either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163; and either STAT 220, STAT 221/CS&SS 221/SOC 221, STAT 290, STAT 311, STAT 390, QMETH 201, or Q SCI 381.",
+        "Course: INFO 376 - Introduction to Search and Recommender Systems\nCredits: 4\nGeneral Education: N/A\nPrerequisites: INFO 201; and either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163; recommended: basic Python programming.\nDescription: Covers search engines, recommendation systems, web crawling, and search interface technologies. Includes hands-on experience with a focus on techniques used to access, retrieve, organize, present, and recommend information. Students work with developmental tools and learn relevant concepts through experimentation. Introduces techniques used by e-commerce, social media, and streaming for recommending content and engaging users. Prerequisite: INFO 201; and either CSE 122, CSE 123, CSE 142, CSE 143, CSE 160, or CSE 163; recommended: basic Python programming.",
+        "Course: INFO 340 - Client-Side Development\nCredits: 5\nGeneral Education: RSN\nPrerequisites: either CSE 123, CSE 143, CSE 154, or CSE 163; and INFO 201.\nDescription: Introduction to client-side development on the internet, including markup, programming languages, protocols, libraries, and frameworks for creating and maintaining usable and accessible, interactive applications. Prerequisite: either CSE 123, CSE 143, CSE 154, or CSE 163; and INFO 201."
+      ],
+      [
+        "Course: ENGL 111 - Composition: Literature\nCredits: 5\nGeneral Education: C\nPrerequisites: may not be taken if minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSpS.\nDescription: Uses narratives to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSpS.",
+        "Course: ENGL 141 - The Research Paper\nCredits: 5\nGeneral Education: C\nPrerequisites: Either ENGL 111, ENGL 121, or ENGL 131.\nDescription: Includes study of library resources, the analysis of reading materials, and writing preparatory papers as basic to writing a reference or research paper. Prerequisite: Either ENGL 111, ENGL 121, or ENGL 131.",
+        "Course: ENGL 121 - Composition: Social Issues\nCredits: 5\nGeneral Education: C\nPrerequisites: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSp.\nDescription: Uses community-engagement learning opportunities to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Includes service learning component. Prerequisite: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSp.",
+        "Course: ENGL 131 - Composition: Exposition\nCredits: 5\nGeneral Education: C\nPrerequisites: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131.\nDescription: Uses a variety of texts across genres to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131.\nOffered: AWSp.",
+        "Course: ENGR 231 - Introduction to Technical Communication\nCredits: 3\nGeneral Education: N/A\nPrerequisites: either both ENGL 109 and ENGL 110, or any one of the following:  C LIT 240, ENGL 111, ENGL 121, ENGL 131, ENGL 141, ENGL 182, ENGL 197, ENGL 198, ENGL 199, ENGL 281, ENGL 282, ENGL 288, ENGL 296, ENGL 297, ENGL 298, ENGL 299, ENGL 381, ENGL 382, HONORS 205, or HONORS 345. Offered: AWSpS.\nDescription: Examines basics of researching and presenting technical information for different audiences and purposes. Individually and in teams, students learn to construct document and presentations, following conventions of oral, written, and visual communication. Assignments are grounded in ethical and sustainable engineering practices. Course overlaps with: BSE 231. Prerequisite: either both ENGL 109 and ENGL 110, or any one of the following:  C LIT 240, ENGL 111, ENGL 121, ENGL 131, ENGL 141, ENGL 182, ENGL 197, ENGL 198, ENGL 199, ENGL 281, ENGL 282, ENGL 288, ENGL 296, ENGL 297, ENGL 298, ENGL 299, ENGL 381, ENGL 382, HONORS 205, or HONORS 345. Offered: AWSpS."
+      ],
+      [
+        "Course: ENGL 141 - The Research Paper\nCredits: 5\nGeneral Education: C\nPrerequisites: Either ENGL 111, ENGL 121, or ENGL 131.\nDescription: Includes study of library resources, the analysis of reading materials, and writing preparatory papers as basic to writing a reference or research paper. Prerequisite: Either ENGL 111, ENGL 121, or ENGL 131.",
+        "Course: ENGL 131 - Composition: Exposition\nCredits: 5\nGeneral Education: C\nPrerequisites: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131.\nDescription: Uses a variety of texts across genres to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131.\nOffered: AWSp.",
+        "Course: ENGR 231 - Introduction to Technical Communication\nCredits: 3\nGeneral Education: N/A\nPrerequisites: either both ENGL 109 and ENGL 110, or any one of the following:  C LIT 240, ENGL 111, ENGL 121, ENGL 131, ENGL 141, ENGL 182, ENGL 197, ENGL 198, ENGL 199, ENGL 281, ENGL 282, ENGL 288, ENGL 296, ENGL 297, ENGL 298, ENGL 299, ENGL 381, ENGL 382, HONORS 205, or HONORS 345. Offered: AWSpS.\nDescription: Examines basics of researching and presenting technical information for different audiences and purposes. Individually and in teams, students learn to construct document and presentations, following conventions of oral, written, and visual communication. Assignments are grounded in ethical and sustainable engineering practices. Course overlaps with: BSE 231. Prerequisite: either both ENGL 109 and ENGL 110, or any one of the following:  C LIT 240, ENGL 111, ENGL 121, ENGL 131, ENGL 141, ENGL 182, ENGL 197, ENGL 198, ENGL 199, ENGL 281, ENGL 282, ENGL 288, ENGL 296, ENGL 297, ENGL 298, ENGL 299, ENGL 381, ENGL 382, HONORS 205, or HONORS 345. Offered: AWSpS.",
+        "Course: ENGL 121 - Composition: Social Issues\nCredits: 5\nGeneral Education: C\nPrerequisites: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSp.\nDescription: Uses community-engagement learning opportunities to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Includes service learning component. Prerequisite: may not be taken if a minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSp.",
+        "Course: ENGL 111 - Composition: Literature\nCredits: 5\nGeneral Education: C\nPrerequisites: may not be taken if minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSpS.\nDescription: Uses narratives to study writing as social action and language as tied to identity, culture, and power. Centers students' language resources and goals in developing rhetorical and research skills for composing ethically and critically across different contexts and genres. Prepares students for writing to audiences both within and beyond the university. Prerequisite: may not be taken if minimum grade of 2.0 received in either ENGL 111, ENGL 121, or ENGL 131. Offered: AWSpS."
+      ],
+      [
+        "Course: ANTH 100 - Introduction to Anthropology\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Introduction to the subfields of archaeology, biocultural anthropology, and sociocultural anthropology through the examination of selected problems in human physical, cultural, and social evolution. Not recommended for students who have had other courses in anthropology, archaeology, or biocultural anthropology. Course equivalent to: T ANTH 101."
+      ],
+      [
+        "Course: GEOG 123 - Introduction to Globalization\nCredits: 5\nGeneral Education: SSc, DIV\nPrerequisites: None\nDescription: Provides an introduction to the debates over globalization. Focuses on the growth and intensification of global ties. Addresses the resulting inequalities and tensions, as well as the new opportunities for cultural and political exchange. Topics include the impacts on government, finance, labor, culture, the environment, health, and activism. Course equivalent to: BIS 282. Course overlaps with: TPOL S 123.",
+        "Course: GEOG 375 - Geopolitics\nCredits: 5\nGeneral Education: SSc, DIV\nPrerequisites: None\nDescription: An introduction to both political geography and geopolitics, addressing the fundamental links between power and space. Topics covered include: theories of power, space, and modernity; the formation of modern states; international geopolitics in the aftermath of the Cold War; the post-colonial nation-state; and the geopolitics of resistance. Offered: jointly with JSIS B 375.",
+        "Course: GEOG 277 - Geography of Cities\nCredits: 5\nGeneral Education: SSc, DIV\nPrerequisites: None\nDescription: Explores economic, cultural, social and political dynamics of cities - their location, functions, and internal structure, including economic activities, housing, and social geography.  Topics include economic restructuring; suburbanization and urban sprawl; urban planning; inner-city gentrification; and how issues of class, race, and gender are embedded in the geographies of cities.",
+        "Course: JSIS B 375 - Geopolitics\nCredits: 5\nGeneral Education: SSc, DIV\nPrerequisites: None\nDescription: An introduction to both political geography and geopolitics, addressing the fundamental links between power and space. Topics covered include: theories of power, space, and modernity; the formation of modern states; international geopolitics in the aftermath of the Cold War; the post-colonial nation-state; and the geopolitics of resistance. Offered: jointly with GEOG 375.",
+        "Course: GEOG 477 - Advanced Urban Geography\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Geographic patterns and social processes within metropolitan areas. Canvases current research topics, methods, and theoretical debates in urban geography. Issues covered range across urban economic, political, and cultural geography. Course overlaps with: GEOG 479."
+      ],
+      [
+        "Course: PHIL 100 - Introduction to Philosophy\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Major philosophical questions relating to such matters as the existence of God, the foundations of knowledge, the nature of reality, and the nature of morality. Approach may be either historical or topical. Course equivalent to: BIS 193 and T PHIL 101. Offered: AWSpS.",
+        "Course: PHIL 102 - Contemporary Moral Problems\nCredits: 5\nGeneral Education: SSc/A&H\nPrerequisites: None\nDescription: Philosophical consideration of some of the main moral problems of modern society and civilization, such as abortion, euthanasia, war, and capital punishment. Topics vary.",
+        "Course: PHIL 360 - Introductory Topics in Philosophy of Science\nCredits: 5, max. 10\nGeneral Education: SSc/NSc\nPrerequisites: one PHIL course.\nDescription: Study of one or more current topics in philosophy of science such as scientific realism, explanation, confirmation, causation. Course overlaps with: T PHIL 364. Prerequisite: one PHIL course.",
+        "Course: PHIL 400 - Honors Seminar\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Intensive and advanced studies of philosophical topics. Topics vary. Open only to Philosophy departmental honors students. Offered: W.",
+        "Course: PHIL 326 - Chinese Philosophy: From Han to the Nineteenth Century\nCredits: 5\nGeneral Education: A&H\nPrerequisites: None\nDescription: Covers major works of Chinese philosophy from Han (c.200 BCE) to the nineteenth century. Focuses on problems about metaphysics, mind, and morality. Background in Chinese not required. Recommended: any 100-level, 200-level, 300-level, or 400-level PHIL course."
+      ],
+      [
+        "Course: MUSIC 120 - Introduction to Classical Music\nCredits: 5\nGeneral Education: A&H\nPrerequisites: None\nDescription: Studies in listening, with emphasis on the changing components of Western art music. Illustrated lectures, laboratory section meetings, and presentations by guest artists. Intended for non-majors.",
+        "Course: MUSIC 216 - Introductory Composition\nCredits: 2\nGeneral Education: A&H\nPrerequisites: MUSIC 116 or MUSIC 119; and MUHST 100 or MUSIC 120.\nDescription: For students not majoring in composition. Prerequisite: MUSIC 116 or MUSIC 119; and MUHST 100 or MUSIC 120.",
+        "Course: MUSIC 118 - Elementary Music Theory\nCredits: 2\nGeneral Education: A&H\nPrerequisites: MUSIC 117.\nDescription: For nonmusic majors. For students who read music, have some performance experience, are familiar with scales, chords, intervals. Includes analysis of composition in various styles. Prerequisite: MUSIC 117.",
+        "Course: MUSIC 119 - Introduction to Music Theory and Musicianship\nCredits: 3\nGeneral Education: A&H\nPrerequisites: None\nDescription: Basic elements of music theory: introduction to acoustics, major and minor scales, triads and seventh chords, keys, four-part writing, functional harmony, modes, simple forms, and jazz notation. Offered: A.",
+        "Course: MUSIC 201 - First-Year Theory I\nCredits: 3\nGeneral Education: A&H\nPrerequisites: minimum grade of 2.0 in MUSIC 119. Offered: W.\nDescription: Introduction to tonal harmony and counterpoint; triadic progressions in root position; first and second species counterpoint; analysis of simple works. Prerequisite: minimum grade of 2.0 in MUSIC 119. Offered: W."
+      ],
+      [
+        "Course: COM 200 - Introduction to Communication\nCredits: 5\nGeneral Education: A&H/SSc\nPrerequisites: None\nDescription: Introduces theories and research in communication. Explores the myriad ways scholars approach fundamental issues of contemporary human communication. Focuses on theories and research of communication (e.g. relational, group, political, cultural, and international). Acts as a gateway to knowledge about the communication discipline. Course overlaps with: BIS 178."
+      ],
+      [
+        "Course: ART 190 - Introduction to Drawing\nCredits: 5\nGeneral Education: A&H\nPrerequisites: None\nDescription: Builds basic drawing skills, develops understanding of primary concepts which relate to drawing and develops an understanding of the grammar or syntax of two-dimensional language. Students move beyond their current knowledge and abilities and link new skills, concepts, and understandings to creative expressing. Course equivalent to: BIS 121.",
+        "Course: ART 290 - Beginning Drawing: Topics\nCredits: 5\nGeneral Education: A&H\nPrerequisites: ART 190. Offered: AWSp.\nDescription: Revolving topics in beginning level drawing. Explores fundamental elements of line, tone, form, and composition through various subjects and materials. Students explore concepts of perception and proportion through intense observation. Assignments and critiques develop experimentation and critical thinking. Prerequisite: ART 190. Offered: AWSp.",
+        "Course: ART 292 - Beginning Painting\nCredits: 5, max. 10\nGeneral Education: A&H\nPrerequisites: ART 190.\nDescription: Beginning oil painting. Prerequisite: ART 190.",
+        "Course: C ENV 190 - Introductory Topics in Environment\nCredits: 1-5, max. 15\nGeneral Education: N/A\nPrerequisites: None\nDescription: Covers topics related to all areas of the environment.",
+        "Course: ART 240 - Intermediate Photomedia I\nCredits: 5\nGeneral Education: A&H\nPrerequisites: ART 140.\nDescription: Includes studio projects examining the expressive and conceptual uses of alternative photographic materials and techniques. May include and introduction to photography, large format, and studio lighting. Prerequisite: ART 140."
+      ],
+      [
+        "Course: AFRAM 101 - Introduction to African American Studies\nCredits: 5\nGeneral Education: SSc, DIV\nPrerequisites: None\nDescription: History, culture, religion, institutions, politics, economics, arts, and psychology of peoples of African descent as developed from experience in both the old and new worlds. Multidisciplinary analysis of social life from a black perspective as illustrated in selected historical and contemporary writings.",
+        "Course: AFRAM 335 - Genre, Gender, and The Black Arts Movement\nCredits: 5\nGeneral Education: A&H\nPrerequisites: None\nDescription: Explores the literature, music, visual art, and performing arts of the Black Arts Movement, the sibling of the Black Power Movement. Students engage with in-depth reading assignments and sensory activities. Covers themes such as anti-Black violence, gender roles, self-love, socioeconomic inequity, and Black empowerment. Includes artists such as Larry Neal, Sonia Sanchez, Sun Ra, Katherine Dunham, and Barbara Jones-Hogu. Recommended: AFRAM 101; AFRAM 150/HSTAA 150; and AFRM 334/HSTAA 334.",
+        "Course: AFRAM 102 - Advanced Placement\nCredits: AP\nGeneral Education: Introduction to African American Studies (5) SSc, DIV\nPrerequisites: None\nDescription: Course awarded based on Advanced Placement (AP) score. Consult the Admissions Exams for Credit website for more information.",
+        "Course: AFRAM 150 - Introduction to African American History\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Introductory survey of topics and problems in African American history with some attention to Africa as well as to America. Basic introductory course for sequence of lecture courses and seminars in African American history. Offered: jointly with HSTAA 150.",
+        "Course: AFRAM 315 - Black Identities and Political Power\nCredits: 5\nGeneral Education: SSc\nPrerequisites: either AES 150, AFRAM 150, AFRAM 201, or POL S 201. Offered: jointly with POL S 315.\nDescription: Relates the deployment of political power within institutions to shifting racial identities. Shows how racial identities both reflect and inflect relations of domination and resistance within and between cultures in the black diaspora. Prerequisite: either AES 150, AFRAM 150, AFRAM 201, or POL S 201. Offered: jointly with POL S 315."
+      ],
+      [
+        "Course: ARCHY 105 - The Human Past\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Explores human cultural and biological evolution: how ancestors 2,500,000 years ago were like us but still different, Neanderthals and their extinction, social/economic revolutions from foraging to farming to states and empires, setbacks, failures, relationships with social and natural environments, and the role of technology. Examines the astonishing variety of adaptations humans have made.",
+        "Course: ARCHY 299 - Archaeological Laboratory Techniques\nCredits: 1-3, max. 12\nGeneral Education: SSc\nPrerequisites: either ARCHY 105 or ARCHY 205.\nDescription: Laboratory procedures geared to one specific archaeological research project. Archaeological collection, its processing and curation, how archaeological materials are processed, and how significance is determined. No more than 5 credits may be used toward an anthropology major. Prerequisite: either ARCHY 105 or ARCHY 205.",
+        "Course: ARCHY 469 - Special Studies in Archaeology\nCredits: 3-6, max. 18\nGeneral Education: SSc\nPrerequisites: one 200-level ARCHY course.\nDescription: Archaeological topics, either methodological or substantive in content, of current interest. Topics vary. Prerequisite: one 200-level ARCHY course.",
+        "Course: ARCHY 101 - Exploring Archaeology\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Introduces perspectives from archaeology on the long term history of the diversity and the dynamics of human life. Examines how archaeologists gather and use data and how that information is relevant to contemporary society. Concepts and methods introduced through readings focus around a theme that varies such as environmental issues, warfare, and migration.",
+        "Course: ARCHY 509 - Archaeology and Explanation\nCredits: 5\nGeneral Education: N/A\nPrerequisites: permission of instruction.\nDescription: Analytical and historical examination in archaeology and philosophy of science. Prerequisite: permission of instruction."
+      ],
+      [
+        "Course: LING 403 - Linguistics of Signed Languages\nCredits: 5\nGeneral Education: A&H\nPrerequisites: LING 200, LING 203, or LING 400\nDescription: Introduction to the phonological, morphological, and syntactic structure of American Sign Language. Topics include acquisition, sociolinguistics, neurolinguistics, lexicography, history, and culture. Knowledge of American Sign Language is not required. Prerequisite: LING 200, LING 203, or LING 400",
+        "Course: LING 441 - Language Processing and Development 1\nCredits: 5\nGeneral Education: SSc/NSc\nPrerequisites: LING 200 or LING 400.\nDescription: This course explores current research on language processing and development in adult native speakers and children, with a focus on sound and word-level representations. Topics include speech perception, word recognition, acquisition of phonology and word meanings, as well as a variety of methodologies that are used to study these mechanisms. Prerequisite: LING 200 or LING 400.",
+        "Course: LING 200 - Introduction to Linguistics\nCredits: 5\nGeneral Education: A&H/SSc, RSN\nPrerequisites: None\nDescription: Language as the fundamental characteristic of the human species; diversity and complexity of human languages; phonological and grammatical analysis; dimensions of language use; and language acquisition and historical language change. Cannot be taken for credit if credit has already been earned for LING 400. Course overlaps with: LING 201.",
+        "Course: LING 542 - Language Processing and Development 2\nCredits: 5\nGeneral Education: N/A\nPrerequisites: LING 200 OR LING 400.\nDescription: Explores current research on language processing and development in adult native speakers and children, with a focus on the sentence-level representations. Topics include processing of syntactic/semantic representations, development of morpho-syntax, semantics and pragmatics, as well as a variety of methodologies that are used to study these mechanisms. Prerequisite: LING 200 OR LING 400.",
+        "Course: LING 442 - Language Processing and Development 2\nCredits: 5\nGeneral Education: SSc\nPrerequisites: LING 200 or LING 400.\nDescription: Overview of research on language processing and development in adult native speakers and children, with a focus on the sentence-level representations. Topics include processing of syntactic/semantic representations, development of morpho-syntax, semantics and pragmatics, as well as variety of methodologies for studying these mechanisms. Prerequisite: LING 200 or LING 400."
+      ],
+      [
+        "Course: ENVIR 379 - Environmental Sociology\nCredits: 5\nGeneral Education: NSc/SSc\nPrerequisites: ESRM 200 or ENVIR 100. Offered: jointly with ESRM 371/SOC 379; W.\nDescription: Focuses on interrelations between the natural environment, social systems, and human behavior. Covers foundational and contemporary sociological and social-psychological theories and approaches used to examine the social construction of nature; environmental risk, hazards, and disasters; the climate crisis; environmental inequality and racism; consumption and corporate environmental responsibility; and Indigenous environmental justice. Prerequisite: ESRM 200 or ENVIR 100. Offered: jointly with ESRM 371/SOC 379; W.",
+        "Course: SOC 379 - Environmental Sociology\nCredits: 5\nGeneral Education: NSc/SSc\nPrerequisites: ESRM 200 or ENVIR 100. Offered: jointly with ENVIR 379/ESRM 371; W.\nDescription: Focuses on interrelations between the natural environment, social systems, and human behavior. Covers foundational and contemporary sociological and social-psychological theories and approaches used to examine the social construction of nature; environmental risk, hazards, and disasters; the climate crisis; environmental inequality and racism; consumption and corporate environmental responsibility; and Indigenous environmental justice. Prerequisite: ESRM 200 or ENVIR 100. Offered: jointly with ENVIR 379/ESRM 371; W.",
+        "Course: ESRM 371 - Environmental Sociology\nCredits: 5\nGeneral Education: NSc/SSc\nPrerequisites: ESRM 200 or ENVIR 100. Offered: jointly with ENVIR 379/SOC 379; W.\nDescription: Focuses on interrelations between the natural environment, social systems, and human behavior. Covers foundational and contemporary sociological and social-psychological theories and approaches used to examine the social construction of nature; environmental risk, hazards, and disasters; the climate crisis; environmental inequality and racism; consumption and corporate environmental responsibility; and Indigenous environmental justice. Prerequisite: ESRM 200 or ENVIR 100. Offered: jointly with ENVIR 379/SOC 379; W.",
+        "Course: ENVIR 100 - Environment and Society: Understanding Issues, Finding Solutions\nCredits: 5\nGeneral Education: SSc/NSc, DIV\nPrerequisites: None\nDescription: Examines the ethical, political, social, and scientific dimensions of environmental issues. Integrates knowledge from different disciplines while evaluating environmental problems at various scales. Uses an environmental justice lens to examine the ways problems are concentrated in some communities while providing opportunities to practice environmental communication and collaboration across disciplines. Course overlaps with: TESC 220. Offered: AWSpS.",
+        "Course: ENVIR 400 - Professional Environmental Communication\nCredits: 5\nGeneral Education: SSc\nPrerequisites: None\nDescription: Explores the variety of media and methods for conveying environmental information in the digital age. Examines scholarly literature while focusing on practical professional communication. Students participate in classroom and online discussion, social media assignments, improve presentation style and delivery while building professional communication skills. Offered: W."
+      ]
+    ]
+  }
+}

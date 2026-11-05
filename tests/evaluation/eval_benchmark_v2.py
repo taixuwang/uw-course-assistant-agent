@@ -65,6 +65,9 @@ def main():
         args.output = DEFAULT_RESULTS_DIR / f"benchmark_v2_{stamp}.json"
     if args.output.exists() and not args.overwrite:
         parser.error(f"output already exists: {args.output}; pass --overwrite to replace it")
+    checkpoint = args.output.with_name(args.output.name + ".partial.json")
+    if checkpoint.exists() and not args.overwrite:
+        parser.error(f"checkpoint already exists: {checkpoint}; pass --overwrite to replace it")
 
     from dotenv import load_dotenv
     load_dotenv(PROJECT_ROOT / ".env")
@@ -85,9 +88,34 @@ def main():
     rows = []
     ragas_data = {"user_input": [], "reference": [], "retrieved_contexts": []}
     factual_rows = []
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+
+    def save_checkpoint():
+        # Keep the retrieved contexts as well as rows, so a scoring failure
+        # doesn't discard completed paid retrievals. The file is separate from
+        # the final result and is never overwritten without explicit permission.
+        data = {"benchmark": str(args.dataset),
+                "benchmark_sha256": hashlib.sha256(args.dataset.read_bytes()).hexdigest(),
+                "index_snapshot_sha256": fingerprint,
+                "cases": rows, "ragas_data": ragas_data}
+        checkpoint.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
     for number, case in enumerate(cases, start=1):
         print(f"Retrieving {number}/{len(cases)} ({case['id']}): {case['query']}", flush=True)
-        docs = retriever.search(case["query"])
+        try:
+            docs = retriever.search(case["query"])
+        except Exception as exc:
+            # Exception messages may contain request details or credentials.
+            # Keep the exception class and known validation messages only.
+            row = {"id": case["id"], "category": case["category"],
+                   "query": case["query"], "error_type": type(exc).__name__}
+            if str(exc) in ("contain requires a text field", "Unsupported filter field",
+                            "Unsupported comparator", "Unsupported logical operator"):
+                row["error_message"] = str(exc)
+            rows.append(row)
+            save_checkpoint()
+            print(f"Retrieval failed for {case['id']}: {type(exc).__name__}", flush=True)
+            continue
         ids = [doc.metadata.get("course") for doc in docs]
         row = {"id": case["id"], "category": case["category"], "query": case["query"], "returned_ids": ids}
         if case["category"] == "factual":
@@ -102,11 +130,11 @@ def main():
         else:
             row.update(evaluate_constraint_case(case, documents, docs))
         rows.append(row)
+        save_checkpoint()
 
-    print(f"Scoring {len(factual)} course-specific cases with RAGAS.", flush=True)
-    result = evaluate_data(ragas_data)
-    frame = result.to_pandas()
+    print(f"Scoring {len(factual_rows)} successful course-specific cases with RAGAS.", flush=True)
     metrics = ("llm_context_precision_with_reference", "context_recall")
+    frame = evaluate_data(ragas_data).to_pandas() if factual_rows else None
     for index, row in enumerate(factual_rows):
         row["ragas"] = {}
         for metric in metrics:
@@ -115,18 +143,21 @@ def main():
                 raise ValueError(f"Non-finite RAGAS score for {row['id']}: {metric}")
             row["ragas"][metric] = value
 
-    constraint_rows = [row for row in rows if row["category"] == "constraints"]
+    constraint_rows = [row for row in rows if row["category"] == "constraints" and "error_type" not in row]
     positive = [row for row in constraint_rows if not row["empty_expected"]]
     negative = [row for row in constraint_rows if row["empty_expected"]]
     returned = sum(row["returned_count"] for row in constraint_rows)
     violations = sum(row["violation_count"] for row in constraint_rows)
     summary = {
         "factual_cases": len(factual),
+        "factual_evaluated": len(factual_rows),
         "factual_target_hits": sum(row["target_hit"] for row in factual_rows),
-        "ragas": {metric: sum(row["ragas"][metric] for row in factual_rows) / len(factual_rows) for metric in metrics},
+        "ragas": {metric: (sum(row["ragas"][metric] for row in factual_rows) / len(factual_rows) if factual_rows else None) for metric in metrics},
         "discovery_cases": len(discovery),
-        "discovery_known_hits": sum(row["known_hit"] for row in rows if row["category"] == "discovery"),
+        "discovery_evaluated": sum(row["category"] == "discovery" and "error_type" not in row for row in rows),
+        "discovery_known_hits": sum(row["known_hit"] for row in rows if row["category"] == "discovery" and "error_type" not in row),
         "constraint_cases": len(constraints),
+        "constraint_evaluated": len(constraint_rows),
         "constraint_positive_cases": len(positive),
         "constraint_positive_hits": sum(row["hit"] for row in positive),
         "constraint_empty_cases": len(negative),
@@ -134,6 +165,7 @@ def main():
         "constraint_returned": returned,
         "constraint_violations_including_unknown": violations,
         "constraint_unknown": sum(row["unknown_count"] for row in constraint_rows),
+        "retrieval_failures": sum("error_type" in row for row in rows),
     }
     output = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),

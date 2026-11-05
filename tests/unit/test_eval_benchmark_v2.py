@@ -93,6 +93,53 @@ class BenchmarkInputTests(unittest.TestCase):
             create.assert_not_called()
             self.assertEqual(output.read_text(encoding="utf-8"), "original")
 
+    def test_retrieval_errors_are_excluded_and_checkpoint_survives_scoring_failure(self):
+        doc = SimpleNamespace(metadata={"course": "CSE 101", "department": "CSE", "credits": "5"},
+                              page_content="Course: CSE 101\nDescription: Course description.")
+        cases = [
+            {"id": "f1", "category": "factual", "query": "Course details",
+             "course_id": "CSE 101", "reference": "CSE 101: Course description."},
+            {"id": "d1", "category": "discovery", "query": "Find programming",
+             "known_course_ids": ["CSE 101"]},
+            {"id": "c1", "category": "constraints", "query": "Find five credits",
+             "constraints": {"department": "CSE", "credits": 5}},
+        ]
+        def search(query):
+            if query == "Find programming":
+                raise ValueError("contain requires a text field")
+            return [doc]
+        retriever = SimpleNamespace(documents={"CSE 101": doc}, search=search)
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / "cases.json"
+            output = Path(directory) / "result.json"
+            fixture.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+            with patch("sys.argv", ["eval_benchmark_v2", "--dataset", str(fixture), "--output", str(output)]), \
+                 patch.object(eval_benchmark_v2, "create_catalog_retriever", return_value=retriever), \
+                 patch.object(eval_benchmark_v2, "evaluate_data", side_effect=RuntimeError("scoring failed")), \
+                 patch("dotenv.load_dotenv"):
+                with self.assertRaisesRegex(RuntimeError, "scoring failed"):
+                    eval_benchmark_v2.main()
+            self.assertFalse(output.exists())
+            checkpoint = json.loads(output.with_name(output.name + ".partial.json").read_text())
+            self.assertEqual(len(checkpoint["cases"]), 3)
+            self.assertEqual(checkpoint["cases"][1]["error_type"], "ValueError")
+            self.assertNotIn("known_hit", checkpoint["cases"][1])
+            self.assertEqual(checkpoint["ragas_data"]["retrieved_contexts"], [[doc.page_content]])
+            scores = SimpleNamespace(to_pandas=lambda: SimpleNamespace(iloc=[
+                {"llm_context_precision_with_reference": 1.0, "context_recall": 1.0}
+            ]))
+            with patch("sys.argv", ["eval_benchmark_v2", "--dataset", str(fixture), "--output", str(output), "--overwrite"]), \
+                 patch.object(eval_benchmark_v2, "create_catalog_retriever", return_value=retriever), \
+                 patch.object(eval_benchmark_v2, "evaluate_data", return_value=scores), \
+                 patch("dotenv.load_dotenv"):
+                eval_benchmark_v2.main()
+            summary = json.loads(output.read_text())["summary"]
+            self.assertEqual(summary["retrieval_failures"], 1)
+            self.assertEqual(summary["discovery_cases"], 1)
+            self.assertEqual(summary["discovery_evaluated"], 0)
+            self.assertEqual(summary["factual_evaluated"], 1)
+            self.assertEqual(summary["constraint_evaluated"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

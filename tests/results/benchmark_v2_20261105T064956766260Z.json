@@ -1,0 +1,1628 @@
+{
+  "created_at_utc": "2026-11-05T06:52:53.558463+00:00",
+  "benchmark": "/Users/taixuwang/Projects/uw-course-assistant-agent/tests/fixtures/benchmark_v2.json",
+  "benchmark_sha256": "a152944b375210531b804fd05e3ca6fc06db9032792209a24494b81c2da4de08",
+  "index": "/Users/taixuwang/Projects/uw-course-assistant-agent/db/uw_chroma_db",
+  "index_snapshot_sha256": "9e6dc9ee3c837d5ce484bfa07e272fe142e8d3c61870e67e5f7a45aadddff1db",
+  "index_course_count": 15749,
+  "models": {
+    "planner_and_ragas": "gpt-4o-mini",
+    "embeddings": "text-embedding-3-small",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2"
+  },
+  "summary": {
+    "factual_cases": 30,
+    "factual_evaluated": 30,
+    "factual_target_hits": 29,
+    "ragas": {
+      "llm_context_precision_with_reference": 0.7994444443656661,
+      "context_recall": 0.9583333333333334
+    },
+    "discovery_cases": 30,
+    "discovery_evaluated": 29,
+    "discovery_known_hits": 27,
+    "constraint_cases": 30,
+    "constraint_evaluated": 30,
+    "constraint_positive_cases": 26,
+    "constraint_positive_hits": 26,
+    "constraint_empty_cases": 4,
+    "constraint_empty_correct": 2,
+    "constraint_returned": 140,
+    "constraint_violations_including_unknown": 19,
+    "constraint_unknown": 0,
+    "retrieval_failures": 1
+  },
+  "cases": [
+    {
+      "id": "fact-01",
+      "category": "factual",
+      "query": "What topics does CSE 121 cover?",
+      "returned_ids": [
+        "IND E 310",
+        "CSE 121",
+        "E E 271",
+        "CSE 154",
+        "MATH 381"
+      ],
+      "expected_course_id": "CSE 121",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.49999999995,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-02",
+      "category": "factual",
+      "query": "Describe the content of CSE 163.",
+      "returned_ids": [
+        "CSE 163",
+        "CSE 154",
+        "INFO 376",
+        "CSE 414",
+        "CSE 412"
+      ],
+      "expected_course_id": "CSE 163",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-03",
+      "category": "factual",
+      "query": "What is taught in MATH 124?",
+      "returned_ids": [
+        "MATH 124",
+        "MATH 125",
+        "ENGR 191",
+        "MATH 134",
+        "MATH 136"
+      ],
+      "expected_course_id": "MATH 124",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-04",
+      "category": "factual",
+      "query": "Summarize the official catalog description for MATH 125.",
+      "returned_ids": [
+        "MATH 125",
+        "MATH 135",
+        "AMATH 351",
+        "QMETH 201",
+        "MATH 126"
+      ],
+      "expected_course_id": "MATH 125",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-05",
+      "category": "factual",
+      "query": "What topics does STAT 311 cover?",
+      "returned_ids": [
+        "STAT 302",
+        "OPMGT 301",
+        "STAT 509",
+        "QMETH 490",
+        "STAT 311"
+      ],
+      "expected_course_id": "STAT 311",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.19999999998,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-06",
+      "category": "factual",
+      "query": "Describe the content of STAT 340.",
+      "returned_ids": [
+        "STAT 340",
+        "STAT 341",
+        "STAT 395",
+        "MATH 395",
+        "INFO 474"
+      ],
+      "expected_course_id": "STAT 340",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-07",
+      "category": "factual",
+      "query": "What is taught in PHYS 121?",
+      "returned_ids": [
+        "PHYS 121",
+        "PHYS 407",
+        "PHYS 409",
+        "ESS 431",
+        "PHYS 114"
+      ],
+      "expected_course_id": "PHYS 121",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-08",
+      "category": "factual",
+      "query": "Summarize the official catalog description for PHYS 122.",
+      "returned_ids": [
+        "PHYS 122",
+        "PHYS 123",
+        "PHYS 142",
+        "BIOL 461",
+        "ESS 305"
+      ],
+      "expected_course_id": "PHYS 122",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-09",
+      "category": "factual",
+      "query": "What topics does BIOL 180 cover?",
+      "returned_ids": [
+        "BIOL 315",
+        "BIOL 481",
+        "PSYCH 300",
+        "BIOL 106",
+        "BIOL 480"
+      ],
+      "expected_course_id": "BIOL 180",
+      "target_hit": false,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": "fact-10",
+      "category": "factual",
+      "query": "Describe the content of BIOL 200.",
+      "returned_ids": [
+        "MICROM 402",
+        "BIOL 200",
+        "MICROM 412",
+        "BIOL 340",
+        "MICROM 445"
+      ],
+      "expected_course_id": "BIOL 200",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.49999999995,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-11",
+      "category": "factual",
+      "query": "What is taught in CHEM 142?",
+      "returned_ids": [
+        "CHEM 142",
+        "MSE 197",
+        "NME 220",
+        "CHEM 153",
+        "CHEM 143"
+      ],
+      "expected_course_id": "CHEM 142",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.699999999965,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-12",
+      "category": "factual",
+      "query": "Summarize the official catalog description for CHEM 152.",
+      "returned_ids": [
+        "CHEM 152",
+        "CHEM 153",
+        "CHEM 162",
+        "ENV H 432",
+        "OCEAN 295"
+      ],
+      "expected_course_id": "CHEM 152",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-13",
+      "category": "factual",
+      "query": "What topics does ECON 200 cover?",
+      "returned_ids": [
+        "ECON 222",
+        "ECON 200",
+        "POL S 476",
+        "ECON 502",
+        "I BUS 300"
+      ],
+      "expected_course_id": "ECON 200",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.49999999995,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-14",
+      "category": "factual",
+      "query": "Describe the content of ECON 201.",
+      "returned_ids": [
+        "ECON 201",
+        "ECON 494",
+        "B ECON 301",
+        "JSIS 501",
+        "ECON 301"
+      ],
+      "expected_course_id": "ECON 201",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-15",
+      "category": "factual",
+      "query": "What is taught in PSYCH 101?",
+      "returned_ids": [
+        "PSYCH 101",
+        "PSYCH 222",
+        "PSYCH 202",
+        "PSYCH 206",
+        "PSYCH 245"
+      ],
+      "expected_course_id": "PSYCH 101",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 0.75
+      }
+    },
+    {
+      "id": "fact-16",
+      "category": "factual",
+      "query": "Summarize the official catalog description for PSYCH 202.",
+      "returned_ids": [
+        "PSYCH 322",
+        "PSYCH 202",
+        "PSYCH 302",
+        "PSYCH 421",
+        "PSYCH 400"
+      ],
+      "expected_course_id": "PSYCH 202",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.49999999995,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-17",
+      "category": "factual",
+      "query": "What topics does INFO 200 cover?",
+      "returned_ids": [
+        "INFO 200",
+        "INFO 300",
+        "INFO 468",
+        "INFO 280",
+        "INFO 180"
+      ],
+      "expected_course_id": "INFO 200",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-18",
+      "category": "factual",
+      "query": "Describe the content of INFO 201.",
+      "returned_ids": [
+        "INFO 201",
+        "INFO 478",
+        "INFO 370",
+        "INFO 376",
+        "INFO 340"
+      ],
+      "expected_course_id": "INFO 201",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-19",
+      "category": "factual",
+      "query": "What is taught in ENGL 111?",
+      "returned_ids": [
+        "ENGL 111",
+        "ENGL 141",
+        "ENGL 121",
+        "ENGL 131",
+        "ENGR 231"
+      ],
+      "expected_course_id": "ENGL 111",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-20",
+      "category": "factual",
+      "query": "Summarize the official catalog description for ENGL 131.",
+      "returned_ids": [
+        "ENGL 141",
+        "ENGL 131",
+        "ENGR 231",
+        "ENGL 121",
+        "ENGL 111"
+      ],
+      "expected_course_id": "ENGL 131",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.49999999995,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "constraint-01",
+      "category": "constraints",
+      "query": "Find CSE courses worth 4 credits that satisfy the RSN requirement and have no prerequisites.",
+      "returned_ids": [
+        "CSE 160",
+        "CSE 142",
+        "CSE 121",
+        "CSE 180",
+        "CSE 123"
+      ],
+      "eligible_count": 6,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-02",
+      "category": "constraints",
+      "query": "Find MATH courses worth 5 credits that satisfy the NSc requirement and have no prerequisites.",
+      "returned_ids": [
+        "EDUC 170",
+        "MATH 200",
+        "PHIL 473",
+        "EDUC 171",
+        "MATH 120"
+      ],
+      "eligible_count": 5,
+      "returned_count": 5,
+      "valid_count": 2,
+      "violation_count": 3,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-03",
+      "category": "constraints",
+      "query": "Find STAT courses worth 4 credits.",
+      "returned_ids": [
+        "STAT 390",
+        "STAT 583",
+        "STAT 513",
+        "STAT 511",
+        "STAT 512"
+      ],
+      "eligible_count": 46,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-04",
+      "category": "constraints",
+      "query": "Find PHYS courses worth 5 credits that satisfy the NSc requirement.",
+      "returned_ids": [
+        "PHYS 121",
+        "PHYS 123",
+        "PHYS 141",
+        "PHYS 122",
+        "PHYS 142"
+      ],
+      "eligible_count": 17,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-05",
+      "category": "constraints",
+      "query": "Find BIOL courses worth 5 credits.",
+      "returned_ids": [
+        "BIOL 100",
+        "BIOL 180",
+        "BIOL 425",
+        "BIOL 220",
+        "BIOL 200"
+      ],
+      "eligible_count": 42,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-06",
+      "category": "constraints",
+      "query": "Find CHEM courses worth 5 credits that satisfy the RSN requirement.",
+      "returned_ids": [
+        "CHEM 165",
+        "CHEM 162",
+        "CHEM 155",
+        "CHEM 152",
+        "CHEM 120"
+      ],
+      "eligible_count": 7,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-07",
+      "category": "constraints",
+      "query": "Find ECON courses worth 5 credits that satisfy both SSc and DIV requirements.",
+      "returned_ids": [
+        "ECON 448",
+        "ECON 447",
+        "ECON 412",
+        "GWSS 447",
+        "ENVIR 100"
+      ],
+      "eligible_count": 3,
+      "returned_count": 5,
+      "valid_count": 3,
+      "violation_count": 2,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-08",
+      "category": "constraints",
+      "query": "Find PSYCH courses worth 5 credits that satisfy the SSc requirement.",
+      "returned_ids": [
+        "PSYCH 345",
+        "PSYCH 400",
+        "PSYCH 305",
+        "PSYCH 449",
+        "PSYCH 331"
+      ],
+      "eligible_count": 38,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-09",
+      "category": "constraints",
+      "query": "Find INFO courses worth 5 credits that satisfy the RSN requirement.",
+      "returned_ids": [
+        "INFO 340",
+        "INFO 330",
+        "INFO 371",
+        "INFO 310",
+        "INFO 201"
+      ],
+      "eligible_count": 8,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-10",
+      "category": "constraints",
+      "query": "Find ENGL courses worth 5 credits that satisfy the C requirement.",
+      "returned_ids": [
+        "ENGL 141",
+        "ENGL 199",
+        "ENGL 288",
+        "ENGL 299",
+        "ENGL 198"
+      ],
+      "eligible_count": 21,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-11",
+      "category": "constraints",
+      "query": "Find CSE courses worth exactly 100 credits.",
+      "returned_ids": [],
+      "eligible_count": 0,
+      "returned_count": 0,
+      "valid_count": 0,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": true
+    },
+    {
+      "id": "constraint-12",
+      "category": "constraints",
+      "query": "Find MATH courses worth exactly 100 credits.",
+      "returned_ids": [],
+      "eligible_count": 0,
+      "returned_count": 0,
+      "valid_count": 0,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": true
+    },
+    {
+      "id": "discovery-01",
+      "category": "discovery",
+      "query": "I am new to coding and want to learn loops, conditionals, and arrays while solving problems with programs.",
+      "returned_ids": [
+        "CSE 121",
+        "CSE 142",
+        "IND E 412",
+        "CSE 122",
+        "LIS 511"
+      ],
+      "known_course_ids": [
+        "CSE 121"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-02",
+      "category": "discovery",
+      "query": "I want a class on using derivatives to solve problems involving functions of one variable.",
+      "returned_ids": [
+        "MATH 124",
+        "MATH 424",
+        "Q SCI 291",
+        "CFRM 504",
+        "IND E 515"
+      ],
+      "known_course_ids": [
+        "MATH 124"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-03",
+      "category": "discovery",
+      "query": "Find a class that covers study design, correlation, confidence intervals, and hypothesis tests.",
+      "returned_ids": [
+        "STAT 311",
+        "EDPSY 490",
+        "EDPSY 580",
+        "SOC 221",
+        "CSSS 221"
+      ],
+      "known_course_ids": [
+        "STAT 311"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-04",
+      "category": "discovery",
+      "query": "I am interested in learning about electric and magnetic phenomena with a hands-on lab.",
+      "returned_ids": [
+        "PHYS 514",
+        "PHYS 543",
+        "MSE 550",
+        "MSE 450",
+        "A A 448"
+      ],
+      "known_course_ids": [
+        "PHYS 122"
+      ],
+      "known_hit": false
+    },
+    {
+      "id": "discovery-05",
+      "category": "discovery",
+      "query": "Find an introduction to evolution, inherited traits, biodiversity, and ecology.",
+      "returned_ids": [
+        "BIOL 180",
+        "BIOL 563",
+        "BIO A 100",
+        "BIOL 108",
+        "BIOL 481"
+      ],
+      "known_course_ids": [
+        "BIOL 180"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-06",
+      "category": "discovery",
+      "query": "I would like a chemistry class covering acid-base equilibria, thermodynamics, and electrochemistry.",
+      "returned_ids": [
+        "CHEM 152",
+        "CHEM 143",
+        "CEWA 543",
+        "CHEM E 326",
+        "CHEM 456"
+      ],
+      "known_course_ids": [
+        "CHEM 152"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-07",
+      "category": "discovery",
+      "query": "I want to study inflation, unemployment, national income, and the economy as a whole.",
+      "returned_ids": [
+        "ECON 201",
+        "B ECON 301",
+        "ECON 443",
+        "ECON 542",
+        "ECON 421"
+      ],
+      "known_course_ids": [
+        "ECON 201"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-08",
+      "category": "discovery",
+      "query": "Find a course exploring how the nervous system relates to behavior, sleep, emotions, and memory.",
+      "returned_ids": [
+        "PSYCH 202",
+        "NEUSCI 198",
+        "SPHSC 461",
+        "MEDSCI 560",
+        "DENTFN 560"
+      ],
+      "known_course_ids": [
+        "PSYCH 202"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-09",
+      "category": "discovery",
+      "query": "I want to understand how human values shape information technology and how information systems affect society.",
+      "returned_ids": [
+        "INFO 200",
+        "COM 303",
+        "CHID 370",
+        "COM 302",
+        "JSIS 535"
+      ],
+      "known_course_ids": [
+        "INFO 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-10",
+      "category": "discovery",
+      "query": "Find a writing course using narratives to explore the relationship between language, identity, and culture.",
+      "returned_ids": [
+        "ENGL 111",
+        "ENGL 182",
+        "GLITS 253",
+        "ANTH 560",
+        "ENGL 109"
+      ],
+      "known_course_ids": [
+        "ENGL 111"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "fact-21",
+      "category": "factual",
+      "query": "What does ANTH 100 introduce about anthropology?",
+      "returned_ids": [
+        "ANTH 100"
+      ],
+      "expected_course_id": "ANTH 100",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-22",
+      "category": "factual",
+      "query": "What topics are covered in GEOG 123?",
+      "returned_ids": [
+        "GEOG 123",
+        "GEOG 375",
+        "GEOG 277",
+        "JSIS B 375",
+        "GEOG 477"
+      ],
+      "expected_course_id": "GEOG 123",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-23",
+      "category": "factual",
+      "query": "What are the main subjects of PHIL 100?",
+      "returned_ids": [
+        "PHIL 100",
+        "PHIL 102",
+        "PHIL 360",
+        "PHIL 400",
+        "PHIL 326"
+      ],
+      "expected_course_id": "PHIL 100",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-24",
+      "category": "factual",
+      "query": "Describe the content of MUSIC 120.",
+      "returned_ids": [
+        "MUSIC 120",
+        "MUSIC 216",
+        "MUSIC 118",
+        "MUSIC 119",
+        "MUSIC 201"
+      ],
+      "expected_course_id": "MUSIC 120",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-25",
+      "category": "factual",
+      "query": "What does COM 200 teach about communication?",
+      "returned_ids": [
+        "COM 200"
+      ],
+      "expected_course_id": "COM 200",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-26",
+      "category": "factual",
+      "query": "What does ART 190 cover?",
+      "returned_ids": [
+        "ART 190",
+        "ART 290",
+        "ART 292",
+        "C ENV 190",
+        "ART 240"
+      ],
+      "expected_course_id": "ART 190",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-27",
+      "category": "factual",
+      "query": "Summarize the catalog description of AFRAM 101.",
+      "returned_ids": [
+        "AFRAM 101",
+        "AFRAM 335",
+        "AFRAM 102",
+        "AFRAM 150",
+        "AFRAM 315"
+      ],
+      "expected_course_id": "AFRAM 101",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-28",
+      "category": "factual",
+      "query": "What is studied in ARCHY 105?",
+      "returned_ids": [
+        "ARCHY 105",
+        "ARCHY 299",
+        "ARCHY 469",
+        "ARCHY 101",
+        "ARCHY 509"
+      ],
+      "expected_course_id": "ARCHY 105",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.9999999999,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-29",
+      "category": "factual",
+      "query": "What topics are introduced in LING 200?",
+      "returned_ids": [
+        "LING 403",
+        "LING 441",
+        "LING 200",
+        "LING 542",
+        "LING 442"
+      ],
+      "expected_course_id": "LING 200",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.3333333333,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "fact-30",
+      "category": "factual",
+      "query": "What does ENVIR 100 cover?",
+      "returned_ids": [
+        "ENVIR 379",
+        "SOC 379",
+        "ESRM 371",
+        "ENVIR 100",
+        "ENVIR 400"
+      ],
+      "expected_course_id": "ENVIR 100",
+      "target_hit": true,
+      "ragas": {
+        "llm_context_precision_with_reference": 0.249999999975,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": "discovery-11",
+      "category": "discovery",
+      "query": "I want to learn how linked lists, graphs, trees, hashing, and sorting are implemented, with an emphasis on practical programming.",
+      "returned_ids": [
+        "CSE 373",
+        "CSE 332",
+        "CSE 143",
+        "CSE 123",
+        "CSE 122"
+      ],
+      "known_course_ids": [
+        "CSE 373"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-12",
+      "category": "discovery",
+      "query": "Which calculus course covers three-dimensional vectors, functions of several variables, and Taylor series?",
+      "returned_ids": [
+        "MATH 126",
+        "AMATH 501",
+        "AMATH 401",
+        "MATH 424",
+        "MATH 124"
+      ],
+      "known_course_ids": [
+        "MATH 126"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-13",
+      "category": "discovery",
+      "query": "I am looking for an engineering physics class that combines optics and thermodynamics with experiments.",
+      "returned_ids": [
+        "PHYS 123",
+        "M E 323",
+        "M E 521",
+        "M E 557",
+        "CHEM E 525"
+      ],
+      "known_course_ids": [
+        "PHYS 123"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-14",
+      "category": "discovery",
+      "query": "Find a biology course about how animals function and how plants develop and function.",
+      "returned_ids": [
+        "BIOL 416",
+        "BIOL 467",
+        "ANTH 458",
+        "BIOL 411",
+        "BIOL 447"
+      ],
+      "known_course_ids": [
+        "BIOL 220"
+      ],
+      "known_hit": false
+    },
+    {
+      "id": "discovery-15",
+      "category": "discovery",
+      "query": "I would like to study molecular bonding, atomic structure, chemical quantities, and gas laws in a laboratory course.",
+      "error_type": "ValueError",
+      "error_message": "contain requires a text field"
+    },
+    {
+      "id": "discovery-16",
+      "category": "discovery",
+      "query": "I want to understand how consumer demand, prices, production, and government interventions shape markets.",
+      "returned_ids": [
+        "ECON 200",
+        "PUBPOL 516",
+        "MKTG 301",
+        "ECON 431",
+        "B ECON 500"
+      ],
+      "known_course_ids": [
+        "ECON 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-17",
+      "category": "discovery",
+      "query": "Find a course that teaches data cleaning, analysis, visualization, and version control using real datasets.",
+      "returned_ids": [
+        "INFO 201",
+        "STAT 302",
+        "R E 519",
+        "CEE 467",
+        "CEWA 567"
+      ],
+      "known_course_ids": [
+        "INFO 201"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-18",
+      "category": "discovery",
+      "query": "I want to explore foundational questions about knowledge, reality, morality, and whether a god exists.",
+      "returned_ids": [
+        "PHIL 100",
+        "EDLPS 520",
+        "PHIL 450",
+        "PHIL 467",
+        "PHIL 456"
+      ],
+      "known_course_ids": [
+        "PHIL 100"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-19",
+      "category": "discovery",
+      "query": "Which course introduces social institutions, inequality, deviance, and how societies change?",
+      "returned_ids": [
+        "SOC 110",
+        "SOC 360",
+        "SOC 212",
+        "SOC 374",
+        "SOC 111"
+      ],
+      "known_course_ids": [
+        "SOC 110"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-20",
+      "category": "discovery",
+      "query": "I would like to examine how global connections affect labor, culture, the environment, and inequality.",
+      "returned_ids": [
+        "GEOG 123",
+        "GEOG 230",
+        "SOC W 594",
+        "LABOR 370",
+        "JSIS B 250"
+      ],
+      "known_course_ids": [
+        "GEOG 123"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-21",
+      "category": "discovery",
+      "query": "Find an introduction to how languages are structured, acquired, and changed over time.",
+      "returned_ids": [
+        "C LIT 300",
+        "LING 200",
+        "LING 535",
+        "SLAVIC 351",
+        "LING 403"
+      ],
+      "known_course_ids": [
+        "LING 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-22",
+      "category": "discovery",
+      "query": "I am interested in learning still-camera techniques and using photographs creatively in an artistic setting.",
+      "returned_ids": [
+        "ART 140",
+        "ART 339",
+        "ART 340",
+        "ART H 273",
+        "ART 240"
+      ],
+      "known_course_ids": [
+        "ART 140"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-23",
+      "category": "discovery",
+      "query": "Find a non-major course focused on listening to Western art music and how its components have changed.",
+      "returned_ids": [
+        "MUSIC 120",
+        "MUSIC 333",
+        "MUSIC 384",
+        "ART H 203",
+        "ART H 524"
+      ],
+      "known_course_ids": [
+        "MUSIC 120"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-24",
+      "category": "discovery",
+      "query": "I want to explore human physical and cultural evolution through archaeology and the study of human societies.",
+      "returned_ids": [
+        "ANTH 100",
+        "ARCHY 105",
+        "ARCHY 101",
+        "ANTH 461",
+        "SOC 212"
+      ],
+      "known_course_ids": [
+        "ANTH 100"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-25",
+      "category": "discovery",
+      "query": "Find an interdisciplinary course on environmental problems that considers justice, politics, science, and communication.",
+      "returned_ids": [
+        "ENVIR 100",
+        "ENVIR 361",
+        "ENVIR 386",
+        "ENVIR 200",
+        "ENVIR 500"
+      ],
+      "known_course_ids": [
+        "ENVIR 100"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-26",
+      "category": "discovery",
+      "query": "I want a mostly conceptual introduction to stars, planets, galaxies, and black holes rather than an advanced mathematical treatment.",
+      "returned_ids": [
+        "ASTR 101",
+        "ASTR 102",
+        "ASTR 322",
+        "ASTR 190",
+        "ASTR 160"
+      ],
+      "known_course_ids": [
+        "ASTR 101"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-27",
+      "category": "discovery",
+      "query": "Which course surveys US political institutions and how political conflicts are addressed?",
+      "returned_ids": [
+        "POL S 202",
+        "POL S 571",
+        "POL S 470",
+        "POL S 447",
+        "PUBPOL 510"
+      ],
+      "known_course_ids": [
+        "POL S 202"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-28",
+      "category": "discovery",
+      "query": "I want to study communication research and theories about interactions in groups, relationships, and politics.",
+      "returned_ids": [
+        "COM 200",
+        "COM 472",
+        "COM 576",
+        "COM 577",
+        "COM 512"
+      ],
+      "known_course_ids": [
+        "COM 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-29",
+      "category": "discovery",
+      "query": "Find a course on how archaeologists collect evidence to study long-term human history and its relevance today.",
+      "returned_ids": [
+        "ARCHY 101",
+        "ARCHY 519",
+        "ARCHY 319",
+        "ARCHY 208",
+        "ARCHY 345"
+      ],
+      "known_course_ids": [
+        "ARCHY 101"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "discovery-30",
+      "category": "discovery",
+      "query": "I am interested in how nutrition affects wellness, chronic disease, food security, and nutritional needs through life.",
+      "returned_ids": [
+        "NUTR 200",
+        "NUTR 562",
+        "NUTR 310",
+        "NUTR 511",
+        "NUTR 560"
+      ],
+      "known_course_ids": [
+        "NUTR 200"
+      ],
+      "known_hit": true
+    },
+    {
+      "id": "constraint-13",
+      "category": "constraints",
+      "query": "Show me five-credit SOC courses that fulfill the SSc requirement.",
+      "returned_ids": [
+        "SOC 494",
+        "SOC 365",
+        "SOC 111",
+        "SOC 460",
+        "SOC 110"
+      ],
+      "eligible_count": 102,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-14",
+      "category": "constraints",
+      "query": "Which PHIL courses have five credits and carry A&H credit?",
+      "returned_ids": [
+        "PHIL 335",
+        "PHIL 345",
+        "PHIL 102",
+        "PHIL 411",
+        "PHIL 326"
+      ],
+      "eligible_count": 19,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-15",
+      "category": "constraints",
+      "query": "Find GEOG courses for five credits that satisfy DIV and SSc.",
+      "returned_ids": [
+        "GEOG 277",
+        "GEOG 331",
+        "GEOG 404",
+        "GEOG 445",
+        "GEOG 375"
+      ],
+      "eligible_count": 21,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-16",
+      "category": "constraints",
+      "query": "List five-credit ANTH classes in SSc with no listed prerequisites.",
+      "returned_ids": [
+        "ANTH 313",
+        "ANTH 414",
+        "ANTH 408",
+        "ANTH 407",
+        "ANTH 100"
+      ],
+      "eligible_count": 95,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-17",
+      "category": "constraints",
+      "query": "What three-credit MUSIC courses fulfill the A&H requirement?",
+      "returned_ids": [
+        "MUSIC 442",
+        "MUSIC 485",
+        "MUSIC 390",
+        "MUHST 100",
+        "MUSIC 300"
+      ],
+      "eligible_count": 58,
+      "returned_count": 5,
+      "valid_count": 4,
+      "violation_count": 1,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-18",
+      "category": "constraints",
+      "query": "Give me ART courses worth five credits with A&H and no listed prerequisites.",
+      "returned_ids": [
+        "ART H 380",
+        "ART 131",
+        "ART 460",
+        "ART H 225",
+        "ART H 471"
+      ],
+      "eligible_count": 102,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-19",
+      "category": "constraints",
+      "query": "Find five-credit ARCHY courses carrying NSc credit.",
+      "returned_ids": [
+        "ARCHY 482",
+        "ARCHY 491",
+        "ARCHY 495",
+        "ARCHY 484",
+        "ARCHY 483"
+      ],
+      "eligible_count": 9,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-20",
+      "category": "constraints",
+      "query": "Show me LING classes worth five credits that satisfy A&H.",
+      "returned_ids": [
+        "LING 449",
+        "LING 407",
+        "LING 451",
+        "LING 461",
+        "LING 403"
+      ],
+      "eligible_count": 29,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-21",
+      "category": "constraints",
+      "query": "Which five-credit COM courses satisfy both SSc and DIV?",
+      "returned_ids": [
+        "SOC 270",
+        "COM 389",
+        "COM 458",
+        "COM 289",
+        "AES 389"
+      ],
+      "eligible_count": 11,
+      "returned_count": 5,
+      "valid_count": 3,
+      "violation_count": 2,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-22",
+      "category": "constraints",
+      "query": "Find GWSS courses with five credits, DIV and SSc, and no prerequisites.",
+      "returned_ids": [
+        "GWSS 390",
+        "GWSS 372",
+        "GWSS 490",
+        "GWSS 201",
+        "GWSS 386"
+      ],
+      "eligible_count": 65,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-23",
+      "category": "constraints",
+      "query": "List five-credit SPAN courses in A&H that have a listed prerequisite.",
+      "returned_ids": [
+        "SPAN 414",
+        "SPAN 440",
+        "SPAN 438",
+        "SPAN 423",
+        "SPAN 315"
+      ],
+      "eligible_count": 81,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-24",
+      "category": "constraints",
+      "query": "Show AFRAM courses for five credits that satisfy A&H and DIV.",
+      "returned_ids": [
+        "AFRAM 220",
+        "AFRAM 214",
+        "AFRAM 320",
+        "AFRAM 358",
+        "AFRAM 318"
+      ],
+      "eligible_count": 10,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-25",
+      "category": "constraints",
+      "query": "Find ENVIR courses worth five credits that satisfy both NSc and DIV.",
+      "returned_ids": [
+        "ENVIR 100",
+        "ENVIR 103",
+        "ENVIR 315",
+        "ENVIR 201",
+        "SMEA 103"
+      ],
+      "eligible_count": 5,
+      "returned_count": 5,
+      "valid_count": 4,
+      "violation_count": 1,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-26",
+      "category": "constraints",
+      "query": "List BIOL courses worth four credits that fulfill NSc.",
+      "returned_ids": [
+        "BIOL 465",
+        "BIOL 417",
+        "BIOL 407",
+        "BIOL 401",
+        "BIOL 356"
+      ],
+      "eligible_count": 22,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-27",
+      "category": "constraints",
+      "query": "Which CHEM courses offer three credits and NSc?",
+      "returned_ids": [
+        "CHEM 418",
+        "CHEM 422",
+        "CHEM 461",
+        "CHEM 457",
+        "CHEM 456"
+      ],
+      "eligible_count": 35,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-28",
+      "category": "constraints",
+      "query": "Find CSE courses worth four credits with a listed prerequisite.",
+      "returned_ids": [
+        "CSE M 501",
+        "CSE 451",
+        "CSE 550",
+        "CSE 484",
+        "CSE 333"
+      ],
+      "eligible_count": 66,
+      "returned_count": 5,
+      "valid_count": 5,
+      "violation_count": 0,
+      "unknown_count": 0,
+      "hit": true,
+      "empty_expected": false,
+      "empty_correct": null
+    },
+    {
+      "id": "constraint-29",
+      "category": "constraints",
+      "query": "Show two-credit SOC courses that satisfy the DIV requirement.",
+      "returned_ids": [
+        "HSERV 493",
+        "EDUC 214",
+        "EDUC 212",
+        "G H 493",
+        "EDUC 213"
+      ],
+      "eligible_count": 0,
+      "returned_count": 5,
+      "valid_count": 0,
+      "violation_count": 5,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": false
+    },
+    {
+      "id": "constraint-30",
+      "category": "constraints",
+      "query": "Find three-credit MUSIC courses that satisfy both NSc and RSN.",
+      "returned_ids": [
+        "ARCHY 496",
+        "ASTR 302",
+        "CFRM 405",
+        "BIOL 359",
+        "OCEAN 351"
+      ],
+      "eligible_count": 0,
+      "returned_count": 5,
+      "valid_count": 0,
+      "violation_count": 5,
+      "unknown_count": 0,
+      "hit": false,
+      "empty_expected": true,
+      "empty_correct": false
+    }
+  ]
+}
