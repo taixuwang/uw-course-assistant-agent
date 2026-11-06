@@ -66,11 +66,19 @@ model configuration, and fixture and index fingerprints to a timestamped file in
 `--overwrite`. Existing output is not overwritten unless `--overwrite` is
 provided. Reference descriptions are checked against the index before evaluation.
 
+The results directory also preserves two historical runs: `benchmark_v2.json`
+used 42 cases, and `benchmark_v2_20261105T064956766260Z.json` used 90 cases.
+The latter's `.partial.json` checkpoint contains the retrieved contexts supplied
+to RAGAS, which are not included in the final result. Checkpoints are written
+during retrieval so that a later failure does not discard completed work.
+
 The benchmark has three categories:
 
-- **Factual:** 30 questions name a course. RAGAS context precision and recall
+- **Factual:** 100 questions name a course. RAGAS context precision and recall
   evaluate retrieved contexts against that course's catalog description;
   target-course hit indicates whether the course appears among the results.
+  Cases whose retrieval fails are reported separately and excluded from the
+  RAGAS averages, so the number scored can be less than 100.
 - **Discovery:** 30 topic questions each have an incomplete list of known
   relevant courses. A known-course hit is useful evidence, but a miss does not
   mean all returned courses are irrelevant.
@@ -88,9 +96,10 @@ unknown and absent prerequisites. The scorer uses exact department metadata and
 does not resolve cross-listed courses. Constraint scores do not measure topical
 relevance or final agent answer quality.
 
-The 90-question dataset extends the earlier 42-question fixture. Historical
-results apply to the fixture hash recorded in each results file, not the expanded
-dataset; compare scores only when they use the same questions.
+The 160-question dataset extends the earlier 90-question fixture (which itself
+extended a 42-question fixture). Historical results apply to the fixture hash
+recorded in each results file, not the expanded dataset; compare scores only
+when they use the same questions.
 
 ## Browser microbenchmark
 

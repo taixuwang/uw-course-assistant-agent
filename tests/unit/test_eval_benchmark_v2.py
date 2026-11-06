@@ -93,6 +93,41 @@ class BenchmarkInputTests(unittest.TestCase):
             create.assert_not_called()
             self.assertEqual(output.read_text(encoding="utf-8"), "original")
 
+    def test_all_one_hundred_factual_cases_are_sent_to_ragas(self):
+        cases = [{"id": f"f{i}", "category": "factual", "query": f"Details of CSE {i}?",
+                  "course_id": f"CSE {i}", "reference": f"CSE {i}: Description {i}."}
+                 for i in range(100)]
+        cases += [{"id": "d1", "category": "discovery", "query": "Find programming",
+                   "known_course_ids": ["CSE 0"]},
+                  {"id": "c1", "category": "constraints", "query": "Find five credits",
+                   "constraints": {"department": "CSE", "credits": 5}}]
+        documents = {f"CSE {i}": SimpleNamespace(
+            metadata={"course": f"CSE {i}", "department": "CSE", "credits": "5"},
+            page_content=f"Course: CSE {i}\nDescription: Description {i}.") for i in range(100)}
+        retriever = SimpleNamespace(documents=documents, search=lambda query: [documents["CSE 0"]])
+        scores = SimpleNamespace(to_pandas=lambda: SimpleNamespace(iloc=[
+            {"llm_context_precision_with_reference": 0.75, "context_recall": 1.0}
+            for _ in range(100)
+        ]))
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / "cases.json"
+            output = Path(directory) / "result.json"
+            fixture.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+            with patch("sys.argv", ["eval_benchmark_v2", "--dataset", str(fixture), "--output", str(output)]), \
+                 patch.object(eval_benchmark_v2, "create_catalog_retriever", return_value=retriever), \
+                 patch.object(eval_benchmark_v2, "evaluate_data", return_value=scores) as evaluate, \
+                 patch("dotenv.load_dotenv"):
+                eval_benchmark_v2.main()
+            evaluated = evaluate.call_args.args[0]
+            self.assertEqual(evaluated["user_input"], [case["query"] for case in cases[:100]])
+            self.assertEqual(evaluated["reference"], [case["reference"] for case in cases[:100]])
+            self.assertEqual(len(evaluated["retrieved_contexts"]), 100)
+            summary = json.loads(output.read_text())["summary"]
+            self.assertEqual(summary["factual_cases"], 100)
+            self.assertEqual(summary["factual_evaluated"], 100)
+            self.assertEqual(summary["ragas"]["llm_context_precision_with_reference"], 0.75)
+            self.assertEqual(summary["ragas"]["context_recall"], 1.0)
+
     def test_retrieval_errors_are_excluded_and_checkpoint_survives_scoring_failure(self):
         doc = SimpleNamespace(metadata={"course": "CSE 101", "department": "CSE", "credits": "5"},
                               page_content="Course: CSE 101\nDescription: Course description.")

@@ -48,3 +48,4 @@ test-results/
 # Misc
 *.log
 *.tmp
+/docs/

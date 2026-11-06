@@ -12,7 +12,7 @@
       "constraint-30"
     ],
     "case_counts": {
-      "factual": 30,
+      "factual": 100,
       "discovery": 30,
       "constraints": 30
     }
@@ -826,6 +826,496 @@
           "RSN"
         ]
       }
+    },
+    {
+      "id": "fact-31",
+      "category": "factual",
+      "query": "What topics does MATH 126 cover?",
+      "course_id": "MATH 126",
+      "reference": "MATH 126 — Calculus with Analytic Geometry III: Third quarter in calculus sequence. Introduction to vector geometry in three dimensions, vector functions, multivariate differential calculus, and Taylor polynomials and Taylor series. Course equivalent to: STMATH 126 and TMATH 126. Course overlaps with: MATH 136. Prerequisite: either a minimum grade of 2.0 in MATH 125, a minimum grade of 2.0 in MATH 135, or a minimum score of 4 on BC advanced placement test. Offered: AWSpS."
+    },
+    {
+      "id": "fact-32",
+      "category": "factual",
+      "query": "Describe the content of MATH 340.",
+      "course_id": "MATH 340",
+      "reference": "MATH 340 — Abstract Linear Algebra: Linear algebra from a theoretical point of view. Abstract vector spaces and linear transformations, bases and linear independence, matrix representations, Jordan canonical form, linear functionals, dual space, bilinear forms and inner product spaces. Course overlaps with: STMATH 409. Prerequisite: either a minimum grade of 2.0 in both MATH 208 and MATH 300, or a minimum grade of 2.0 in MATH 334."
+    },
+    {
+      "id": "fact-33",
+      "category": "factual",
+      "query": "What is taught in STAT 220?",
+      "course_id": "STAT 220",
+      "reference": "STAT 220 — Statistical Reasoning: Introduces statistical reasoning. Focuses primarily on the what and why rather than the how. Helps students gain an understanding of the rationale behind many statistical methods, as well as an appreciation of the use and misuse of statistics. Encourages and requires critical thinking. May only receive credit for one of STAT 220, STAT 221/CS&SS 221/SOC 221, or STAT 290. Course overlaps with: B HLTH 215; B MATH 215; BIS 215; STMATH 341; and TME 351. Offered: AWSpS."
+    },
+    {
+      "id": "fact-34",
+      "category": "factual",
+      "query": "Summarize the official catalog description for STAT 302.",
+      "course_id": "STAT 302",
+      "reference": "STAT 302 — Statistical Computing: An introduction to the foundations of statistical computing and data analysis. Topics include programming fundamentals, data cleaning, data visualization, debugging, and version control. Topics are motivated by methods in statistics and machine learning. Taught using the R programming language. Course overlaps with: B BUS 301. Prerequisite: either STAT 290, STAT 311, STAT 390, STAT 391, or Q SCI 381; recommended: experience with R programming language. Offered: AWSpS."
+    },
+    {
+      "id": "fact-35",
+      "category": "factual",
+      "query": "What does the course catalog say about PHYS 114?",
+      "course_id": "PHYS 114",
+      "reference": "PHYS 114 — Mechanics: Principles of mechanics using algebra-based modeling with an emphasis on applications in life sciences. Maximum 5 credits allowed between PHYS 114; PHYS 117; PHYS 121; and PHYS 141 (or equivalents). Course equivalent to: B PHYS 114. Course overlaps with: PHYS 121; PHYS 141; and B PHYS 121. Offered: AWSpS."
+    },
+    {
+      "id": "fact-36",
+      "category": "factual",
+      "query": "Give an overview of PHYS 123 based on the course catalog.",
+      "course_id": "PHYS 123",
+      "reference": "PHYS 123 — Waves, Light, and Heat: Explores oscillatory motion, electromagnetic waves, optics, waves in matter, fluids, thermodynamics, and related experiments for physical science and engineering majors. Lecture, laboratory, and tutorial components must all be taken to receive credit. Maximum 5 credits allowed between PHYS 116; PHYS 119; PHYS 123; and PHYS 143 (or equivalents). Course equivalent to: B PHYS 123. Course overlaps with: PHYS 116; PHYS 119; PHYS 143; B PHYS 116; and B PHYS 119. Prerequisite: either PHYS 122 or PHYS 142; and either MATH 126 or MATH 134, which may be taken concurrently. Offered: AWSpS."
+    },
+    {
+      "id": "fact-37",
+      "category": "factual",
+      "query": "According to the catalog, what does CHEM 120 cover?",
+      "course_id": "CHEM 120",
+      "reference": "CHEM 120 — Principles of Chemistry I: First course in a three-quarter overview of general chemistry, organic chemistry, and biochemistry. Not for students majoring in biochemistry, chemistry, or engineering. Includes matter and energy, chemical nomenclature, chemical reactions, stoichiometry, modern atomic theory, chemical bonding. Laboratory. Maximum 6 credits allowed between CHEM 120; CHEM 142; CHEM 143; CHEM 145; B CHEM 115; B CHEM 143; and B CHEM 144. Course equivalent to: B CHEM 115. Course overlaps with: CHEM 142; CHEM 143; and CHEM 145. Prerequisite: assessment of skills by taking General Chemistry Placement Exam. Offered: AS."
+    },
+    {
+      "id": "fact-38",
+      "category": "factual",
+      "query": "What is the official description of CHEM 162?",
+      "course_id": "CHEM 162",
+      "reference": "CHEM 162 — General Chemistry III: Molecular bonding theories, kinetics, liquids, solids, solutions, and introduction to organic and transition metal chemistry. Includes laboratory. Maximum 6 credits allowed between CHEM 162; CHEM 165; B CHEM 163; and B CHEM 164. Course overlaps with: CHEM 165; B CHEM 163; B CHEM 164; and T CHEM 162. Prerequisite: a minimum grade of 1.7 in CHEM 152. Offered: AWSpS."
+    },
+    {
+      "id": "fact-39",
+      "category": "factual",
+      "query": "Summarize the course content for ECON 216.",
+      "course_id": "ECON 216",
+      "reference": "ECON 216 — Economics of Sports: Analyzes sports, athletes, sports fans, sports competitions, sports business, and sports policy through economics. Introduces microeconomic concepts including markets, trade, opportunity cost, and resource allocation to understand contemporary issues in the sports world."
+    },
+    {
+      "id": "fact-40",
+      "category": "factual",
+      "query": "What should I know about the catalog content of ECON 300?",
+      "course_id": "ECON 300",
+      "reference": "ECON 300 — Intermediate Microeconomics: Analysis of decisions by individuals and by firms and of outcomes in factor and product markets. Policy issues and applications. Prerequisite: ECON 200; and either MATH 124 or MATH 134. Offered: AWSpS."
+    },
+    {
+      "id": "fact-41",
+      "category": "factual",
+      "query": "What topics does PSYCH 206 cover?",
+      "course_id": "PSYCH 206",
+      "reference": "PSYCH 206 — Human Development: Theoretical perspectives and research methods in child development with an overview of historical and current works. Includes prenatal and biological development, the development of cognitive, linguistic, and social and emotional abilities. Cannot be taken if credit received for PSYCH 306. Prerequisite: PSYCH 101."
+    },
+    {
+      "id": "fact-42",
+      "category": "factual",
+      "query": "Describe the content of PSYCH 209.",
+      "course_id": "PSYCH 209",
+      "reference": "PSYCH 209 — Fundamentals of Psychological Research: Psychological research methodology and techniques. Topics include the logic of hypothesis testing, experimental design, research strategies and techniques, fundamentals of scientific writing, search and evaluation of research literature in psychology, and ethical issues in psychological research. Required for all psychology majors. Prerequisite: minimum 2.0 grade in PSYCH 101. Offered: AWSpS."
+    },
+    {
+      "id": "fact-43",
+      "category": "factual",
+      "query": "What is taught in INFO 102?",
+      "course_id": "INFO 102",
+      "reference": "INFO 102 — Gender and Information Technology: Explores the social construction of gender in relation to the history and contemporary development of information technologies. Considers the importance of diversity and difference in the design and construction of innovative information technology solutions. Challenges prevailing viewpoints about who can and does work in the information technology field. Offered: A."
+    },
+    {
+      "id": "fact-44",
+      "category": "factual",
+      "query": "Summarize the official catalog description for INFO 340.",
+      "course_id": "INFO 340",
+      "reference": "INFO 340 — Client-Side Development: Introduction to client-side development on the internet, including markup, programming languages, protocols, libraries, and frameworks for creating and maintaining usable and accessible, interactive applications. Prerequisite: either CSE 123, CSE 143, CSE 154, or CSE 163; and INFO 201."
+    },
+    {
+      "id": "fact-45",
+      "category": "factual",
+      "query": "What does the course catalog say about ENGL 101?",
+      "course_id": "ENGL 101",
+      "reference": "ENGL 101 — Writing from Sources I: Academic reading and graphics from different genres to provide opportunities for noticing lexis and grammar of genre and specific topic. Students discuss topic, receiving feedback on use of structures and lexis, and write short responses to the type of questions that might be asked on exams related to the readings. Sentence-level issues related to sentence structure and lexis. Limited to student admitted to UW with English language requirement. Offered: AWSp."
+    },
+    {
+      "id": "fact-46",
+      "category": "factual",
+      "query": "Give an overview of ENGL 242 based on the course catalog.",
+      "course_id": "ENGL 242",
+      "reference": "ENGL 242 — Reading Prose Fiction: Critical interpretation and meaning in works of prose fiction, representing a variety of types and periods."
+    },
+    {
+      "id": "fact-47",
+      "category": "factual",
+      "query": "According to the catalog, what does ANTH 101 cover?",
+      "course_id": "ANTH 101",
+      "reference": "ANTH 101 — Exploring Sociocultural Anthropology: Introduces perspectives from sociocultural anthropology on the diversity and the dynamics of collective human life. Examines how individual lives are shaped by broader social and cultural contexts, how people make meaning, and how power relations work. Introduces ethnography as a method for documenting and understanding social and cultural life."
+    },
+    {
+      "id": "fact-48",
+      "category": "factual",
+      "query": "What is the official description of ANTH 203?",
+      "course_id": "ANTH 203",
+      "reference": "ANTH 203 — Introduction to Anthropological Linguistics: Linguistic methods and theories used within anthropology. Basic structural features of language; human language and animal communication compared; evidence for the innate nature of language. Language and culture: linguistic relativism, ethnography of communication, sociolinguistics. Language and nationalism, language politics in the United States and elsewhere. Offered: jointly with LING 203."
+    },
+    {
+      "id": "fact-49",
+      "category": "factual",
+      "query": "Summarize the course content for SOC 110.",
+      "course_id": "SOC 110",
+      "reference": "SOC 110 — Survey of Sociology: Human interaction, social institutions, social stratification, socialization, deviance, social control, social and cultural change. Course content may vary, depending upon instructor. Course overlaps with: BIS 181 and T SOC 165."
+    },
+    {
+      "id": "fact-50",
+      "category": "factual",
+      "query": "What should I know about the catalog content of SOC 225?",
+      "course_id": "SOC 225",
+      "reference": "SOC 225 — Data and Society: Social implications of the digital revolution, including ethical issues associated with algorithmic design and privacy. Discusses data science as a new occupation that uses data to understand or influence people's behavior. Students will use a sociological lens to explore how our increasingly digital lifestyle changes institutions and social relations. Offered: ASp."
+    },
+    {
+      "id": "fact-51",
+      "category": "factual",
+      "query": "What topics does PHIL 102 cover?",
+      "course_id": "PHIL 102",
+      "reference": "PHIL 102 — Contemporary Moral Problems: Philosophical consideration of some of the main moral problems of modern society and civilization, such as abortion, euthanasia, war, and capital punishment. Topics vary."
+    },
+    {
+      "id": "fact-52",
+      "category": "factual",
+      "query": "Describe the content of PHIL 120.",
+      "course_id": "PHIL 120",
+      "reference": "PHIL 120 — Introduction to Logic: Elementary symbolic logic. The development, application, and theoretical properties of an artificial symbolic language designed to provide a clear representation of the logical structure of deductive arguments. Offered: AWSpS."
+    },
+    {
+      "id": "fact-53",
+      "category": "factual",
+      "query": "What is taught in GEOG 200?",
+      "course_id": "GEOG 200",
+      "reference": "GEOG 200 — Introduction to Human Geography: Patterns and systems of human occupancy of the world. Emphasis on economic and cultural processes, dynamic change, functional relations, networks, and nature-social relations."
+    },
+    {
+      "id": "fact-54",
+      "category": "factual",
+      "query": "Summarize the official catalog description for GEOG 205.",
+      "course_id": "GEOG 205",
+      "reference": "GEOG 205 — Our Global Environment: Physical and Human Dimensions: Explores environmental systems using a geographic perspective that emphasizes spatial patterns of phenomena, relationships between different places, and interconnections between people and environment. Evaluates causes, consequences, and solutions to environmental problems. Topics include climate, atmosphere, water, ecosystems, and soils."
+    },
+    {
+      "id": "fact-55",
+      "category": "factual",
+      "query": "What does the course catalog say about ENVIR 103?",
+      "course_id": "ENVIR 103",
+      "reference": "ENVIR 103 — Society and the Oceans: Explores the social, justice, and policy dimensions of the ocean environment and ocean management policy. Pays attention to how human values, institutions, culture, and history shape environmental issues and policy responses. Examines case studies and influential frameworks, such as the ocean as \"tragedy of the commons.\" Offered: jointly with JSIS B 103/SMEA 103; Sp."
+    },
+    {
+      "id": "fact-56",
+      "category": "factual",
+      "query": "Give an overview of ENVIR 200 based on the course catalog.",
+      "course_id": "ENVIR 200",
+      "reference": "ENVIR 200 — Sustainability and Environmental Justice: Uses interdisciplinary approach to explore intersections of sustainability and environmental justice, analyze social-environmental challenges, and develop equitable responses. Investigates ways that attempts to improve sustainability can exacerbate existing inequalities. Critically evaluates synergies and tensions between sustainability and justice, and considers how different perspectives inform pathways toward a more just and sustainable future Offered: AWSp."
+    },
+    {
+      "id": "fact-57",
+      "category": "factual",
+      "query": "According to the catalog, what does POL S 101 cover?",
+      "course_id": "POL S 101",
+      "reference": "POL S 101 — Introduction to Politics: Political problems that affect our lives and shape the world around us."
+    },
+    {
+      "id": "fact-58",
+      "category": "factual",
+      "query": "What is the official description of POL S 203?",
+      "course_id": "POL S 203",
+      "reference": "POL S 203 — Introduction to International Relations: The world community, its politics, and government. Course equivalent to: TPOL S 203."
+    },
+    {
+      "id": "fact-59",
+      "category": "factual",
+      "query": "Summarize the course content for LING 203.",
+      "course_id": "LING 203",
+      "reference": "LING 203 — Introduction to Anthropological Linguistics: Linguistic methods and theories used within anthropology. Basic structural features of language; human language and animal communication compared; evidence for the innate nature of language. Language and culture: linguistic relativism, ethnography of communication, sociolinguistics. Language and nationalism, language politics in the United States and elsewhere. Offered: jointly with ANTH 203."
+    },
+    {
+      "id": "fact-60",
+      "category": "factual",
+      "query": "What should I know about the catalog content of LING 400?",
+      "course_id": "LING 400",
+      "reference": "LING 400 — Survey of Linguistic Method and Theory: Examines major linguistic theories in phonology, syntax and semantics; linguistic analysis and argumentation."
+    },
+    {
+      "id": "fact-61",
+      "category": "factual",
+      "query": "What topics does ART 101 cover?",
+      "course_id": "ART 101",
+      "reference": "ART 101 — Visual Art and Creative Thinking: Explores how we observe/interpret our visual world. Introduces art and design terminology, techniques and analysis. Class sessions include short drawing, writing, critical thinking exercises, as well as lectures by visiting arts professionals and group activities. Ideal class for students exploring majors in Art, Art history or Design."
+    },
+    {
+      "id": "fact-62",
+      "category": "factual",
+      "query": "Describe the content of ART 140.",
+      "course_id": "ART 140",
+      "reference": "ART 140 — Basic Photography: Introduces theory, techniques, and processes of still photography in an artistic context. Emphasizes photography's creative potential. Course equivalent to: BIS 132."
+    },
+    {
+      "id": "fact-63",
+      "category": "factual",
+      "query": "What is taught in MUSIC 116?",
+      "course_id": "MUSIC 116",
+      "reference": "MUSIC 116 — Elementary Music Theory: For nonmusic majors. For people with no hands-on music experience. Rudiments of music; notation of time, small pitch structures (e.g., some scales, chords, rhythmic patterns), some analysis."
+    },
+    {
+      "id": "fact-64",
+      "category": "factual",
+      "query": "Summarize the official catalog description for MUSIC 121.",
+      "course_id": "MUSIC 121",
+      "reference": "MUSIC 121 — The Orchestra: Development of the orchestra and its literature."
+    },
+    {
+      "id": "fact-65",
+      "category": "factual",
+      "query": "What does the course catalog say about COM 220?",
+      "course_id": "COM 220",
+      "reference": "COM 220 — Introduction to Public Speaking: Designed to increase competence in public speaking and the critique of public speaking. Emphasizes choice and organization of material, sound reasoning, audience analysis, and delivery. Course overlaps with: CM 220."
+    },
+    {
+      "id": "fact-66",
+      "category": "factual",
+      "query": "Give an overview of COM 231 based on the course catalog.",
+      "course_id": "COM 231",
+      "reference": "COM 231 — Introduction to Rhetoric: Introduces students to the over two thousand year old discipline of rhetoric. Through contemporary examples of texts and images from politics and popular culture, students will explore concepts such as: the public, identity, persuasion, difference, and ethics. Course overlaps with: ENGL 306."
+    },
+    {
+      "id": "fact-67",
+      "category": "factual",
+      "query": "According to the catalog, what does ASTR 102 cover?",
+      "course_id": "ASTR 102",
+      "reference": "ASTR 102 — Introduction to Astronomy: Emphasis on mathematical and physical comprehension of nature, the sun, stars, galaxies, and cosmology. Designed for students who have had algebra and trigonometry and high school or introductory-level college physics. Cannot be taken for credit if credit has already been earned for ASTR 201. Course equivalent to: T PHYS 111. Course overlaps with: ASTR 101 and ASTR 301. Offered: A."
+    },
+    {
+      "id": "fact-68",
+      "category": "factual",
+      "query": "What is the official description of ASTR 150?",
+      "course_id": "ASTR 150",
+      "reference": "ASTR 150 — The Planets: For liberal arts and beginning science students. Survey of the planets of the solar system, with emphases on recent space exploration of the planets and on the comparative evolution of the Earth and the other planets. Offered: AWSpS."
+    },
+    {
+      "id": "fact-69",
+      "category": "factual",
+      "query": "Summarize the course content for OCEAN 200.",
+      "course_id": "OCEAN 200",
+      "reference": "OCEAN 200 — Introduction to Oceanography: Focuses on importance of ocean processes for the functioning of our planet. Interdisciplinary case studies are used to examine relationships and interactions at macro-, meso-, and microscales in the ocean. Case studies build upon previous topics and examines human influence on these systems. Intended for science majors. Offered: Sp."
+    },
+    {
+      "id": "fact-70",
+      "category": "factual",
+      "query": "What should I know about the catalog content of OCEAN 210?",
+      "course_id": "OCEAN 210",
+      "reference": "OCEAN 210 — Integrative Oceans: Presents fundamentals of ocean science through regional case studies that illustrate the relationship between interdependent physical, chemical, biological, and geological process. Students apply tools from these scientific disciplines to understand major changes predicted for future oceanic environments. Prerequisite: either OCEAN 200, or OCEAN 250/BIOL 250/FISH 250. Offered: ASp."
+    },
+    {
+      "id": "fact-71",
+      "category": "factual",
+      "query": "What topics does EDUC 209 cover?",
+      "course_id": "EDUC 209",
+      "reference": "EDUC 209 — History of American Education: Power and Justice: Examines the history of American education from colonization to the present, with emphasis on power, inequality, and struggles for educational justice. Explores how different communities experienced, resisted, and shaped educational systems. Analyzes the relationship between schooling, citizenship, and social movements. Connects historical patterns of inequality to contemporary educational debates."
+    },
+    {
+      "id": "fact-72",
+      "category": "factual",
+      "query": "Describe the content of EDUC 251.",
+      "course_id": "EDUC 251",
+      "reference": "EDUC 251 — Seeking Educational Equity and Diversity: Introduces the need for and challenges in establishing educational equity and diversity. Discussions explore theories, historical trends, and ongoing debates. Readings draw from academic and popular sources, and class sessions include use of multimedia resources and experiential activities."
+    },
+    {
+      "id": "fact-73",
+      "category": "factual",
+      "query": "What is taught in ACCTG 215?",
+      "course_id": "ACCTG 215",
+      "reference": "ACCTG 215 — Introduction to Accounting and Financial Reporting: Nature and social setting of accounting; uses of accounting information; introduction of basic accounting concepts and procedures; interpretation of financial statements. May not be repeated. Maximum 15 credits allowed between ACCTG 215; ACCTG 225; T ACCT 210; T ACCT 220; and T ACCT 230 (or equivalents). Course equivalent to: B BUS 210."
+    },
+    {
+      "id": "fact-74",
+      "category": "factual",
+      "query": "Summarize the official catalog description for ACCTG 225.",
+      "course_id": "ACCTG 225",
+      "reference": "ACCTG 225 — Fundamentals of Managerial Accounting: Covers application of basic costing concepts and tools for planning, control, and strategic decision making. Concentrates on information useful to enterprise managers. May not be repeated. Maximum 15 credits allowed between ACCTG 215; ACCTG 225; T ACCT 210; T ACCT 220; and T ACCT 230 (or equivalents). Course equivalent to: B BUS 211. Prerequisite: ACCTG 215 and ECON 200."
+    },
+    {
+      "id": "fact-75",
+      "category": "factual",
+      "query": "What does the course catalog say about FIN 205?",
+      "course_id": "FIN 205",
+      "reference": "FIN 205 — Personal Financial Literacy: Combines behavioral, economic, and financial theory with real world application to help students make sound financial decisions, become more knowledgeable consumers, and learn how to achieve personal financial goals. Covers skills that can help students gain more control of their personal finances and achieve financial independence. Course overlaps with: B BUS 110; T BGEN 250; and TMATH 109."
+    },
+    {
+      "id": "fact-76",
+      "category": "factual",
+      "query": "Give an overview of FIN 350 based on the course catalog.",
+      "course_id": "FIN 350",
+      "reference": "FIN 350 — Business Finance: Evaluating and funding projects within the firm. Time value of money, inflation, capital budgeting; risk and return in the financial markets, stocks, bonds, portfolios and diversifiable risk, market efficiency and the balance between debt and equity to fund the firm. Course overlaps with: B BUS 350; STMATH 330; and T BUS 350. Prerequisite: ACCTG 225; ECON 201; either MATH 112, MATH 124, MATH 125, MATH 134, or Q SCI 291; either IND E 315, QMETH 201, Q SCI 381, PSYCH 315, PSYCH 318, STAT 220, STAT 221/SOC 221/CS&SS 221, STAT 311, or STAT 390/MATH 390."
+    },
+    {
+      "id": "fact-77",
+      "category": "factual",
+      "query": "According to the catalog, what does MKTG 301 cover?",
+      "course_id": "MKTG 301",
+      "reference": "MKTG 301 — Marketing Concepts: Tools, factors, and concepts used by management in planning, establishing policies, and solving marketing problems. Marketing concepts, consumer demand and behavior, location analysis, marketing, functions, institutions, channels, prices, and public policy. Course overlaps with: MKTG 305. Prerequisite: ECON 200."
+    },
+    {
+      "id": "fact-78",
+      "category": "factual",
+      "query": "What is the official description of MGMT 300?",
+      "course_id": "MGMT 300",
+      "reference": "MGMT 300 — Leadership and Organizational Behavior: Focuses on how managers become effective leaders. Examines basic principles of managing people, making use of theories that transcend the workplace, including the psychology of individual and group behavior. Emphasizes leadership, strategic thinking, team building, and performance. Course overlaps with: B BUS 300 and ELCBUS 300."
+    },
+    {
+      "id": "fact-79",
+      "category": "factual",
+      "query": "Summarize the course content for ARCH 150.",
+      "course_id": "ARCH 150",
+      "reference": "ARCH 150 — Appreciation of Architecture I: Historical survey of global architecture and built environments with reference to environmental, technological, and socio-cultural contexts, from prehistory to 1400. Intended for non-majors. Offered: AWSpS."
+    },
+    {
+      "id": "fact-80",
+      "category": "factual",
+      "query": "What should I know about the catalog content of ARCH 200?",
+      "course_id": "ARCH 200",
+      "reference": "ARCH 200 — Architectural Design and Representation I: Introduces architectural representation as fundamental medium for investigation, analysis, and documentation of objects, processes, and architectural space. Consists of a series of investigative projects that introduce orthographic projection, axonometric, and perspective drawing, through which students develop comprehensive skills in hand-drawing and digital media. Offered: A."
+    },
+    {
+      "id": "fact-81",
+      "category": "factual",
+      "query": "What topics does ESS 101 cover?",
+      "course_id": "ESS 101",
+      "reference": "ESS 101 — Introduction to Geology and Societal Impacts: Introduction to the processes, materials and structures that shape Earth. Emphasizes the dynamic nature of the earth's tectonic system and its relationship to physical features, volcanism, earthquakes, minerals and rocks and geologic structures.  The course emphasizes the intrinsic relationship between human societies and geologic processes, hazards and resources. Optional field trips. Course overlaps with: ESS 210; BEARTH 153; and T GEOS 117. Offered: AWSpS."
+    },
+    {
+      "id": "fact-82",
+      "category": "factual",
+      "query": "Describe the content of ESS 105.",
+      "course_id": "ESS 105",
+      "reference": "ESS 105 — Natural Hazards and Disasters: Examines a range of natural hazards and their impact on society, including earthquakes, volcanic eruptions, tsunamis, floods, wildfire, and landslides. Focuses on the causes of these extreme events, how they unfold, their differential effects on communities, and how to make society more resilient to natural hazards."
+    },
+    {
+      "id": "fact-83",
+      "category": "factual",
+      "query": "What is taught in FISH 200?",
+      "course_id": "FISH 200",
+      "reference": "FISH 200 — Freshwater Ecology and Conservation: Offers students exposure to the complex relationships between freshwater ecosystems and human societies, including topics associated with freshwater biology, management, conservation, and sustainability. Focuses on key concepts in freshwater ecology, and delves into applied issues involving conservation and management. Offered: W."
+    },
+    {
+      "id": "fact-84",
+      "category": "factual",
+      "query": "Summarize the official catalog description for FISH 250.",
+      "course_id": "FISH 250",
+      "reference": "FISH 250 — Marine Biology: Lecture-laboratory course in marine biology focusing on physical, biological, and social aspects of the marine environment. Topics include oceanography, ecology, physiology, behavior, conservation, fisheries, exploration, and activism. Weekend field trip. Honors section research project. Course equivalent to: FHL 250 (when FISH 250/BIOL 250/OCEAN 250 is 5 credits). Course overlaps with FHL 250 (when FISH 250/BIOL 250/OCEAN 250 is 3 credits ). Offered: jointly with BIOL 250/OCEAN 250; AS."
+    },
+    {
+      "id": "fact-85",
+      "category": "factual",
+      "query": "What does the course catalog say about Q SCI 256?",
+      "course_id": "Q SCI 256",
+      "reference": "Q SCI 256 — Introduction to Data Science Methods for Environmental Sciences: Provides a practical and approachable introduction to data science methods, including computational approaches used by research in the earth, environmental, and conservation sciences. Introduces data science techniques and develops skill proficiency in using computing to manipulate and analyze data in the natural sciences. Course overlaps with: CSE 160. Offered: W."
+    },
+    {
+      "id": "fact-86",
+      "category": "factual",
+      "query": "Give an overview of Q SCI 381 based on the course catalog.",
+      "course_id": "Q SCI 381",
+      "reference": "Q SCI 381 — Introduction to Probability and Statistics: Applications to biological and natural resource problems stressing the formulation and interpretation of statistical tests. Random variables, expectations, variances, binomial, hypergeometric, Poisson, normal, chi-square, \"t\" and \"F\" distributions. Course overlaps with: STMATH 341; STMATH 390; and TME 351. Prerequisite: either MATH 120, MATH 124, MATH 125, MATH 126, MATH 134, MATH 135, MATH 136, QMETH 201, Q SCI 190, Q SCI 291, Q SCI 292, STAT 220, STAT 221/CSSS 221/SOC 221, or STAT 290. Offered: AWSpS."
+    },
+    {
+      "id": "fact-87",
+      "category": "factual",
+      "query": "According to the catalog, what does HSTAA 101 cover?",
+      "course_id": "HSTAA 101",
+      "reference": "HSTAA 101 — Survey of the History of the United States: Supplies the knowledge of American history that any intelligent and educated American citizen should have. Objective is to make the student aware of his or her heritage of the past and more intelligently conscious of the present."
+    },
+    {
+      "id": "fact-88",
+      "category": "factual",
+      "query": "What is the official description of HSTAA 150?",
+      "course_id": "HSTAA 150",
+      "reference": "HSTAA 150 — Introduction to African American History: Introductory survey of topics and problems in African American history with some attention to Africa as well as to America. Basic introductory course for sequence of lecture courses and seminars in African American history. Offered: jointly with AFRAM 150."
+    },
+    {
+      "id": "fact-89",
+      "category": "factual",
+      "query": "Summarize the course content for JAPAN 101.",
+      "course_id": "JAPAN 101",
+      "reference": "JAPAN 101 — First-Year Japanese: Elementary speaking, listening, reading, and writing skills in modern Japanese. First in a sequence of three. Maximum 15 credits allowed between JAPAN 101; JAPAN 102; JAPAN 103 (or equivalents); and JAPAN 134. Course equivalent to: BJAPAN 111. Course overlaps with: JAPAN 121. Offered: A."
+    },
+    {
+      "id": "fact-90",
+      "category": "factual",
+      "query": "What should I know about the catalog content of SPAN 101?",
+      "course_id": "SPAN 101",
+      "reference": "SPAN 101 — Elementary Spanish: Methods and objectives are primarily oral-aural. Language laboratory is required. First in a sequence of three. Maximum 15 credits allowed between SPAN 101; SPAN 102; SPAN 103 (or equivalents); SPAN 121; SPAN 122; SPAN 123 (or equivalents); and SPAN 134. Course equivalent to: SPAN 121; B SPAN 101; and TSPAN 101. Course overlaps with: SPAN 110 and TSPAN 110. Prerequisite: score of 0-15 on SP100A placement test if Spanish is language of admission. No credit if Spanish is the language of admission."
+    },
+    {
+      "id": "fact-91",
+      "category": "factual",
+      "query": "What topics does FRENCH 101 cover?",
+      "course_id": "FRENCH 101",
+      "reference": "FRENCH 101 — Elementary French: Development of speaking, listening, reading, and writing skills to a basic level of proficiency. Teaches students to communicate in French and understand the cultural context of the language. Methods and objectives are primarily oral-aural. Oral practice in the language laboratory is required. First in a sequence of three. Maximum 15 credits allowed between FRENCH 101; FRENCH 102; FRENCH 103 (or equivalents); and FRENCH 134. Course equivalent to: BFRNCH 101. Course overlaps with: FRENCH 110. Prerequisite: FL placement test score of 0-14 only needed if French is the language of admission or if previous credit for French appears on transcript. If you have never taken French you do not need to take the placement exam."
+    },
+    {
+      "id": "fact-92",
+      "category": "factual",
+      "query": "Describe the content of KOREAN 101.",
+      "course_id": "KOREAN 101",
+      "reference": "KOREAN 101 — First-Year Korean: Elementary speaking, listening, reading, and writing skills in modern Korean. Open only to students with no formal or informal background in the language. First in a sequence of three. Maximum 15 credits allowed between KOREAN 101; KOREAN 102; KOREAN 103 (or equivalents); and KOREAN 134. Offered: A."
+    },
+    {
+      "id": "fact-93",
+      "category": "factual",
+      "query": "What is taught in CHIN 101?",
+      "course_id": "CHIN 101",
+      "reference": "CHIN 101 — First-Year Chinese for Non-Heritage Learners: Introduction to the standard language. Emphasis on learning correct pronunciation and basic structure. Drill in oral use of the language. Open only to students who do not have any previous training in Chinese. First in a sequence of three. Maximum 10 credits allowed between CHIN 101; CHIN 102; and CHIN 121 (or equivalents). Maximum 15 credits allowed between CHIN 101; CHIN 102; CHIN 103; CHIN 121; and CHIN 134 (or equivalents). Maximum 20 credits allowed between CHIN 101; CHIN 102; CHIN 103; CHIN 201; and CHIN 138 (or equivalents). Course equivalent to: B CHIN 101 and TCHIN 101. Course overlaps with: CHIN 111. Offered: A."
+    },
+    {
+      "id": "fact-94",
+      "category": "factual",
+      "query": "Summarize the official catalog description for NURS 201.",
+      "course_id": "NURS 201",
+      "reference": "NURS 201 — Growth and Development through the Life Span: Focuses on processes of human growth and development from prenatal life to elder years. Emphasizes influence of growth and development on achievement of health, and how awareness of growth and development theories and research helps guide health promotional efforts directed towards persons of various ages and lifestyles. Open to non-majors. Offered: AWS."
+    },
+    {
+      "id": "fact-95",
+      "category": "factual",
+      "query": "What does the course catalog say about GENOME 361?",
+      "course_id": "GENOME 361",
+      "reference": "GENOME 361 — Fundamentals of Genetics and Genomics: Introduces fundamentals concepts in genetics and genomics including patterns of inheritance, genetic variation, and the relationship between genotype and phenotype.  Cannot be taken if credit received for GENOME 371. Course overlaps with: T BIOL 325. Prerequisite: a minimum grade of 1.5 in either BIOL 200 or BIOL 240. Offered: WSpS."
+    },
+    {
+      "id": "fact-96",
+      "category": "factual",
+      "query": "Give an overview of CEE 200 based on the course catalog.",
+      "course_id": "CEE 200",
+      "reference": "CEE 200 — Introduction to Civil and Environmental Engineering: Introduces the department and professions of civil and environmental engineering. Includes departmental organization, graduate school options, professional career paths, and licensure. Faculty and alumni advice helps students generate personal education and career ideas. Introduces departmental and professional community concepts, including justice, fairness, and equity. Credit/no-credit only. Offered: A."
+    },
+    {
+      "id": "fact-97",
+      "category": "factual",
+      "query": "According to the catalog, what does DRAMA 101 cover?",
+      "course_id": "DRAMA 101",
+      "reference": "DRAMA 101 — Introduction to the Theatre: The theatre as an art form with emphasis on the play in production. The role of the various theatre artists: actors, directors, designers, and playwrights. Required attendance at one or more performances. Lecture and discussion groups. For nonmajors. Course equivalent to: T ARTS 150. Offered: AWSp."
+    },
+    {
+      "id": "fact-98",
+      "category": "factual",
+      "query": "What is the official description of DANCE 100?",
+      "course_id": "DANCE 100",
+      "reference": "DANCE 100 — Understanding Dance: Introduces the aesthetics and creative processes in dance and choreography. Pays attention to how dance is practiced in social arenas, popular entertainment, and concert settings. Includes independent field trips to local dance settings. Offered: AWSp."
+    },
+    {
+      "id": "fact-99",
+      "category": "factual",
+      "query": "Summarize the course content for HCDE 300.",
+      "course_id": "HCDE 300",
+      "reference": "HCDE 300 — Foundations of Human Centered Design and Engineering: Examines principles and practices of human centered design and engineering. Includes overview of conceptual problems in human centered design and engineering, issues related to communicating scientific and technical information to a variety of audiences, and human centered design approaches. Includes attention to social contexts and environments (legal, ethical, cultural)."
+    },
+    {
+      "id": "fact-100",
+      "category": "factual",
+      "query": "What should I know about the catalog content of MSE 170?",
+      "course_id": "MSE 170",
+      "reference": "MSE 170 — Fundamentals of Materials Science: Fundamental principles of structure and properties of materials utilized in the practice of engineering. Properties of materials as related to atomic, molecular, and crystalline structures. Metals, ceramics, multiphase systems, and polymeric materials. Relationships between structure and electrical, mechanical, thermal, and chemical properties. Course overlaps with: B ENGR 320 and TME 320. Prerequisite: Either CHEM 142, CHEM 143,  or CHEM 145. Offered: AWSpS."
     }
   ]
 }
